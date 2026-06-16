@@ -1,0 +1,94 @@
+/*
+ * CSS Custom Properties — Design System Tokens
+ *
+ * These are the canonical defaults from docs/03-design-system.md.
+ * Brand colours (primary + accent) can be overridden per-site by the
+ * Settings Page via wp_add_inline_style() in includes/enqueue.php.
+ * Never hardcode these values in component styles — always use var().
+ */
+
+:root {
+
+  /* ─── Brand: Primary Green ──────────────────────────────────────── */
+  --color-primary:         #08422e;  /* heading, nav active, hero gradient */
+  --color-primary-dark:    #06301f;  /* top bar bg, footer bg */
+  --color-primary-medium:  #0a4730;  /* secondary gradient stop, hover states */
+  --color-primary-light:   #f1f6f1;  /* icon bg on white sections */
+  --color-primary-surface: #e8f3ec;  /* badge bg "Akreditasi Unggul" */
+
+  /* ─── Brand: Accent Gold ─────────────────────────────────────────── */
+  --color-accent:          #b68c2e;  /* links, PMB button, underlines */
+  --color-accent-dark:     #a87e26;  /* button hover */
+  --color-accent-light:    #e9c970;  /* hero highlight, CTA button bg */
+  --color-accent-surface:  #fbf3dd;  /* icon bg — gold context */
+
+  /* ─── Neutral: Backgrounds & Surfaces ───────────────────────────── */
+  --color-bg:      #f8f5ec;  /* page background — warm cream */
+  --color-surface: #ffffff;  /* cards, header, white sections */
+  --color-border:  #ece6d6;  /* card borders */
+  --color-divider: #f0ebdd;  /* dividers within cards */
+
+  /* ─── Text: On Light Backgrounds ────────────────────────────────── */
+  --color-text-primary:   #1c2b24;  /* darkest body text */
+  --color-text-secondary: #4b5a51;  /* body paragraphs */
+  --color-text-muted:     #6e7d73;  /* supporting text, card descriptions */
+  --color-text-caption:   #8a9690;  /* metadata, dates, small labels */
+  --color-text-nav:       #28392f;  /* navigation links */
+
+  /* ─── Text: On Dark (Green) Backgrounds ─────────────────────────── */
+  /* Hardcoded — not exposed to Settings Page */
+  --color-on-dark:       #cfe0d6;  /* body text on hero/dark sections */
+  --color-on-dark-muted: #9bbaa6;  /* muted text on dark (footer) */
+  --color-on-dark-dim:   #9fc0ad;  /* breadcrumbs, captions on dark */
+
+  /* ─── Semantic Colors ────────────────────────────────────────────── */
+  /* Tailwind canonical defaults — not in Settings Page */
+  --color-success: #16a34a;  /* Tailwind green-600 */
+  --color-warning: #d97706;  /* Tailwind amber-600 */
+  --color-error:   #dc2626;  /* Tailwind red-600 */
+  --color-info:    #2563eb;  /* Tailwind blue-600 */
+
+  /* ─── Typography ─────────────────────────────────────────────────── */
+  --font-heading: 'Gontor', Georgia, serif;
+  --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+
+  /* ─── Spacing (4px grid) ─────────────────────────────────────────── */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+
+  /* ─── Border Radius ──────────────────────────────────────────────── */
+  --radius-sm:     8px;    /* nav link hover, small elements */
+  --radius-md:     12px;   /* icon containers */
+  --radius-lg:     18px;   /* main cards */
+  --radius-xl:     24px;   /* about image, large containers */
+  --radius-2xl:    28px;   /* CTA banner */
+  --radius-btn:    11px;   /* CTA buttons */
+  --radius-btn-sm: 10px;   /* PMB header button */
+  --radius-full:   9999px; /* pills, badges */
+
+  /* ─── Shadows ────────────────────────────────────────────────────── */
+  --shadow-sm:     0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-md:     0 6px 16px rgba(182, 140, 46, 0.30);
+  --shadow-lg:     0 14px 30px rgba(8, 66, 46, 0.12);
+  --shadow-xl:     0 22px 44px rgba(8, 66, 46, 0.14);
+  --shadow-2xl:    0 24px 50px rgba(8, 66, 46, 0.13);
+  --shadow-header: 0 10px 30px rgba(8, 66, 46, 0.10);
+  --shadow-float:  0 18px 40px rgba(0, 0, 0, 0.28);
+  --shadow-cta:    0 12px 30px rgba(233, 201, 112, 0.30);
+
+  /* ─── Transitions ────────────────────────────────────────────────── */
+  --transition-fast:   0.18s ease;
+  --transition-normal: 0.22s ease;
+  --transition-slow:   0.30s ease;
+
+  /* ─── Container ──────────────────────────────────────────────────── */
+  --container-width:    1200px;
+  --container-width-sm: 1120px;
+  --container-px:       24px;
+}

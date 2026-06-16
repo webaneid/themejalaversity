@@ -1,0 +1,36 @@
+/*
+ * Jalaversity — Front-End Entry Point
+ *
+ * Build: npm run build:front
+ *   postcss scss/front/main.scss -o css/front.css
+ *
+ * PENTING — urutan @import wajib di atas @tailwind:
+ *   postcss-import harus resolve semua @import sebelum Tailwind berjalan.
+ *   Custom styles yang perlu berinteraksi dengan Tailwind cascade
+ *   dibungkus dengan @layer yang sesuai (base/components/utilities).
+ */
+
+/* Semua @import WAJIB di atas @tailwind directives (CSS spec + postcss-import) */
+
+/* 1. Design tokens — :root CSS custom properties */
+@import 'variables';
+
+/* 2. Base — dibungkus @layer base */
+@import 'base';
+
+/* 3. Components — dibungkus @layer components */
+@import 'components';
+
+/* 3b. Article — desain post/archive/page, partial terpisah dari components
+ * (lihat docs/02-architecture.md §10). TIDAK dibungkus @layer components
+ * sendiri (lihat catatan di _article.scss) — components.scss sudah punya
+ * wrapper itu, dua wrapper terpisah bikin Tailwind diam-diam buang rule. */
+@import 'article';
+
+/* 4. Utilities — dibungkus @layer utilities */
+@import 'utilities';
+
+/* 5. Tailwind — setelah semua @import */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

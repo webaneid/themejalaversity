@@ -1,0 +1,722 @@
+/*
+ * Article Design — Post/Archive/Page Content
+ *
+ * Desain artikel diadopsi dari theme referensi (jalawarta), disesuaikan
+ * dengan token desain jalaversity yang sudah ada (lihat _variables.scss).
+ * Partial terpisah dari _components.scss (yang isinya komponen ACF page
+ * builder) supaya area "desain artikel" mudah ditemukan terpisah — lihat
+ * docs/02-architecture.md §10.
+ *
+ * PENTING — JANGAN bungkus isi file ini dengan `@layer components { }`.
+ * _components.scss SUDAH punya wrapper itu sendiri; kalau file ini juga
+ * dibungkus, hasilnya ADA DUA blok `@layer components` terpisah di
+ * dokumen akhir — dan Tailwind v3 (postcss) diam-diam MENGHAPUS sebagian
+ * rule dari blok kedua tanpa error apa pun (reproducible, sudah diverifikasi
+ * Sesi 13). Rules di sini otomatis ikut cascade biasa (sesudah components,
+ * sebelum utilities, karena urutan @import di main.scss) — tidak perlu
+ * @layer di sini untuk itu.
+ */
+
+/* ── Entry Content (typography body artikel) ──────────────────────── */
+
+.entry-content {
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+
+  h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: var(--space-xl) 0 var(--space-md);
+  }
+
+  h2 { font-size: 26px; }
+  h3 { font-size: 21px; }
+  h4 { font-size: 18px; }
+
+  p { margin: 0 0 var(--space-lg); }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: rgba(182, 140, 46, .35);
+
+    &:hover { color: var(--color-accent-dark); }
+  }
+
+  ul, ol { margin: 0 0 var(--space-lg); padding-left: var(--space-lg); }
+
+  ul li {
+    list-style: none;
+    position: relative;
+    padding-left: var(--space-md);
+    margin-bottom: var(--space-sm);
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .65em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
+  }
+
+  ol li {
+    margin-bottom: var(--space-sm);
+    padding-left: var(--space-xs);
+  }
+
+  blockquote {
+    margin: var(--space-xl) 0;
+    padding: var(--space-lg) var(--space-xl);
+    border-left: 4px solid var(--color-accent);
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+    font-style: italic;
+    color: var(--color-text-primary);
+
+    p:last-child { margin-bottom: 0; }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    display: block;
+  }
+
+  figure { margin: var(--space-xl) 0; }
+
+  figcaption {
+    font-size: 14px;
+    font-style: italic;
+    text-align: center;
+    color: var(--color-text-muted);
+    padding-top: var(--space-sm);
+  }
+
+  .wp-block-gallery { margin: var(--space-xl) 0; }
+
+  .wp-block-embed {
+    margin: var(--space-xl) 0;
+
+    .wp-block-embed__wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      overflow: hidden;
+
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  /* Paragraf Arab — class ditambahkan via JS (js/front/main.js) yang
+   * mendeteksi karakter Arab di tiap <p>/<li>. Tidak menambah font baru
+   * — pakai serif generik, browser otomatis fallback ke font sistem
+   * yang punya glyph Arab. */
+  .arabic-paragraph {
+    direction: rtl;
+    text-align: right;
+    font-family: serif;
+    font-size: 20px;
+    line-height: 2;
+    color: var(--color-primary);
+  }
+}
+
+/* ── Post Meta Line (kategori - tanggal) ─────────────────────────────────
+ * SATU desain dipakai identik di semua varian content-card.php DAN
+ * content-single.php (jalaversity_post_meta_line() di post-helpers.php)
+ * — bukan markup berbeda-beda per tempat. Lihat docs/02-architecture.md §10.
+ */
+
+.post-meta-line {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--color-text-caption);
+  margin-bottom: var(--space-sm);
+
+  &__category {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--color-accent);
+    text-decoration: none;
+
+    &:hover { color: var(--color-accent-dark); }
+  }
+
+  &__sep { color: var(--color-text-caption); }
+
+  &__date { color: var(--color-text-caption); }
+}
+
+/* ── Post Meta (tanggal/reading-time/views) ────────────────────────── */
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  margin: var(--space-md) 0 var(--space-lg);
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--color-text-muted);
+
+    svg { color: var(--color-accent); flex: none; }
+  }
+}
+
+/* ── Post Byline (author + editor) ─────────────────────────────────── */
+
+.post-byline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--color-border);
+
+  &__avatar img { border-radius: 50%; display: block; }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 14px;
+  }
+
+  &__text strong { color: var(--color-text-primary); }
+
+  &__editor { font-size: 13px; color: var(--color-text-muted); }
+}
+
+/* ── Single Post / Single Page ─────────────────────────────────────── */
+
+.single-post__container,
+.single-page__container {
+  max-width: 780px;
+  padding-top: var(--space-3xl);
+  padding-bottom: var(--space-3xl);
+}
+
+.single-post__title,
+.single-page__title {
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+  margin: 0 0 var(--space-md);
+}
+
+.single-post__image,
+.single-page__image {
+  margin-bottom: var(--space-xl);
+
+  img { width: 100%; border-radius: var(--radius-lg); display: block; }
+}
+
+.single-post__caption {
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+  color: var(--color-text-muted);
+  margin-top: var(--space-sm);
+}
+
+/* ── Post Card — anatomi dasar ──────────────────────────────────────────
+ * 4 varian (overlay/list/klasik/title — lihat content-card.php), semua
+ * disusun dari helper yang sama (jalaversity_card_title/_meta_line/_thumbnail
+ * di post-helpers.php). Style di sini juga dipakai bersama oleh semua
+ * varian — tiap varian cuma nambah modifier tipis di bawahnya, bukan
+ * styling dari nol. Ini bagian "hemat CSS" yang dimaksud: 1 anatomi
+ * dasar (.card__title/.post-meta-line/.card__media/.card__body), bukan
+ * 4 set class besar terpisah per varian.
+ */
+
+/* Cancel background+border bawaan .card (base class) — khusus kartu
+ * post/artikel, BUKAN diubah di .card itu sendiri (yang juga dipakai
+ * card-grid.php & news-section.php, masih harus boxed putih seperti
+ * sekarang). Varian 'klasik' override balik di blok-nya sendiri (di
+ * bawah) karena memang masih perlu look boxed.
+ *
+ * Selector gabungan `.card.card--post` (bukan `.card--post` polos) —
+ * sengaja, BUKAN gaya saja. `.card` ada di _components.scss (dibungkus
+ * @layer components, Tailwind memindahkan posisinya ke titik
+ * `@tailwind components;` saat build, jadi urutannya di file akhir
+ * lebih BELAKANG dari _article.scss meski di-import lebih dulu).
+ * `.card--post` polos kalah cascade-order walau specificity sama
+ * (1 class vs 1 class). `.card.card--post` (2 class, specificity lebih
+ * tinggi) menang terlepas dari urutan — robust, tidak bergantung posisi.
+ */
+.card.card--post {
+  background: none;
+  border: none;
+}
+
+.card--post {
+  .card__media-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  .card__media-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-light);
+    color: var(--color-text-muted);
+  }
+
+  .card__title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .card__title a {
+    color: var(--color-primary);
+    text-decoration: none;
+
+    &:hover { color: var(--color-accent); }
+  }
+}
+
+/* Varian 'overlay' — gambar full-bleed jadi background, judul+meta
+ * overlay di bawah dengan gradient gelap. Rasio 16:9 konsisten di semua
+ * lebar (full-width archive maupun kartu kecil di grid) via aspect-ratio,
+ * bukan min-height fix — match dengan jalaversity-thumbnail (400×225)
+ * yang dipakai varian ini (lihat docs/02-architecture.md §11). */
+.card--post-overlay {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+
+  .card__media-link,
+  .card__media { position: absolute; inset: 0; }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 35%, rgba(6, 48, 31, .9) 100%);
+    pointer-events: none;
+  }
+
+  .card__overlay-body {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+    padding: var(--space-lg);
+  }
+
+  .post-meta-line__category { color: var(--color-accent-light); }
+
+  .post-meta-line__sep,
+  .post-meta-line__date { color: rgba(255, 255, 255, .75); }
+
+  .card__title { font-size: 27px; }
+
+  .card__title a { color: #fff; }
+
+  .card__title a:hover { color: var(--color-accent-light); }
+}
+
+/* Varian 'klasik' — gambar penuh di atas (stack), judul+meta+excerpt
+ * di bawah. */
+.card--post-klasik {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-2xl);
+
+  .card__media { height: 320px; }
+
+  .card__body { padding: var(--space-xl); }
+
+  .card__title { font-size: clamp(22px, 2.6vw, 30px); margin: 0 0 var(--space-sm); }
+
+  .card__desc {
+    font-size: 15px;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+/* Varian 'list' — gambar kotak ±30% lebar di kiri, judul+meta di kanan. */
+.card--post-list {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--color-divider);
+
+  &:last-child { border-bottom: none; }
+
+  .card__media {
+    flex: 0 0 30%;
+    max-width: 160px;
+    aspect-ratio: 1;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .card__body { flex: 1; min-width: 0; }
+
+  .card__title { font-size: 27px; }
+}
+
+/* Varian 'title' — tanpa gambar, hanya judul+meta (paling ringan). */
+.card--post-title {
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--color-divider);
+
+  &:last-child { border-bottom: none; }
+
+  .card__title { font-size: 16px; }
+}
+
+/* ── Wrapper Grid/List ──────────────────────────────────────────────── */
+
+.post-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+
+  .card--post-klasik { grid-column: 1 / -1; margin-bottom: 0; }
+}
+
+.archive-list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-2xl);
+}
+
+/* ── Archive / Search Header ────────────────────────────────────────── */
+
+.archive-header {
+  padding-top: var(--space-3xl);
+  margin-bottom: var(--space-xl);
+
+  &__title {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    margin: var(--space-md) 0 0;
+
+    span { color: var(--color-accent); }
+  }
+
+  &__desc {
+    margin-top: var(--space-sm);
+    color: var(--color-text-muted);
+  }
+}
+
+/* ── Share Buttons ──────────────────────────────────────────────────── */
+
+.share-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin: var(--space-2xl) 0;
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+
+  &__label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--color-text-muted);
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast);
+
+    &:hover { background: var(--color-bg); color: var(--color-accent); }
+  }
+}
+
+/* ── Related Posts ──────────────────────────────────────────────────── */
+
+.related-posts { background: var(--color-bg); }
+
+/* ── Post Navigation (prev/next) ───────────────────────────────────── */
+
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin: var(--space-2xl) 0;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: border-color var(--transition-fast);
+
+    &:hover { border-color: var(--color-accent); }
+  }
+
+  &__item--next { text-align: right; align-items: flex-end; }
+  &__item--empty { border: none; }
+
+  &__direction {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--color-accent);
+  }
+
+  &__title {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+}
+
+/* ── Search Form ────────────────────────────────────────────────────── */
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 8px 8px 8px 18px;
+  max-width: 480px;
+  margin-top: var(--space-md);
+
+  &__icon { color: var(--color-text-muted); display: flex; flex: none; }
+
+  &__input {
+    background: transparent;
+    border: none;
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: 15px;
+    min-width: 0;
+    outline: none;
+    padding: 9px 0;
+    color: var(--color-text-primary);
+  }
+
+  &__btn {
+    background: var(--color-primary);
+    border: none;
+    border-radius: var(--radius-btn-sm);
+    color: #fff;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    min-height: 40px;
+    padding: 10px 20px;
+    transition: background var(--transition-fast);
+
+    &:hover { background: var(--color-primary-medium); }
+  }
+}
+
+/* ── No Results (fallback archive/search kosong) ───────────────────── */
+/* Nama class sengaja BUKAN "content-none" — itu nama utility class
+ * bawaan Tailwind (CSS `content` property), beda fungsi sama sekali. */
+
+.no-results {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: var(--space-4xl) var(--container-px);
+  text-align: center;
+
+  &__heading { color: var(--color-primary); margin: 0 0 var(--space-md); }
+  &__desc { color: var(--color-text-muted); margin: 0 0 var(--space-md); }
+
+  .search-form { margin: var(--space-lg) auto 0; }
+}
+
+/* ── Content + Sidebar Layout ─────────────────────────────────────────
+ * Dipakai SAMA oleh content-post-list.php (index/archive/tag/category/
+ * author/search) dan content-single.php — 1 kolom di mobile, 2 kolom
+ * (konten + sidebar 360px) mulai 992px. Lihat docs/02-architecture.md §10.
+ */
+
+.content-with-sidebar {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  align-items: start;
+  margin-bottom: var(--space-2xl);
+
+  @media (min-width: 992px) {
+    grid-template-columns: 1fr 360px;
+  }
+
+  &__main { min-width: 0; }
+}
+
+/* ── Sidebar — Default ──────────────────────────────────────────────── */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* `.sidebar .widget` = wrapper otomatis WordPress (before_widget di
+ * includes/setup.php) untuk SEMUA widget yang di-drop admin via
+ * Appearance > Widgets (Recent Posts/Comments/Archives/Categories, dst) —
+ * disatukan selector-nya dengan `.sidebar__widget` (box kustom kita)
+ * supaya widget apa pun yang ditambah admin OTOMATIS dapat tampilan yang
+ * sama, tanpa perlu CSS baru tiap kali ada widget baru. */
+.sidebar__widget,
+.sidebar .widget {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+/* Judul widget — dipakai juga untuk heading di dalam widget block WP
+ * (mis. <h2>Recent Posts</h2> dari Group block) supaya semua judul
+ * widget seragam dengan gaya judul kartu (.card__title: font-heading,
+ * weight 700, warna primary) + border-bottom pemisah. */
+.sidebar__widget-title,
+.sidebar .widget .wp-block-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-primary);
+  margin: 0 0 var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Daftar bawaan widget block WP (Recent Posts/Comments/Archives/
+ * Categories — semua sama-sama render <ul><li><a>) — SATU rule generik,
+ * bukan 4 rule terpisah per jenis widget, supaya rapi & konsisten apa pun
+ * widget yang di-drop admin nanti. */
+.sidebar .widget_block {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    padding: 9px 0;
+    border-bottom: 1px solid var(--color-divider);
+    font-size: 14.5px;
+
+    &:last-child { border-bottom: none; }
+  }
+
+  a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+
+    &:hover { color: var(--color-accent); }
+  }
+
+  .no-comments {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+}
+
+/* Widget Search block (kalau admin tambah dari Appearance > Widgets) —
+ * disembunyikan karena sudah ada search form kustom kita sendiri di atas
+ * sidebar (search-form.php) — dua form pencarian di satu sidebar bikin
+ * "numpuk2". Bisa juga dihapus langsung dari Widgets kalau mau lebih
+ * bersih di admin, ini cuma jaring pengaman tampilan. */
+.sidebar .widget_search { display: none; }
+
+.sidebar__popular-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar__category-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: 9px 0;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-divider);
+    font-size: 14.5px;
+
+    &:hover { color: var(--color-accent); }
+  }
+
+  li:last-child a { border-bottom: none; }
+}
+
+.sidebar__category-count {
+  font-size: 12px;
+  color: var(--color-text-caption);
+  background: var(--color-bg);
+  padding: 2px 9px;
+  border-radius: var(--radius-full);
+  flex: none;
+}
+

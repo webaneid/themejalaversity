@@ -1,0 +1,52 @@
+/*
+ * Admin Base Styles — Settings Page
+ *
+ * Settings Page dirender murni via WordPress Settings API
+ * (do_settings_sections() → <table class="form-table">), bukan markup
+ * custom — sesuai CLAUDE.md "Settings API: Murni WordPress Settings API,
+ * bukan custom table". Style di bawah ini hanya polish ringan di atas
+ * markup native WP admin (.nav-tab-wrapper, .form-table, dst), plus style
+ * untuk 2 custom field type: color picker dan image uploader.
+ */
+
+  .jalaversity-settings {
+    max-width: 900px;
+
+    h1 { color: var(--admin-primary); }
+
+    .nav-tab-wrapper { margin-bottom: 20px; }
+
+    .form-table th {
+      width: 260px;
+      font-weight: 600;
+      color: var(--admin-text);
+    }
+
+    .description {
+      color: var(--admin-text-muted);
+      font-size: 12.5px;
+    }
+  }
+
+  /* ── Color Field ─────────────────────────────────────────────────────── */
+
+  .jalaversity-color-field {
+    width: 90px;
+  }
+
+  /* ── Image Field ─────────────────────────────────────────────────────── */
+
+  .jalaversity-image-field {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    &__preview img {
+      display: block;
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--admin-border);
+    }
+  }

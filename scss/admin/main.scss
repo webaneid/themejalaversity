@@ -1,0 +1,24 @@
+/*
+ * Jalaversity — Admin Panel Entry Point
+ *
+ * Build: npm run build:admin
+ *   postcss scss/admin/main.scss -o css/admin.css
+ *
+ * Keeps admin styles completely separate from front-end.
+ * Only loaded on wp-admin pages.
+ */
+
+/* @import harus di atas semua CSS rules (CSS spec + postcss-import) */
+@import 'admin-base';
+
+/* Admin-specific base variables */
+:root {
+  --admin-primary:      #08422e;
+  --admin-accent:       #b68c2e;
+  --admin-accent-light: #e9c970;
+  --admin-surface:      #ffffff;
+  --admin-border:       #ddd;
+  --admin-text:         #1c2b24;
+  --admin-text-muted:   #6e7d73;
+}
+

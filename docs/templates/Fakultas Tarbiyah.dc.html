@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#1c2b24;background:#f8f5ec;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  @keyframes fadeup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  ::selection{background:#b68c2e;color:#fff}
+</style>
+<script src="image-slot.js"></script>
+</helmet>
+
+<div style="width:100%;overflow-x:hidden">
+
+  <!-- ===== HEADER ===== -->
+  <header ref="{{ setHeaderRef }}" style="position:sticky;top:0;z-index:50;background:#ffffff;transition:box-shadow .3s ease">
+    <div style="background:#06301f;color:#cfe3d6">
+      <div style="max-width:1200px;margin:0 auto;padding:8px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:12.5px;font-weight:500;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+          <span style="display:inline-flex;align-items:center;gap:7px">{{ icPhone }} (0260) 123-456</span>
+          <span style="display:inline-flex;align-items:center;gap:7px">{{ icMail }} info@al-ikhlash.ac.id</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <a style="text-decoration:none" style-hover="color:#f3d488">PMB Online</a>
+          <a style="text-decoration:none" style-hover="color:#f3d488">SIAKAD</a>
+          <a style="text-decoration:none" style-hover="color:#f3d488">E-Learning</a>
+          <span style="width:1px;height:14px;background:#2c5a45"></span>
+          <span style="display:flex;align-items:center;gap:9px"><span style="color:#f3d488;font-weight:700">ID</span><span style="color:#6e9a82">EN</span></span>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <a href="Beranda Al-Ikhlash.dc.html" style="display:flex;align-items:center;text-decoration:none"><img src="assets/logo.png" alt="Institut Agama Islam Al-Ikhlash" style="height:46px;width:auto;display:block"/></a>
+      <nav style="display:flex;align-items:center;gap:2px;flex-wrap:wrap">
+        <sc-for list="{{ nav }}" as="item" hint-placeholder-count="7">
+          <a href="{{ item.href }}" style="padding:10px 13px;font-size:14.5px;font-weight:600;color:#28392f;text-decoration:none;border-radius:8px;transition:.18s" style-hover="background:#f1ede1;color:#08422e">{{ item.label }}</a>
+        </sc-for>
+      </nav>
+      <a href="#pmb" style="display:inline-flex;align-items:center;gap:8px;background:#b68c2e;color:#fff;padding:11px 18px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 6px 16px rgba(182,140,46,.3);transition:.18s;white-space:nowrap" style-hover="background:#a87e26">Daftar PMB
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section style="position:relative;overflow:hidden;background:linear-gradient(135deg,#06301f 0%,#0a4730 55%,#063a27 100%);color:#fff">
+    <svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:.1;pointer-events:none" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="girih-fhero" width="64" height="64" patternUnits="userSpaceOnUse"><g fill="none" stroke="#e9c970" stroke-width="1"><rect x="16" y="16" width="32" height="32"/><rect x="16" y="16" width="32" height="32" transform="rotate(45 32 32)"/></g></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#girih-fhero)"/>
+    </svg>
+    <div style="position:absolute;top:-130px;right:-90px;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(214,178,91,.22),transparent 70%);pointer-events:none"></div>
+    <div style="position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:34px 24px 120px">
+      <div style="display:flex;align-items:center;gap:9px;font-size:13px;color:#9fc0ad;margin-bottom:34px;flex-wrap:wrap">
+        <a href="Beranda Al-Ikhlash.dc.html" style="color:#9fc0ad;text-decoration:none" style-hover="color:#fff">Beranda</a>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+        <a href="#" style="color:#9fc0ad;text-decoration:none" style-hover="color:#fff">Fakultas</a>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+        <span style="color:#e9c970;font-weight:600">Tarbiyah &amp; Keguruan</span>
+      </div>
+      <div style="display:flex;gap:56px;flex-wrap:wrap;align-items:center">
+        <div style="flex:1 1 460px;min-width:300px;animation:fadeup .8s ease both">
+          <div style="display:inline-flex;align-items:center;gap:9px;background:rgba(214,178,91,.14);border:1px solid rgba(214,178,91,.35);color:#f0d68f;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:22px">{{ icCap }} Fakultas</div>
+          <h1 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(34px,4.6vw,54px);line-height:1.08;margin:0 0 18px;letter-spacing:-.01em">Tarbiyah &amp; Keguruan</h1>
+          <p style="font-size:17px;line-height:1.65;color:#cfe0d6;max-width:520px;margin:0 0 28px">Membentuk pendidik muslim yang profesional, inovatif, dan berakhlak mulia untuk mencerdaskan generasi bangsa.</p>
+          <div style="display:flex;gap:14px;flex-wrap:wrap">
+            <a href="#pmb" style="display:inline-flex;align-items:center;gap:8px;background:#e9c970;color:#06301f;padding:13px 24px;border-radius:11px;font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 10px 26px rgba(233,201,112,.28)" style-hover="background:#f2d68a">Daftar Sekarang
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);padding:13px 24px;border-radius:11px;font-weight:700;font-size:15px;text-decoration:none" style-hover="background:rgba(255,255,255,.08)">Unduh Kurikulum</a>
+          </div>
+        </div>
+        <div style="flex:1 1 360px;min-width:290px;position:relative;animation:fadeup 1s ease both">
+          <div style="position:relative;border-radius:200px 200px 28px 28px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.32);border:6px solid rgba(255,255,255,.08)">
+            <image-slot id="fk-hero" style="display:block;width:100%;height:440px" shape="rect" placeholder="Foto kegiatan fakultas"></image-slot>
+          </div>
+          <div style="position:absolute;left:-16px;bottom:30px;background:#fff;color:#1c2b24;border-radius:16px;padding:15px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 18px 40px rgba(0,0,0,.28);animation:floaty 5s ease-in-out infinite">
+            <div style="width:46px;height:46px;border-radius:12px;background:#fbf3dd;color:#b68c2e;display:flex;align-items:center;justify-content:center;flex:none">{{ icAward }}</div>
+            <div><div style="font-size:12px;color:#6e7d73;font-weight:600">Akreditasi</div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:21px;color:#08422e;line-height:1">UNGGUL</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATS ===== -->
+  <section style="background:#f8f5ec">
+    <div style="max-width:1120px;margin:0 auto;padding:0 24px">
+      <div style="margin-top:-62px;position:relative;z-index:5;background:#fff;border-radius:20px;box-shadow:0 24px 50px rgba(8,66,46,.13);border:1px solid #ece6d6;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));overflow:hidden">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div style="padding:26px 26px;display:flex;align-items:center;gap:16px;border-right:1px solid #f0ebdd">
+            <div style="width:52px;height:52px;border-radius:14px;background:#f1f6f1;color:#0a4730;display:flex;align-items:center;justify-content:center;flex:none">{{ s.iconEl }}</div>
+            <div><div style="font-family:'Playfair Display',serif;font-weight:700;font-size:28px;color:#08422e;line-height:1">{{ s.value }}</div><div style="font-size:13px;color:#5d6c62;font-weight:500;margin-top:5px">{{ s.label }}</div></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SUB NAV ===== -->
+  <nav style="background:#fff;border-bottom:1px solid #ece6d6;margin-top:34px">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
+      <sc-for list="{{ subnav }}" as="t" hint-placeholder-count="5">
+        <a href="{{ t.href }}" style="padding:16px 18px;font-size:14.5px;font-weight:600;color:#4b5a51;text-decoration:none;border-bottom:2.5px solid transparent;transition:.18s" style-hover="color:#08422e;border-bottom-color:#b68c2e">{{ t.label }}</a>
+      </sc-for>
+    </div>
+  </nav>
+
+  <!-- ===== TENTANG / SAMBUTAN DEKAN ===== -->
+  <section id="tentang" style="background:#f8f5ec;padding:90px 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px;display:flex;gap:60px;flex-wrap:wrap;align-items:center">
+      <div style="flex:1 1 320px;min-width:280px;display:flex;flex-direction:column;align-items:center;text-align:center">
+        <div style="position:relative;padding:8px;border-radius:50%;background:linear-gradient(135deg,#e9c970,#b68c2e)">
+          <image-slot id="fk-dekan" style="display:block;width:200px;height:200px;border-radius:50%" shape="circle" placeholder="Foto Dekan"></image-slot>
+        </div>
+        <div style="margin-top:22px;font-family:'Playfair Display',serif;font-weight:700;font-size:22px;color:#08422e">Dr. H. Ahmad Fauzi, M.Pd.</div>
+        <div style="font-size:14px;color:#b68c2e;font-weight:600;margin-top:4px">Dekan Fakultas Tarbiyah &amp; Keguruan</div>
+      </div>
+      <div style="flex:1 1 440px;min-width:300px">
+        <div style="display:inline-flex;align-items:center;gap:10px;color:#b68c2e;font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:16px"><span style="width:26px;height:2px;background:#b68c2e;display:inline-block"></span>Sambutan Dekan</div>
+        <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(26px,3.2vw,38px);line-height:1.18;color:#08422e;margin:0 0 20px">Mendidik dengan Ilmu, Membimbing dengan Akhlak</h2>
+        <div style="position:relative;background:#fff;border:1px solid #ece6d6;border-left:4px solid #b68c2e;border-radius:14px;padding:22px 24px;margin-bottom:22px">
+          <span style="color:#e9c970;position:absolute;top:14px;right:18px">{{ icQuote }}</span>
+          <p style="font-size:16px;line-height:1.7;color:#33433a;font-style:italic;margin:0">Kami berkomitmen melahirkan pendidik yang tidak hanya cakap secara keilmuan, tetapi juga menjadi teladan dalam akhlak dan kepemimpinan di tengah masyarakat.</p>
+        </div>
+        <p style="font-size:15.5px;line-height:1.72;color:#4b5a51;margin:0">Fakultas Tarbiyah &amp; Keguruan merupakan fakultas tertua dan terbesar di Institut Agama Islam Al-Ikhlash. Dengan empat program studi terakreditasi dan didukung dosen berkualifikasi doktor, kami menyiapkan calon pendidik yang adaptif terhadap perkembangan zaman tanpa kehilangan akar nilai-nilai keislaman.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROGRAM STUDI ===== -->
+  <section id="prodi" style="background:#fff;padding:96px 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div style="text-align:center;max-width:640px;margin:0 auto 50px">
+        <div style="display:inline-flex;align-items:center;gap:10px;color:#b68c2e;font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px"><span style="width:26px;height:2px;background:#b68c2e;display:inline-block"></span>Program Studi<span style="width:26px;height:2px;background:#b68c2e;display:inline-block"></span></div>
+        <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(26px,3.4vw,40px);line-height:1.13;color:#08422e;margin:0 0 14px">Empat Program Studi Unggulan</h2>
+        <p style="font-size:16px;line-height:1.65;color:#5d6c62;margin:0">Setiap program dirancang dengan kurikulum berbasis kompetensi dan praktik nyata di lapangan.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px">
+        <sc-for list="{{ prodi }}" as="p" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #ece6d6;border-radius:18px;padding:26px 26px 24px;transition:.22s" style-hover="box-shadow:0 22px 44px rgba(8,66,46,.13);transform:translateY(-6px);border-color:#e0d6b8">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px">
+              <div style="width:50px;height:50px;border-radius:13px;background:#08422e;color:#e9c970;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;font-size:16px">{{ p.code }}</div>
+              <span style="background:{{ p.akrBg }};color:{{ p.akrColor }};font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px">Akreditasi {{ p.akr }}</span>
+            </div>
+            <h3 style="font-family:'Playfair Display',serif;font-weight:700;font-size:20px;line-height:1.25;color:#08422e;margin:0 0 8px">{{ p.name }}</h3>
+            <p style="font-size:13.5px;color:#6e7d73;line-height:1.55;margin:0 0 16px">{{ p.desc }}</p>
+            <div style="display:flex;gap:18px;flex-wrap:wrap;padding-top:16px;border-top:1px solid #f0ebdd;margin-bottom:16px">
+              <div><div style="font-size:11px;color:#9aa69f;font-weight:600;text-transform:uppercase;letter-spacing:.06em">Jenjang</div><div style="font-size:14px;font-weight:700;color:#22332b;margin-top:2px">{{ p.jenjang }}</div></div>
+              <div><div style="font-size:11px;color:#9aa69f;font-weight:600;text-transform:uppercase;letter-spacing:.06em">Gelar</div><div style="font-size:14px;font-weight:700;color:#22332b;margin-top:2px">{{ p.gelar }}</div></div>
+            </div>
+            <a href="#" style="display:inline-flex;align-items:center;gap:7px;color:#b68c2e;font-weight:700;font-size:14px;text-decoration:none">Detail program
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== KEUNGGULAN ===== -->
+  <section id="keunggulan" style="position:relative;overflow:hidden;background:linear-gradient(120deg,#08422e 0%,#0a4730 60%,#06301f 100%);color:#fff;padding:92px 0">
+    <svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:.09;pointer-events:none" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="girih-keung" width="64" height="64" patternUnits="userSpaceOnUse"><g fill="none" stroke="#e9c970" stroke-width="1"><rect x="16" y="16" width="32" height="32"/><rect x="16" y="16" width="32" height="32" transform="rotate(45 32 32)"/></g></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#girih-keung)"/>
+    </svg>
+    <div style="position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 24px">
+      <div style="text-align:center;max-width:640px;margin:0 auto 50px">
+        <div style="display:inline-flex;align-items:center;gap:10px;color:#f0d68f;font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px"><span style="width:26px;height:2px;background:#e9c970;display:inline-block"></span>Mengapa Memilih Kami<span style="width:26px;height:2px;background:#e9c970;display:inline-block"></span></div>
+        <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(26px,3.4vw,40px);line-height:1.13;margin:0">Keunggulan Fakultas</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px">
+        <sc-for list="{{ keunggulan }}" as="k" hint-placeholder-count="6">
+          <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:26px 24px;transition:.2s" style-hover="background:rgba(255,255,255,.1)">
+            <div style="width:50px;height:50px;border-radius:13px;background:rgba(233,201,112,.16);color:#e9c970;display:flex;align-items:center;justify-content:center;margin-bottom:16px">{{ k.iconEl }}</div>
+            <div style="font-weight:700;font-size:17px;margin-bottom:7px">{{ k.t }}</div>
+            <div style="font-size:14px;color:#aecabb;line-height:1.55">{{ k.d }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== KOMPETENSI & KARIER ===== -->
+  <section id="karier" style="background:#f8f5ec;padding:96px 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px;display:flex;gap:56px;flex-wrap:wrap;align-items:flex-start">
+      <div style="flex:1 1 340px;min-width:290px">
+        <div style="display:inline-flex;align-items:center;gap:10px;color:#b68c2e;font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px"><span style="width:26px;height:2px;background:#b68c2e;display:inline-block"></span>Kompetensi Lulusan</div>
+        <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(26px,3.2vw,38px);line-height:1.16;color:#08422e;margin:0 0 22px">Siap Berkarya, Siap Mengabdi</h2>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ kompetensi }}" as="c" hint-placeholder-count="5">
+            <div style="display:flex;align-items:flex-start;gap:12px">
+              <span style="color:#0a4730;flex:none;margin-top:1px">{{ c.iconEl }}</span>
+              <span style="font-size:15.5px;color:#33433a;line-height:1.5">{{ c.text }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="flex:1 1 440px;min-width:300px">
+        <h3 style="font-family:'Playfair Display',serif;font-weight:700;font-size:22px;color:#08422e;margin:0 0 20px">Prospek Karier</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+          <sc-for list="{{ karier }}" as="kr" hint-placeholder-count="6">
+            <div style="background:#fff;border:1px solid #ece6d6;border-radius:14px;padding:20px 20px;transition:.2s" style-hover="box-shadow:0 16px 34px rgba(8,66,46,.12);transform:translateY(-4px)">
+              <div style="width:44px;height:44px;border-radius:12px;background:#fbf3dd;color:#b68c2e;display:flex;align-items:center;justify-content:center;margin-bottom:13px">{{ kr.iconEl }}</div>
+              <div style="font-weight:700;font-size:15.5px;color:#1c2b24;margin-bottom:4px">{{ kr.t }}</div>
+              <div style="font-size:13px;color:#6e7d73;line-height:1.45">{{ kr.d }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FASILITAS ===== -->
+  <section id="fasilitas" style="background:#fff;padding:96px 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div style="text-align:center;max-width:640px;margin:0 auto 48px">
+        <div style="display:inline-flex;align-items:center;gap:10px;color:#b68c2e;font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px"><span style="width:26px;height:2px;background:#b68c2e;display:inline-block"></span>Fasilitas<span style="width:26px;height:2px;background:#b68c2e;display:inline-block"></span></div>
+        <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(26px,3.4vw,40px);line-height:1.13;color:#08422e;margin:0">Ruang Tumbuh untuk Calon Pendidik</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px">
+        <sc-for list="{{ fasilitas }}" as="f" hint-placeholder-count="6">
+          <div style="background:#fff;border:1px solid #ece6d6;border-radius:18px;overflow:hidden;transition:.22s" style-hover="box-shadow:0 22px 44px rgba(8,66,46,.13);transform:translateY(-6px)">
+            <div style="height:180px;overflow:hidden;position:relative">
+              <image-slot id="fk-fas-{{ f.id }}" style="display:block;width:100%;height:100%" shape="rect" placeholder="Foto fasilitas"></image-slot>
+              <div style="position:absolute;top:14px;left:14px;width:42px;height:42px;border-radius:11px;background:rgba(255,255,255,.92);color:#08422e;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(0,0,0,.18)">{{ f.iconEl }}</div>
+            </div>
+            <div style="padding:18px 22px 20px">
+              <h3 style="font-weight:700;font-size:16.5px;color:#22332b;margin:0">{{ f.name }}</h3>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section id="pmb" style="background:#f8f5ec;padding:0 0 96px">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div style="position:relative;overflow:hidden;background:linear-gradient(120deg,#08422e,#0a4730);border-radius:28px;padding:62px 40px;text-align:center;color:#fff">
+        <svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:.1;pointer-events:none" xmlns="http://www.w3.org/2000/svg">
+          <defs><pattern id="girih-fcta" width="64" height="64" patternUnits="userSpaceOnUse"><g fill="none" stroke="#e9c970" stroke-width="1"><rect x="16" y="16" width="32" height="32"/><rect x="16" y="16" width="32" height="32" transform="rotate(45 32 32)"/></g></pattern></defs>
+          <rect width="100%" height="100%" fill="url(#girih-fcta)"/>
+        </svg>
+        <div style="position:relative;z-index:1;max-width:660px;margin:0 auto">
+          <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(26px,3.6vw,42px);line-height:1.13;margin:0 0 16px">Tertarik Menjadi Pendidik Masa Depan?</h2>
+          <p style="font-size:16.5px;line-height:1.6;color:#cfe0d6;margin:0 0 30px">Bergabunglah dengan Fakultas Tarbiyah &amp; Keguruan dan mulailah perjalananmu mencerdaskan generasi bangsa.</p>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+            <a href="#" style="display:inline-flex;align-items:center;gap:8px;background:#e9c970;color:#06301f;padding:15px 28px;border-radius:12px;font-weight:700;font-size:15.5px;text-decoration:none;box-shadow:0 12px 30px rgba(233,201,112,.3)" style-hover="background:#f2d68a">Daftar PMB Sekarang
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45);padding:15px 28px;border-radius:12px;font-weight:700;font-size:15.5px;text-decoration:none" style-hover="background:rgba(255,255,255,.08)">Konsultasi Program</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="position:relative;overflow:hidden;background:#06301f;color:#bcd3c4">
+    <svg aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:.06;pointer-events:none" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="girih-ffoot" width="64" height="64" patternUnits="userSpaceOnUse"><g fill="none" stroke="#e9c970" stroke-width="1"><rect x="16" y="16" width="32" height="32"/><rect x="16" y="16" width="32" height="32" transform="rotate(45 32 32)"/></g></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#girih-ffoot)"/>
+    </svg>
+    <div style="position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:64px 24px 0">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:40px;padding-bottom:48px">
+        <div style="min-width:240px">
+          <img src="assets/logo-light.png" alt="Al-Ikhlash" style="height:52px;width:auto;display:block;margin-bottom:18px"/>
+          <p style="font-size:14px;line-height:1.65;color:#9bbaa6;margin:0 0 20px;max-width:300px">Institut Agama Islam Al-Ikhlash — membentuk cendekiawan muslim yang berilmu, beriman, dan beramal untuk peradaban.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <sc-for list="{{ socials }}" as="so" hint-placeholder-count="6">
+              <a href="#" aria-label="sosial" style="width:40px;height:40px;border-radius:11px;border:1px solid #1d4d36;display:flex;align-items:center;justify-content:center;color:#cfe3d6;text-decoration:none;transition:.2s" style-hover="background:#b68c2e;border-color:#b68c2e;color:#fff">{{ so.iconEl }}</a>
+            </sc-for>
+          </div>
+        </div>
+        <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="4">
+          <div>
+            <h4 style="font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#e9c970;margin:0 0 18px">{{ col.title }}</h4>
+            <div style="display:flex;flex-direction:column;gap:11px">
+              <sc-for list="{{ col.links }}" as="lnk" hint-placeholder-count="5">
+                <a href="#" style="font-size:14px;color:#9bbaa6;text-decoration:none;transition:.18s" style-hover="color:#fff">{{ lnk }}</a>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="border-top:1px solid #133f2a;padding:22px 0;display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:#9bbaa6;max-width:520px"><span style="color:#b68c2e;flex:none;margin-top:1px">{{ icPin }}</span>Jl. Pendidikan No. 1, Subang, Jawa Barat 41211 · (0260) 123-456 · info@al-ikhlash.ac.id</div>
+        <div style="font-size:13px;color:#6e9079">© 2026 Institut Agama Islam Al-Ikhlash. Hak cipta dilindungi.</div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    this._onScroll = () => {
+      if (!this.headerEl) return;
+      this.headerEl.style.boxShadow = window.scrollY > 20 ? '0 10px 30px rgba(8,66,46,.10)' : 'none';
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); }
+
+  ic(name, size) {
+    const P = {
+      cap: ['M12 4 2 9l10 5 10-5-10-5z', 'M5 11.5V16c0 1.4 3.1 3 7 3s7-1.6 7-3v-4.5', 'M22 9v5'],
+      building: ['M3 21h18', 'M6 21V7l6-3 6 3v14', 'M10 21v-5h4v5', 'M9 10h.01', 'M15 10h.01'],
+      book: ['M3 4.5A1.5 1.5 0 0 1 4.5 3H12v17H4.5A1.5 1.5 0 0 0 3 21.5V4.5z', 'M21 4.5A1.5 1.5 0 0 0 19.5 3H12v17h7.5a1.5 1.5 0 0 1 1.5 1.5V4.5z'],
+      users: ['M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19', 'M9.5 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z', 'M20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4', 'M15 4.2a3.5 3.5 0 0 1 0 6.6'],
+      globe: ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z', 'M3 12h18', 'M12 3c2.5 2.5 2.5 15.5 0 18', 'M12 3c-2.5 2.5-2.5 15.5 0 18'],
+      check: ['M5 12.5l4 4 10-10'],
+      checkCircle: ['M22 12a10 10 0 1 1-5.5-8.9', 'M9 12l2 2 5-5'],
+      pin: ['M19 10c0 5.5-7 11-7 11s-7-5.5-7-11a7 7 0 0 1 14 0z', 'M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z'],
+      flask: ['M9 3h6', 'M10 3v5.5L5.2 17A2 2 0 0 0 7 20h10a2 2 0 0 0 1.8-3L14 8.5V3', 'M7.5 15h9'],
+      journal: ['M5 4.5A1.5 1.5 0 0 1 6.5 3H19v14H6.5A1.5 1.5 0 0 0 5 18.5V4.5z', 'M5 18.5A1.5 1.5 0 0 0 6.5 20H19', 'M9 7h6', 'M9 10h5'],
+      heart: ['M12 20s-6.5-4.2-9-8a4.5 4.5 0 0 1 9-2 4.5 4.5 0 0 1 9 2c-2.5 3.8-9 8-9 8z'],
+      mail: ['M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z', 'M3.5 6.5l8.5 6 8.5-6'],
+      phone: ['M21 16.5v2.5a2 2 0 0 1-2.2 2 19 19 0 0 1-8.3-3 18.7 18.7 0 0 1-5.7-5.7A19 19 0 0 1 1.9 6 2 2 0 0 1 3.9 4h2.5a2 2 0 0 1 2 1.7c.1.9.3 1.7.6 2.5a2 2 0 0 1-.5 2.1L7.5 9.5a15 15 0 0 0 6 6l1.2-1a2 2 0 0 1 2.1-.5c.8.3 1.6.5 2.5.6a2 2 0 0 1 1.7 2z'],
+      award: ['M12 15a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11z', 'M8.5 13.5L7 21l5-2.5L17 21l-1.5-7.5'],
+      briefcase: ['M4 8h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z', 'M15 8V6a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v2', 'M3 13h18'],
+      sparkle: ['M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z'],
+      presentation: ['M3 4h18', 'M4 4v9a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4', 'M12 14v5', 'M9 21l3-2 3 2'],
+      monitor: ['M3 4h18a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z', 'M8 20h8', 'M12 16v4'],
+      bulb: ['M9 18h6', 'M10 21h4', 'M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.3 1 2.5h6c0-1.2.3-1.8 1-2.5A6 6 0 0 0 12 3z'],
+      chat: ['M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z'],
+      quote: ['M9 7H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3v3a3 3 0 0 1-3 3', 'M20 7h-4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3v3a3 3 0 0 1-3 3'],
+      mosque: ['M3 21h18', 'M5 21V11l7-5 7 5v10', 'M9 21v-4a3 3 0 0 1 6 0v4', 'M12 6V3', 'M11 3h2'],
+      facebook: ['M13 22v-8h2.5l.5-3h-3V9c0-.9.3-1.5 1.6-1.5H16.5V5.1C16.2 5 15.2 5 14.1 5 11.8 5 10.5 6.3 10.5 8.6V11H8v3h2.5v8z'],
+      instagram: ['M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z', 'M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z', 'M17 7h.01'],
+      x: ['M5 5l14 14', 'M19 5L5 19'],
+      youtube: ['M22 8.2a2.6 2.6 0 0 0-1.8-1.8C18.6 6 12 6 12 6s-6.6 0-8.2.4A2.6 2.6 0 0 0 2 8.2 27 27 0 0 0 1.6 12 27 27 0 0 0 2 15.8a2.6 2.6 0 0 0 1.8 1.8C5.4 18 12 18 12 18s6.6 0 8.2-.4a2.6 2.6 0 0 0 1.8-1.8 27 27 0 0 0 .4-3.8 27 27 0 0 0-.4-3.8z', 'M10 9.2l5 2.8-5 2.8z'],
+      linkedin: ['M4.5 4.5h15a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1z', 'M8 10.5V17', 'M8 7.5v.01', 'M12 17v-3.5a2 2 0 0 1 4 0V17', 'M12 17v-6.5'],
+      tiktok: ['M9.5 4v10.5a2.5 2.5 0 1 1-2.5-2.5', 'M9.5 4c.4 2.6 2.5 4.3 5 4.5']
+    };
+    const spec = P[name] || P.book;
+    return React.createElement('svg', { width: size || 22, height: size || 22, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' },
+      spec.map((d, i) => React.createElement('path', { key: i, d })));
+  }
+
+  renderVals() {
+    const ic = (n, s) => this.ic(n, s);
+    const akrStyle = (a) => a === 'B'
+      ? { akrBg: '#fbf3dd', akrColor: '#a87e26' }
+      : { akrBg: '#e8f3ec', akrColor: '#0a4730' };
+
+    return {
+      setHeaderRef: (el) => { this.headerEl = el; },
+      icPhone: ic('phone', 15), icMail: ic('mail', 15),
+      icCap: ic('cap', 16), icAward: ic('award', 24), icQuote: ic('quote', 30), icPin: ic('pin', 16),
+
+      nav: [
+        { label: 'Beranda', href: 'Beranda Al-Ikhlash.dc.html' },
+        { label: 'Tentang', href: '#' }, { label: 'Akademik', href: '#' },
+        { label: 'Penerimaan', href: '#pmb' }, { label: 'Riset', href: '#' },
+        { label: 'Berita', href: '#' }, { label: 'Kontak', href: '#' }
+      ],
+
+      subnav: [
+        { label: 'Tentang', href: '#tentang' },
+        { label: 'Program Studi', href: '#prodi' },
+        { label: 'Keunggulan', href: '#keunggulan' },
+        { label: 'Karier', href: '#karier' },
+        { label: 'Fasilitas', href: '#fasilitas' }
+      ],
+
+      stats: [
+        { value: 'Unggul', label: 'Akreditasi', iconEl: ic('award', 26) },
+        { value: '4', label: 'Program Studi', iconEl: ic('book', 26) },
+        { value: '95', label: 'Dosen', iconEl: ic('users', 26) },
+        { value: '2.400+', label: 'Mahasiswa', iconEl: ic('cap', 26) }
+      ],
+
+      prodi: [
+        Object.assign({ code: 'PAI', name: 'Pendidikan Agama Islam', jenjang: 'Sarjana (S1)', gelar: 'S.Pd.', akr: 'Unggul', desc: 'Menyiapkan guru Pendidikan Agama Islam yang profesional untuk sekolah dan madrasah.' }, akrStyle('A')),
+        Object.assign({ code: 'PGMI', name: 'Pendidikan Guru Madrasah Ibtidaiyah', jenjang: 'Sarjana (S1)', gelar: 'S.Pd.', akr: 'A', desc: 'Mencetak guru kelas madrasah ibtidaiyah yang kompeten dan kreatif.' }, akrStyle('A')),
+        Object.assign({ code: 'PBA', name: 'Pendidikan Bahasa Arab', jenjang: 'Sarjana (S1)', gelar: 'S.Pd.', akr: 'A', desc: 'Membentuk pendidik bahasa Arab dengan metodologi pengajaran modern.' }, akrStyle('A')),
+        Object.assign({ code: 'MPI', name: 'Manajemen Pendidikan Islam', jenjang: 'Sarjana (S1)', gelar: 'S.Pd.', akr: 'B', desc: 'Menyiapkan tenaga manajerial dan pengelola lembaga pendidikan Islam.' }, akrStyle('B'))
+      ],
+
+      keunggulan: [
+        { t: 'Kurikulum Terintegrasi', d: 'Memadukan ilmu pendidikan, keislaman, dan teknologi pembelajaran.', iconEl: ic('book', 24) },
+        { t: 'Laboratorium Microteaching', d: 'Latihan mengajar dengan rekaman dan umpan balik langsung dosen.', iconEl: ic('presentation', 24) },
+        { t: 'Sertifikasi Pendidik', d: 'Jalur menuju sertifikasi guru profesional melalui program PPG.', iconEl: ic('award', 24) },
+        { t: 'Jejaring Sekolah Mitra', d: 'Magang dan PPL di lebih dari 120 sekolah serta madrasah mitra.', iconEl: ic('users', 24) },
+        { t: 'Beasiswa Tahfizh & Prestasi', d: 'Dukungan pembiayaan bagi mahasiswa berprestasi dan penghafal Qur\u2019an.', iconEl: ic('sparkle', 24) },
+        { t: 'Dosen Berkualifikasi Doktor', d: '70% dosen bergelar doktor dengan rekam jejak riset yang kuat.', iconEl: ic('cap', 24) }
+      ],
+
+      kompetensi: [
+        { text: 'Merancang dan melaksanakan pembelajaran yang efektif dan bermakna.', iconEl: ic('checkCircle', 22) },
+        { text: 'Mengembangkan kurikulum dan bahan ajar yang inovatif.', iconEl: ic('checkCircle', 22) },
+        { text: 'Mengelola kelas berbasis teknologi pembelajaran terkini.', iconEl: ic('checkCircle', 22) },
+        { text: 'Melakukan penelitian untuk pengembangan pendidikan.', iconEl: ic('checkCircle', 22) },
+        { text: 'Mengintegrasikan nilai-nilai keislaman dalam setiap pengajaran.', iconEl: ic('checkCircle', 22) }
+      ],
+
+      karier: [
+        { t: 'Guru & Pendidik', d: 'Sekolah, madrasah, dan pesantren', iconEl: ic('cap', 22) },
+        { t: 'Manajer Pendidikan', d: 'Kepala sekolah & pengawas', iconEl: ic('briefcase', 22) },
+        { t: 'Peneliti & Akademisi', d: 'Lembaga riset & perguruan tinggi', iconEl: ic('flask', 22) },
+        { t: 'Pengembang Kurikulum', d: 'Penulis & konsultan bahan ajar', iconEl: ic('journal', 22) },
+        { t: 'Konsultan Pendidikan', d: 'Lembaga pelatihan & EdTech', iconEl: ic('bulb', 22) },
+        { t: 'Wirausaha Edukasi', d: 'Bimbel & platform belajar', iconEl: ic('sparkle', 22) }
+      ],
+
+      fasilitas: [
+        { id: 1, name: 'Laboratorium Microteaching', iconEl: ic('presentation', 22) },
+        { id: 2, name: 'Perpustakaan Fakultas', iconEl: ic('book', 22) },
+        { id: 3, name: 'Laboratorium Bahasa', iconEl: ic('chat', 22) },
+        { id: 4, name: 'Ruang Multimedia', iconEl: ic('monitor', 22) },
+        { id: 5, name: 'Masjid Kampus', iconEl: ic('mosque', 22) },
+        { id: 6, name: 'Pusat Karier & Alumni', iconEl: ic('briefcase', 22) }
+      ],
+
+      socials: ['facebook', 'instagram', 'x', 'youtube', 'linkedin', 'tiktok'].map(n => ({ iconEl: ic(n, 19) })),
+
+      footerCols: [
+        { title: 'Akademik', links: ['Fakultas & Prodi', 'Kalender Akademik', 'Perpustakaan', 'E-Learning', 'SIAKAD'] },
+        { title: 'Penerimaan', links: ['Info PMB', 'Jalur Pendaftaran', 'Biaya Kuliah', 'Beasiswa', 'Unduh Brosur'] },
+        { title: 'Informasi', links: ['Berita', 'Agenda', 'Pengumuman', 'Karier', 'PPID'] },
+        { title: 'Tautan', links: ['Jurnal Ilmiah', 'Repositori', 'LPPM', 'Alumni', 'Kontak'] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

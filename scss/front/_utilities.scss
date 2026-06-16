@@ -1,0 +1,48 @@
+/*
+ * Utilities — custom additions to @layer utilities
+ *
+ * Hanya berisi yang benar-benar tidak ada di Tailwind v3:
+ * - Fluid typography dengan clamp()
+ * - Section spacing (92px tidak ada di Tailwind default scale)
+ * - Animation class untuk keyframes custom (fadeup, floaty)
+ * - Gradient backgrounds spesifik project ini
+ */
+
+@layer utilities {
+
+  /* ─── Fluid Typography ──────────────────────────────────────────────── */
+
+  .text-hero {
+    font-size: clamp(38px, 5vw, 60px);
+    line-height: 1.07;
+  }
+
+  .text-hero-sub {
+    font-size: clamp(34px, 4.6vw, 54px);
+    line-height: 1.08;
+  }
+
+  .text-section {
+    font-size: clamp(28px, 3.6vw, 42px);
+    line-height: 1.13;
+  }
+
+  .text-cta {
+    font-size: clamp(28px, 4vw, 46px);
+    line-height: 1.12;
+  }
+
+  /* ─── Section Spacing ───────────────────────────────────────────────── */
+
+  .section-py {
+    padding-top: 92px;
+    padding-bottom: 92px;
+  }
+
+  /* ─── Animation Utilities ───────────────────────────────────────────── */
+
+  .anim-fadeup {
+    animation: fadeup 1s ease both;
+  }
+
+} /* end @layer utilities */
