@@ -226,7 +226,7 @@ function jalaversity_updater_clear_cache( mixed $upgrader, array $options ): voi
 
 function jalaversity_updater_section_callback(): void {
 	$version = jalaversity_updater_get_version();
-	$release = get_transient( 'jalaversity_github_release' );
+	$release = jalaversity_updater_get_release();
 	$force_url = add_query_arg(
 		[ 'page' => 'jalaversity-settings', 'tab' => 'update', 'jalaversity_force_check' => '1' ],
 		admin_url( 'admin.php' )
