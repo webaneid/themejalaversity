@@ -101,9 +101,11 @@ $img_radius_class = 'content-media__img-wrap--' . sanitize_html_class( $image_ra
 					<?php echo esc_html( $heading ); ?>
 				</h2>
 
-				<?php if ( $body ) : ?>
-				<p class="content-media__body"><?php echo esc_html( $body ); ?></p>
-				<?php endif; ?>
+				<?php if ( $body ) :
+					$paragraphs = array_filter( array_map( 'trim', preg_split( '/\n{2,}/', $body ) ) );
+					foreach ( $paragraphs as $para ) : ?>
+				<p class="content-media__body"><?php echo nl2br( esc_html( $para ) ); ?></p>
+				<?php endforeach; endif; ?>
 
 				<?php if ( $items ) : ?>
 				<div class="content-media__items">

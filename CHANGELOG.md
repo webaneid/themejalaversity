@@ -1,5 +1,12 @@
 # Changelog — Jalaversity Theme
 
+## [1.1.1] — 2026-06-26
+
+### Fixed
+- **card-grid-dark-bg** — card body sekarang glass morphism (backdrop-blur, border transparan); icon warna aksen, title & desc putih
+- **checklist-cards** — icon-list ganti layout `plain` → `rows` sehingga icon punya kotak bg primary + warna aksen
+- **content-media body** — enter dua kali = paragraf baru; enter sekali = line break dalam paragraf yang sama
+
 ## [1.1.0] — 2026-06-26
 
 ### Added

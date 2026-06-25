@@ -52,7 +52,7 @@ $checklist_items = array_map(
 
 			<?php get_template_part( 'template-parts/components/icon-list', null, [
 				'items'  => $checklist_items,
-				'layout' => 'plain',
+				'layout' => 'rows',
 			] ); ?>
 		</div>
 
