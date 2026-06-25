@@ -45,7 +45,10 @@ function jalaversity_render_dynamic_section( string $layout ): void {
 			jalaversity_render_acf_pmb_section();
 			break;
 		case 'news_section':
-			get_template_part( 'template-parts/content/news-section' );
+			get_template_part( 'template-parts/content/news-section', null, [
+				'label'   => get_sub_field( 'label' )   ?: __( 'Kabar Kampus', 'jalaversity' ),
+				'heading' => get_sub_field( 'heading' ) ?: __( 'Berita & Pengumuman', 'jalaversity' ),
+			] );
 			break;
 		case 'sub_nav':
 			jalaversity_render_acf_sub_nav();

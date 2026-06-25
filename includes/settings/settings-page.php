@@ -59,7 +59,13 @@ function jalaversity_render_settings_page(): void {
 		<form method="post" action="options.php">
 			<?php
 			settings_fields( 'jalaversity_options_group' );
-			do_settings_sections( 'jalaversity_settings_' . $current_tab );
+
+			if ( isset( $schema[ $current_tab ]['render'] ) ) {
+				call_user_func( $schema[ $current_tab ]['render'] );
+			} else {
+				do_settings_sections( 'jalaversity_settings_' . $current_tab );
+			}
+
 			submit_button();
 			?>
 		</form>

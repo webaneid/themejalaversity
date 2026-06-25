@@ -63,7 +63,10 @@ if ( $highlight && false !== strpos( $heading, $highlight ) ) {
 	$heading_html = esc_html( $heading );
 }
 
-$section_class = 'hero-page' . ( $is_home ? '' : ' hero-page--subpage' );
+$has_visual    = $image_id || $floating_badge;
+$section_class = 'hero-page'
+	. ( $is_home ? '' : ' hero-page--subpage' )
+	. ( $has_visual ? '' : ' hero-page--text-only' );
 ?>
 <section class="<?php echo esc_attr( $section_class ); ?>" aria-labelledby="hero-heading">
 	<div class="hero-page__glow" aria-hidden="true"></div>

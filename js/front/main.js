@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initArabicParagraphs();
   initCopyLink();
+  initWaWidget();
 });
 
 /* ── Sticky Header ──────────────────────────────────────────────────── */
@@ -242,5 +243,48 @@ function initCopyLink() {
         setTimeout(() => btn.setAttribute('aria-label', original), 2000);
       });
     });
+  });
+}
+
+/* ── WhatsApp Widget ─────────────────────────────────────────────────── */
+
+function initWaWidget() {
+  const widget = document.getElementById('wa-widget');
+  if (!widget) return;
+
+  const fab    = document.getElementById('wa-fab');
+  const popup  = document.getElementById('wa-popup');
+  const close  = document.getElementById('wa-popup-close');
+
+  function openPopup() {
+    popup.hidden = false;
+    fab.setAttribute('aria-expanded', 'true');
+    fab.classList.add('is-active');
+    close.focus();
+  }
+
+  function closePopup() {
+    popup.hidden = true;
+    fab.setAttribute('aria-expanded', 'false');
+    fab.classList.remove('is-active');
+    fab.focus();
+  }
+
+  fab.addEventListener('click', () => {
+    popup.hidden ? openPopup() : closePopup();
+  });
+
+  close.addEventListener('click', closePopup);
+
+  // Tutup saat klik di luar popup
+  document.addEventListener('click', (e) => {
+    if (!popup.hidden && !widget.contains(e.target)) {
+      closePopup();
+    }
+  });
+
+  // Tutup dengan Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !popup.hidden) closePopup();
   });
 }

@@ -30,7 +30,7 @@ if ( version_compare( PHP_VERSION, '8.1', '<' ) ) {
 }
 
 // Theme constants.
-define( 'JALAVERSITY_VERSION', '1.0.0' );
+define( 'JALAVERSITY_VERSION', '1.1.0' );
 define( 'JALAVERSITY_DIR', get_template_directory() );
 define( 'JALAVERSITY_URI', get_template_directory_uri() );
 
@@ -53,6 +53,7 @@ $jalaversity_includes = [
 	'/includes/acf/acf-fields.php',          // Requires icon-helpers.php (icon choices)
 	'/includes/acf/acf-render.php',
 	'/includes/acf/acf-post-fields.php',
+	'/includes/acf/acf-options.php',         // ACF Options Pages (Tim Layanan, dll)
 	'/includes/updater.php',               // GitHub auto-updater (load last — needs options-helpers.php)
 ];
 

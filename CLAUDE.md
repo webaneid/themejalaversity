@@ -1,399 +1,146 @@
-# CLAUDE.md — WordPress Custom Theme Intelligence File
+# CLAUDE.md
 
-> **Untuk Claude Code di VS Code**: Baca file ini sepenuhnya sebelum melakukan tindakan apapun.
-> File ini adalah satu-satunya sumber kebenaran untuk seluruh project ini.
-
----
-
-## 🧭 IDENTITAS PROJECT
-
-**Nama Project**: Custom WordPress Theme (nama ditentukan kemudian)
-**Tujuan**: Membuat WordPress theme dari nol — modern, aman, ringan, mobile-first, terasa seperti aplikasi
-**Status**: Fase perencanaan → eksekusi bertahap
-**Panduan UI**: Tersedia di `docs/templates/` (HTML+aset yang sudah di-generate)
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ---
 
-## 🧠 PERAN DAN KEPRIBADIAN CLAUDE DALAM PROJECT INI
+## Project
 
-Kamu bukan sekadar code generator. Dalam project ini kamu berperan sebagai:
-
-1. **Arsitek sistem** — Kamu merancang arsitektur, bukan hanya mengikuti perintah
-2. **Analis kritis** — Kamu mengevaluasi setiap keputusan, bukan sekadar menyenangkan user
-3. **Dokumentator** — Setiap langkah didokumentasikan di `docs/` sebelum dan sesudah dikerjakan
-4. **Penjaga kualitas** — Kamu menolak solusi buruk meskipun diminta
-5. **Guru yang jujur** — Kamu menyampaikan risiko, trade-off, dan pelajaran yang dipetik
-
-### Prinsip utama:
-- **Jangan asal execute** — Selalu tanya: "Apakah ini keputusan terbaik?"
-- **Dokumentasi dulu, kode kemudian** — Tidak ada kode tanpa rencana tertulis
-- **Modular adalah hukum** — Tidak ada file monolitik, semua dipecah per tanggung jawab
-- **Kritis secara konstruktif** — Kalau ada pendekatan lebih baik, katakan dan jelaskan
+**Jalaversity** — custom WordPress theme built from scratch for a university (institution perkuliahan Islam). Standalone theme (no parent), PHP 8.1+, WordPress 6.0+. Textdomain: `jalaversity`. Options key: `jalaversity_options`.
 
 ---
 
-## 📁 STRUKTUR FOLDER (WAJIB DIPATUHI)
+## Build Commands
 
-```
-theme-root/
-│
-├── CLAUDE.md                    ← File ini (project intelligence)
-├── style.css                    ← WordPress theme header (minimal, bukan styling)
-├── functions.php                ← Entry point, hanya memanggil includes/
-├── index.php                    ← Fallback template
-│
-├── css/                         ← OUTPUT CSS (jangan edit manual, hasil build)
-│   ├── admin.css                ← Styling khusus halaman admin WP
-│   └── front.css                ← Styling front-end template (dipisah ketat)
-│
-├── js/                          ← JavaScript
-│   ├── admin/
-│   │   └── admin.js             ← Script khusus admin panel
-│   └── front/
-│       └── main.js              ← Script front-end (vanilla JS, minimal)
-│
-├── includes/                    ← PHP modules (satu file = satu tanggung jawab)
-│   ├── setup.php                ← Theme setup, register support
-│   ├── enqueue.php              ← Enqueue CSS/JS dengan cara aman
-│   ├── security.php             ← Hardening WordPress
-│   ├── seo.php                  ← Meta tags, OG, schema, breadcrumb
-│   ├── settings/
-│   │   ├── settings-page.php    ← Registrasi settings page admin
-│   │   ├── settings-fields.php  ← Field groups dan sections
-│   │   └── settings-sanitize.php← Sanitasi dan validasi input
-│   ├── post-types/
-│   │   └── custom-post-types.php← CPT jika dibutuhkan
-│   └── helpers/
-│       ├── image-helpers.php    ← Fungsi gambar (srcset, lazy load, dll)
-│       └── social-helpers.php   ← Share buttons, OG image
-│
-├── template-parts/              ← Bagian UI yang dapat digunakan ulang
-│   ├── header/
-│   │   ├── site-header.php
-│   │   └── navigation.php
-│   ├── footer/
-│   │   └── site-footer.php
-│   ├── content/
-│   │   ├── content-single.php   ← Layout artikel tunggal
-│   │   ├── content-archive.php  ← Layout halaman arsip
-│   │   └── content-card.php     ← Komponen card untuk listing
-│   └── components/
-│       ├── pagination.php
-│       ├── search-form.php
-│       └── breadcrumb.php
-│
-├── scss/                        ← Source SCSS (Tailwind-compatible)
-│   ├── admin/
-│   │   └── _admin-base.scss
-│   └── front/
-│       ├── _variables.scss
-│       ├── _base.scss
-│       ├── _components.scss
-│       └── _utilities.scss
-│
-├── assets/                      ← Gambar, font, ikon statis
-│   └── icons/                   ← SVG icons (minimal, inline-ready)
-│
-├── docs/                        ← DOKUMENTASI PROJECT (wajib diisi)
-│   ├── templates/               ← UI reference dari hasil design (jangan diedit)
-│   ├── 00-project-brief.md      ← Ringkasan keseluruhan project
-│   ├── 01-planning.md           ← Rencana tahap demi tahap
-│   ├── 02-architecture.md       ← Keputusan arsitektur dan alasannya
-│   ├── 03-design-system.md      ← Token warna, tipografi, spacing
-│   ├── 04-settings-schema.md    ← Skema semua setting page
-│   ├── 05-seo-strategy.md       ← Strategi dan implementasi SEO
-│   ├── 06-security-checklist.md ← Daftar keamanan yang diimplementasi
-│   └── changelog.md             ← Log perubahan per sesi
-│
-└── page-templates/              ← Full page templates WordPress
-    ├── page-home.php
-    ├── page-fullwidth.php
-    └── page-landing.php
+```bash
+# Install dependencies (first time)
+npm install
+
+# Front-end CSS — watch mode (development)
+npm run dev
+
+# Admin CSS — watch mode
+npm run dev:admin
+
+# Production build (minified, purged)
+npm run build         # → css/front.css
+npm run build:admin   # → css/admin.css
 ```
 
----
+CSS source is in `scss/`, compiled output lands in `css/`. **Never edit `css/*.css` directly** — they are build artifacts. After any SCSS change, run `npm run build` before checking behavior.
 
-## ⚙️ TECH STACK & KEPUTUSAN TEKNIS
-
-### PHP
-- **Versi minimum**: PHP 8.1+
-- **Paradigma**: Functional (bukan OOP kecuali ada alasan kuat)
-- **Sanitasi**: Setiap input wajib sanitasi, setiap output wajib escape
-- **Nonce**: Wajib untuk semua form dan AJAX
-
-### CSS / Styling
-- **Pendekatan**: Tailwind CSS via CDN utility classes ATAU generate CSS dari konfigurasi Tailwind (diputuskan di fase planning)
-- **Arsitektur**: CSS dipisah ketat — `admin.css` vs `front.css`
-- **SCSS**: Source di `scss/`, output di `css/`
-- **Ikon**: Heroicons SVG inline (ringan, tidak ada font icon)
-- **Target**: < 30KB CSS untuk front-end (gzip)
-
-### JavaScript
-- **Pendekatan**: Vanilla JS dulu, library hanya kalau benar-benar perlu
-- **Module**: ES modules jika browser support memadai
-- **Strategi load**: `defer` untuk semua script non-kritis
-
-### WordPress
-- **Minimum WP**: 6.0+
-- **Tidak menggunakan**: jQuery (kecuali WP admin membutuhkan), page builder, plugin berat
-- **Settings API**: Murni WordPress Settings API, bukan custom table
+**Verify PHP syntax** before committing: `php -l <file>` on any changed `.php` file.
 
 ---
 
-## 🔒 PRINSIP KEAMANAN (NON-NEGOTIABLE)
+## Architecture
 
-Setiap kode yang ditulis WAJIB mengikuti ini:
+### File Loading Order
+
+`functions.php` only requires files — zero logic. Load order in `includes/`:
+
+```
+setup.php → security.php → enqueue.php → seo.php
+→ settings/{settings-page, settings-fields, settings-sanitize}.php
+→ helpers/{options-helpers, image-helpers, icon-helpers, social-helpers, post-helpers, template-helpers}.php
+→ acf/{acf-fields, acf-render, acf-post-fields}.php
+→ nav-walker.php → updater.php
+```
+
+### Settings & Options
+
+All settings stored under a single `wp_options` key via WordPress Options API. Always read through the static-cached helper — never call `get_option()` directly:
 
 ```php
-// 1. Cegah akses langsung ke file PHP
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
-
-// 2. Sanitasi semua input
-$value = sanitize_text_field( $_POST['field'] ?? '' );
-
-// 3. Escape semua output
-echo esc_html( $variable );
-echo esc_url( $url );
-echo esc_attr( $attribute );
-echo wp_kses_post( $html_content );
-
-// 4. Nonce untuk form dan AJAX
-wp_nonce_field( 'my_action', 'my_nonce' );
-check_admin_referer( 'my_action', 'my_nonce' );
-
-// 5. Capability check
-if ( ! current_user_can( 'manage_options' ) ) {
-    wp_die( esc_html__( 'Unauthorized', 'theme-textdomain' ) );
-}
+jalaversity_get_option( 'key', $default )   // in includes/helpers/options-helpers.php
 ```
 
-**Daftar hardening** (lihat `docs/06-security-checklist.md`):
-- [ ] Sembunyikan versi WordPress
-- [ ] Disable XML-RPC
-- [ ] Limit login attempts (hooks, bukan plugin)
-- [ ] Proteksi wp-config.php via .htaccess
-- [ ] CSP headers
-- [ ] Tidak ada `eval()` di PHP
-- [ ] Tidak ada inline JS dengan data sensitif
+### CSS Architecture
+
+`scss/front/main.scss` imports in this exact order:
+1. `@tailwind base / components / utilities`
+2. `_variables.scss` — CSS custom properties (`:root`)
+3. `_base.scss` — reset, `@font-face` (Gontor self-hosted), typography
+4. `_components.scss` — **only file allowed to have `@layer components {}`** (ACF builder components)
+5. `_article.scss` — post/archive/sidebar styles (plain rules, NO `@layer` wrapper)
+6. `_utilities.scss` — custom helpers
+
+**Critical**: Only `_components.scss` may wrap rules in `@layer components {}`. Any new partial **must** use plain rules — Tailwind v3 silently drops rules from a second `@layer` block (verified, reproducible).
+
+### CSS Theming via Custom Properties
+
+Brand colors are CSS custom properties in `_variables.scss`. `includes/enqueue.php` reads Settings Page options and outputs inline CSS to `<head>` to override them — this is how colors change without a CSS rebuild. Never hardcode brand colors in SCSS; always use `var(--color-*)`.
+
+Tailwind extends those properties as named colors (`primary`, `accent`, `bg`, `surface`, etc.) in `tailwind.config.js`. When adding new PHP template folders, add the path to `tailwind.config.js` `content[]` or those Tailwind classes won't be purged-in.
+
+### Template Architecture — Two Distinct Component Types
+
+**1. Pure-$args components** (`template-parts/components/`) — used by ACF page builder. They only render data from `$args`, never call `jalaversity_get_option()` or read global `$post` directly. Data is prepared in page templates or `includes/helpers/template-helpers.php` before being passed in.
+
+**2. Loop-context components** (`template-parts/content/`) — operate inside the WP loop (`the_post()` already called). They call `get_the_title()`, `the_content()`, etc. directly. `$args` here is only for display options (e.g. `variant`), not post data.
+
+**Rule**: if two sections look different but share the same structure, make it one component with parameters — not two files. New components are only created when a genuinely new UI pattern exists, not speculatively.
+
+### ACF Page Builder (requires ACF Pro)
+
+`page-templates/page-dynamic.php` ("Template Name: Halaman Dinamis") loops over a `flexible_content` field (`page_sections`) and dispatches to components.
+
+- **Schema** registered in code (not via ACF UI export): `includes/acf/acf-fields.php`
+- **Render bridge**: `includes/acf/acf-render.php` — one `jalaversity_render_acf_*()` function per layout; reads `get_sub_field()`, builds `$args`, calls `get_template_part()`
+- **Post meta fields** (is_featured, editor): `includes/acf/acf-post-fields.php` — read directly via `get_field()`, no render bridge needed
+
+Available layouts: `hero`, `stats_bar`, `content_media`, `card_grid`, `numbered_steps`, `cta_banner`, `pmb_section`, `news_section`, `sub_nav`, `profile_quote`, `checklist_cards`.
+
+To add a new layout: 1 component file in `template-parts/components/` + 1 layout definition in `acf-fields.php` + 1 render function in `acf-render.php`.
+
+### Image Sizes
+
+4 registered sizes, all hard-crop, declared in `includes/setup.php`:
+
+| Name | Dimensions | Ratio | Used for |
+|---|---|---|---|
+| `jalaversity-large` | 1120×630 | 16:9 | Reserved (not wired yet) |
+| `jalaversity-medium` | 800×450 | 16:9 | Single post & Page featured image |
+| `jalaversity-thumbnail` | 400×225 | 16:9 | `content-card.php` overlay & klasik variants |
+| `jalaversity-square` | 400×400 | 1:1 | `content-card.php` list variant |
+
+New uploads auto-convert to WebP at quality 80 (turunan only — originals kept). The constant `JALAVERSITY_IMAGE_SIZES` in `includes/helpers/image-helpers.php` must stay in sync with `add_image_size()` in `setup.php` (used for placeholder SVG dimensions).
+
+### Fonts
+
+- **Heading**: `Gontor-Bold.otf` self-hosted via `@font-face` in `_base.scss` (path: `../fonts/Gontor-Bold.otf`). Path is relative to the compiled CSS output, not PHP — no `get_template_directory_uri()` here.
+- **Body**: Plus Jakarta Sans, Google Fonts CDN.
+- Only `Gontor-Bold.otf` (weight 700) is loaded; all headings in this theme use weight 700 only.
+
+### content-card.php Variants
+
+Single file, 4 variants via `$args['variant']`:
+- `overlay` — background image + gradient, title overlay
+- `list` — image ~30% left column
+- `klasik` — image stacked top + excerpt
+- `title` — no image
 
 ---
 
-## 🎨 DESIGN SYSTEM (REFERENSI)
+## Security Rules (Non-Negotiable)
 
-Panduan UI tersimpan di `docs/templates/`. Claude **wajib membaca** file HTML di sana sebelum menulis satu baris CSS.
-
-### Prinsip desain:
-- **Mobile-first**: Desain dari 375px ke atas
-- **PWA feel**: Terasa seperti app — transisi smooth, tap targets 44px minimum
-- **Tipografi**: System font stack dulu, Google Font jika benar-benar dibutuhkan
-- **Spasi**: Konsisten, gunakan token dari Tailwind (4px grid)
-- **Warna**: Didefinisikan di `scss/front/_variables.scss` sebagai CSS custom properties
-
-### Komponen prioritas:
-1. Navigation (sticky, responsive, hamburger menu)
-2. Card berita/konten
-3. Single post layout
-4. Archive/listing page
-5. Sidebar (optional, collapsible)
-6. Footer
-7. Search overlay
-
----
-
-## 📊 SETTINGS PAGE — SKEMA AWAL
-
-Settings page wajib komprehensif. Seksi yang direncanakan:
-
-| Seksi | Konten |
-|-------|--------|
-| **General** | Nama site, tagline, logo, favicon |
-| **Header** | Sticky header on/off, transparent header, menu layout |
-| **Footer** | Copyright text, kolom footer, social links |
-| **SEO** | Default meta description, OG image default, schema type |
-| **Social Media** | URL semua platform sosial |
-| **Performance** | Lazy load on/off, preload fonts on/off |
-| **Colors** | Primary color, accent color, background |
-| **Typography** | Font family selection, size base |
-| **Advanced** | Custom CSS, custom JS (sanitized), maintenance mode |
-
-Semua nilai settings diambil menggunakan helper:
+Every PHP file must start with:
 ```php
-function mytheme_get_option( string $key, mixed $default = '' ): mixed {
-    $options = get_option( 'mytheme_options', [] );
-    return $options[ $key ] ?? $default;
-}
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 ```
 
----
+All input must be sanitized (`sanitize_text_field`, `sanitize_hex_color`, etc.), all output must be escaped (`esc_html`, `esc_url`, `esc_attr`, `wp_kses_post`). All forms need nonces. All admin callbacks need capability checks.
 
-## 🔍 STRATEGI SEO
-
-Diimplementasi di `includes/seo.php`:
-
-- **Title tag**: Dinamis per halaman (single, archive, home, search)
-- **Meta description**: Dari settings → excerpt → auto-generate
-- **Open Graph**: og:title, og:description, og:image, og:type
-- **Twitter Card**: summary_large_image
-- **Schema.org**: Article (single post), WebSite (homepage), BreadcrumbList
-- **Canonical URL**: Di semua halaman
-- **Sitemap**: Gunakan WordPress native (WP 5.5+)
-- **Breadcrumb**: Structural, dengan schema markup
+No `eval()`, no inline JS with sensitive data, no hardcoded URLs — always `get_template_directory_uri()`.
 
 ---
 
-## 🛠️ WORKFLOW PENGEMBANGAN (CLAUDE WAJIB IKUTI)
+## Known Constraints
 
-### Setiap sesi kerja mengikuti urutan ini:
-
-```
-STEP 1 — BACA KONTEKS
-├── Baca CLAUDE.md (file ini)
-├── Baca docs/01-planning.md
-└── Baca docs/changelog.md (sesi terakhir)
-
-STEP 2 — RENCANAKAN
-├── Nyatakan apa yang akan dikerjakan
-├── Identifikasi file yang akan dibuat/diubah
-├── Identifikasi risiko atau trade-off
-└── Minta konfirmasi sebelum mulai (kecuali task jelas)
-
-STEP 3 — EKSEKUSI BERTAHAP
-├── Kerjakan satu modul per satu waktu
-├── Tulis komentar PHP yang informatif
-└── Jangan pindah ke modul berikutnya sebelum yang ini selesai
-
-STEP 4 — EVALUASI
-├── Apakah kode aman? (cek security checklist)
-├── Apakah ada duplikasi yang bisa dimodularisasi?
-├── Apakah sudah sesuai design reference?
-└── Apakah ada yang bisa lebih ringan/performant?
-
-STEP 5 — DOKUMENTASI
-├── Update docs/changelog.md
-├── Update file docs yang relevan
-└── Catat pelajaran yang dipetik (lessons learned)
-```
-
-### Template dokumentasi per sesi (di `docs/changelog.md`):
-```markdown
-## [TANGGAL] — [NAMA SESI]
-
-### Yang dikerjakan:
-- ...
-
-### Keputusan teknis:
-- ...
-
-### Risiko yang diidentifikasi:
-- ...
-
-### Pelajaran yang dipetik:
-- ...
-
-### Next steps:
-- ...
-```
-
----
-
-## 📋 FASE PENGEMBANGAN
-
-### Fase 0 — Fondasi (SEKARANG)
-- [ ] Buat `CLAUDE.md` ini ✅
-- [ ] Buat `docs/00-project-brief.md`
-- [ ] Buat `docs/01-planning.md` dengan timeline
-- [ ] Analisis `docs/templates/` (UI reference)
-- [ ] Buat `docs/03-design-system.md` dari analisis UI
-
-### Fase 1 — Setup WordPress Theme
-- [ ] `style.css` (theme header)
-- [ ] `functions.php` (entry point minimal)
-- [ ] `includes/setup.php`
-- [ ] `includes/enqueue.php`
-- [ ] `includes/security.php`
-
-### Fase 2 — Design System & CSS
-- [ ] Setup SCSS structure
-- [ ] Ekstrak design tokens dari UI reference
-- [ ] Buat `front.css` base
-- [ ] Buat `admin.css` base
-
-### Fase 3 — Template Parts
-- [ ] Header & Navigation
-- [ ] Footer
-- [ ] Content card component
-- [ ] Single post layout
-- [ ] Archive layout
-
-### Fase 4 — Settings Page
-- [ ] Settings page structure
-- [ ] Semua field groups
-- [ ] Sanitasi lengkap
-- [ ] UI settings page yang bersih
-
-### Fase 5 — SEO
-- [ ] `includes/seo.php`
-- [ ] Schema markup
-- [ ] Breadcrumb component
-
-### Fase 6 — Performance & Testing
-- [ ] Audit CSS size
-- [ ] Audit JS size
-- [ ] Test mobile
-- [ ] Test keamanan
-
----
-
-## ⚠️ ATURAN YANG TIDAK BOLEH DILANGGAR
-
-1. **Jangan pernah** menulis PHP tanpa `if ( ! defined( 'ABSPATH' ) ) exit;`
-2. **Jangan pernah** echo variabel tanpa escape
-3. **Jangan pernah** menaruh logika bisnis di template file (hanya di `includes/`)
-4. **Jangan pernah** menggunakan `_e()` atau `__()` tanpa text domain yang konsisten
-5. **Jangan pernah** hardcode URL — selalu gunakan `get_template_directory_uri()`
-6. **Jangan pernah** menulis CSS langsung di PHP template
-7. **Selalu** update `docs/changelog.md` setelah selesai bekerja
-8. **Selalu** konsultasi `docs/templates/` sebelum menulis CSS/HTML baru
-
----
-
-## 🎯 DEFINISI "SELESAI" (DEFINITION OF DONE)
-
-Sebuah fitur dianggap selesai jika:
-- [ ] Kode aman (semua checklist security terpenuhi)
-- [ ] Terdokumentasi di `docs/`
-- [ ] Sesuai design reference di `docs/templates/`
-- [ ] Diuji di mobile (375px, 768px, 1280px)
-- [ ] Tidak ada PHP warning/notice
-- [ ] CSS < target size yang ditetapkan
-- [ ] `changelog.md` diupdate
-
----
-
-## 💡 CARA CLAUDE MEMULAI SESI BARU
-
-Ketika user memulai sesi baru, Claude wajib:
-
-1. Konfirmasi sudah membaca `CLAUDE.md`
-2. Baca `docs/changelog.md` untuk tahu posisi terakhir
-3. Nyatakan: "Saya siap melanjutkan dari [posisi terakhir]. Rencana sesi ini adalah [X]. Apakah kita lanjutkan?"
-4. Tunggu konfirmasi sebelum coding
-
----
-
-## 📝 CATATAN TAMBAHAN DARI OWNER
-
-> *Diisi owner project — tambahkan keputusan atau preferensi khusus di sini*
-
-- Nama theme (textdomain): TBD
-- Target audience: TBD
-- Warna brand utama: Lihat `docs/templates/`
-- Plugin yang wajib kompatibel: TBD
-- Hosting environment: TBD (shared/VPS/cloud)
-
----
-
-*File ini hidup — selalu diupdate seiring project berkembang.*
-*Last updated: [isi tanggal pertama kali setup]*
+- **No jQuery on front-end** — vanilla ES6+ only (`js/front/main.js`). Admin JS lives in `js/admin/`.
+- **GitHub auto-updater** (`includes/updater.php`) — pulls releases from `webaneid/themejalaversity`. GitHub token stored in Settings Page → Tab Update → `github_token` field. No plugin dependency.
+- **WordPress Settings API only** — no custom DB tables.
+- **Comments disabled** — `comment_form()` is not used anywhere.
+- **`?ver=` cache-busting intentionally removed** in `includes/security.php` — hard-refresh required after CSS changes in development.
+- For existing media library images: new image sizes/WebP conversion only applies to new uploads. Use `wp media regenerate --yes` via WP-CLI to backfill old images.
+- Docs in `docs/` are the authoritative record of architectural decisions — check `docs/02-architecture.md` before changing any structural pattern.

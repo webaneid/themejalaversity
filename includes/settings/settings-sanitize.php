@@ -36,6 +36,11 @@ function jalaversity_sanitize_options( mixed $input ): array {
 	$sanitized = [];
 
 	foreach ( jalaversity_settings_schema() as $tab ) {
+		// Tab dengan custom render (misal tim_layanan) tidak punya sections
+		if ( isset( $tab['render'] ) ) {
+			continue;
+		}
+
 		foreach ( $tab['sections'] as $section ) {
 			foreach ( $section['fields'] as $field ) {
 				$key = $field['key'];
@@ -47,6 +52,31 @@ function jalaversity_sanitize_options( mixed $input ): array {
 				$sanitized[ $key ] = jalaversity_sanitize_field_value( $input[ $key ], $field['type'] ?? 'text' );
 			}
 		}
+	}
+
+	// Sanitasi tab Tim Layanan
+	if ( array_key_exists( 'wa_default_message', $input ) ) {
+		$sanitized['wa_default_message'] = sanitize_textarea_field( $input['wa_default_message'] );
+	}
+
+	if ( array_key_exists( 'tim_layanan_contacts', $input ) && is_array( $input['tim_layanan_contacts'] ) ) {
+		$clean_contacts = [];
+		foreach ( $input['tim_layanan_contacts'] as $row ) {
+			if ( ! is_array( $row ) ) {
+				continue;
+			}
+			$nomor = preg_replace( '/[^0-9]/', '', $row['whatsapp'] ?? '' );
+			if ( ! $nomor ) {
+				continue; // baris tanpa nomor WA dibuang
+			}
+			$clean_contacts[] = [
+				'nama'     => sanitize_text_field( $row['nama'] ?? '' ),
+				'jabatan'  => sanitize_text_field( $row['jabatan'] ?? '' ),
+				'whatsapp' => $nomor,
+				'photo'    => absint( $row['photo'] ?? 0 ),
+			];
+		}
+		$sanitized['tim_layanan_contacts'] = $clean_contacts;
 	}
 
 	return array_merge( $existing, $sanitized );

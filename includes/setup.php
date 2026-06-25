@@ -166,3 +166,60 @@ function jalaversity_widgets_init(): void {
 	);
 }
 add_action( 'widgets_init', 'jalaversity_widgets_init' );
+
+/**
+ * Register custom post types.
+ */
+function jalaversity_register_post_types(): void {
+
+	register_post_type(
+		'pengumuman',
+		[
+			'labels'        => [
+				'name'               => __( 'Pengumuman', 'jalaversity' ),
+				'singular_name'      => __( 'Pengumuman', 'jalaversity' ),
+				'add_new_item'       => __( 'Tambah Pengumuman', 'jalaversity' ),
+				'edit_item'          => __( 'Edit Pengumuman', 'jalaversity' ),
+				'new_item'           => __( 'Pengumuman Baru', 'jalaversity' ),
+				'view_item'          => __( 'Lihat Pengumuman', 'jalaversity' ),
+				'search_items'       => __( 'Cari Pengumuman', 'jalaversity' ),
+				'not_found'          => __( 'Pengumuman tidak ditemukan.', 'jalaversity' ),
+				'not_found_in_trash' => __( 'Pengumuman tidak ditemukan di sampah.', 'jalaversity' ),
+				'menu_name'          => __( 'Pengumuman', 'jalaversity' ),
+			],
+			'public'        => true,
+			'has_archive'   => true,
+			'rewrite'       => [ 'slug' => 'pengumuman' ],
+			'show_in_rest'  => false,
+			'supports'      => [ 'title', 'editor', 'excerpt', 'thumbnail' ],
+			'menu_icon'     => 'dashicons-megaphone',
+			'menu_position' => 6,
+		]
+	);
+
+	register_post_type(
+		'agenda',
+		[
+			'labels'        => [
+				'name'               => __( 'Agenda', 'jalaversity' ),
+				'singular_name'      => __( 'Agenda', 'jalaversity' ),
+				'add_new_item'       => __( 'Tambah Agenda', 'jalaversity' ),
+				'edit_item'          => __( 'Edit Agenda', 'jalaversity' ),
+				'new_item'           => __( 'Agenda Baru', 'jalaversity' ),
+				'view_item'          => __( 'Lihat Agenda', 'jalaversity' ),
+				'search_items'       => __( 'Cari Agenda', 'jalaversity' ),
+				'not_found'          => __( 'Agenda tidak ditemukan.', 'jalaversity' ),
+				'not_found_in_trash' => __( 'Agenda tidak ditemukan di sampah.', 'jalaversity' ),
+				'menu_name'          => __( 'Agenda', 'jalaversity' ),
+			],
+			'public'        => true,
+			'has_archive'   => true,
+			'rewrite'       => [ 'slug' => 'agenda' ],
+			'show_in_rest'  => false,
+			'supports'      => [ 'title', 'editor', 'excerpt', 'thumbnail' ],
+			'menu_icon'     => 'dashicons-calendar-alt',
+			'menu_position' => 5,
+		]
+	);
+}
+add_action( 'init', 'jalaversity_register_post_types' );

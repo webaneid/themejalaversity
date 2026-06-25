@@ -16,6 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$section_label   = $args['label']   ?? __( 'Kabar Kampus', 'jalaversity' );
+$section_heading = $args['heading'] ?? __( 'Berita & Pengumuman', 'jalaversity' );
+
 // Tab kategori — hanya tampilkan yang punya post.
 $news_cats_raw = get_categories(
 	[
@@ -41,39 +44,36 @@ $news_query = new WP_Query(
 	]
 );
 
-// Pengumuman — category slug "pengumuman" atau fallback ke latest posts.
+// Pengumuman — CPT 'pengumuman'. Jika kosong, block disembunyikan.
 $announcement_query = new WP_Query(
 	[
-		'post_type'           => 'post',
+		'post_type'           => 'pengumuman',
 		'post_status'         => 'publish',
 		'posts_per_page'      => 4,
 		'no_found_rows'       => true,
 		'ignore_sticky_posts' => true,
-		'category_name'       => 'pengumuman',
 	]
 );
-// Jika kategori "pengumuman" kosong, ambil 4 post terbaru sebagai fallback.
-if ( ! $announcement_query->have_posts() ) {
-	$announcement_query = new WP_Query(
-		[
-			'post_type'           => 'post',
-			'post_status'         => 'publish',
-			'posts_per_page'      => 4,
-			'no_found_rows'       => true,
-			'ignore_sticky_posts' => true,
-		]
-	);
-}
 
-// Agenda — category slug "agenda".
+// Agenda — CPT 'agenda', hanya yang tanggal_mulai >= hari ini, urut ASC.
 $agenda_query = new WP_Query(
 	[
-		'post_type'           => 'post',
+		'post_type'           => 'agenda',
 		'post_status'         => 'publish',
 		'posts_per_page'      => 3,
 		'no_found_rows'       => true,
 		'ignore_sticky_posts' => true,
-		'category_name'       => 'agenda',
+		'meta_key'            => 'tanggal_mulai',
+		'orderby'             => 'meta_value',
+		'order'               => 'ASC',
+		'meta_query'          => [
+			[
+				'key'     => 'tanggal_mulai',
+				'value'   => gmdate( 'Ymd' ),
+				'compare' => '>=',
+				'type'    => 'NUMERIC',
+			],
+		],
 	]
 );
 
@@ -85,9 +85,9 @@ $archive_url = get_post_type_archive_link( 'post' ) ?: home_url( '/berita/' );
 		<!-- ── Header + Tabs ──────────────────────────────────────────── -->
 		<div class="news-section__top">
 			<div class="news-section__heading-wrap">
-				<?php jalaversity_section_label( __( 'Kabar Kampus', 'jalaversity' ) ); ?>
+				<?php jalaversity_section_label( $section_label ); ?>
 				<h2 id="news-heading" class="text-section">
-					<?php esc_html_e( 'Berita & Pengumuman', 'jalaversity' ); ?>
+					<?php echo esc_html( $section_heading ); ?>
 				</h2>
 			</div>
 
@@ -163,6 +163,7 @@ $archive_url = get_post_type_archive_link( 'post' ) ?: home_url( '/berita/' );
 						</article>
 						<?php
 						$is_first = false;
+						echo '<div class="news-list-stack">';
 					else :
 						// List item (kecil).
 						?>
@@ -200,6 +201,7 @@ $archive_url = get_post_type_archive_link( 'post' ) ?: home_url( '/berita/' );
 						<?php
 					endif;
 				endwhile;
+				echo '</div>'; // .news-list-stack
 				wp_reset_postdata();
 			else : ?>
 				<p class="news-section__empty"><?php esc_html_e( 'Belum ada berita yang dipublikasikan.', 'jalaversity' ); ?></p>
@@ -207,9 +209,14 @@ $archive_url = get_post_type_archive_link( 'post' ) ?: home_url( '/berita/' );
 		</div><!-- /.news-grid -->
 
 		<!-- ── Pengumuman + Agenda ─────────────────────────────────────── -->
+		<?php
+		$has_pengumuman = $announcement_query->have_posts();
+		$has_agenda     = $agenda_query->have_posts();
+		if ( $has_pengumuman || $has_agenda ) :
+		?>
 		<div class="news-section__bottom">
 
-			<?php /* Kotak Pengumuman */ ?>
+			<?php if ( $has_pengumuman ) : ?>
 			<div class="news-box">
 				<div class="news-box__header">
 					<span class="news-box__icon" aria-hidden="true">
@@ -218,27 +225,27 @@ $archive_url = get_post_type_archive_link( 'post' ) ?: home_url( '/berita/' );
 					<h3 class="news-box__title"><?php esc_html_e( 'Pengumuman', 'jalaversity' ); ?></h3>
 				</div>
 
-				<?php if ( $announcement_query->have_posts() ) :
-					while ( $announcement_query->have_posts() ) :
-						$announcement_query->the_post();
-					?>
-					<a href="<?php the_permalink(); ?>" class="news-box__item">
-						<span class="news-box__date">
-							<?php echo esc_html( get_the_date( 'd M' ) ); ?>
-						</span>
-						<span class="news-box__item-title"><?php the_title(); ?></span>
-					</a>
-					<?php endwhile;
-					wp_reset_postdata();
-				endif; ?>
+				<?php
+				while ( $announcement_query->have_posts() ) :
+					$announcement_query->the_post();
+				?>
+				<a href="<?php the_permalink(); ?>" class="news-box__item">
+					<span class="news-box__date">
+						<?php echo esc_html( get_the_date( 'd M' ) ); ?>
+					</span>
+					<span class="news-box__item-title"><?php the_title(); ?></span>
+				</a>
+				<?php endwhile;
+				wp_reset_postdata(); ?>
 
-				<a href="<?php echo esc_url( get_category_link( get_cat_ID( 'pengumuman' ) ) ?: $archive_url ); ?>" class="news-box__link">
+				<a href="<?php echo esc_url( get_post_type_archive_link( 'pengumuman' ) ?: $archive_url ); ?>" class="news-box__link">
 					<?php esc_html_e( 'Semua pengumuman', 'jalaversity' ); ?>
 					<?php jalaversity_icon_e( 'chevron-right', 15 ); ?>
 				</a>
 			</div>
+			<?php endif; ?>
 
-			<?php /* Kotak Agenda */ ?>
+			<?php if ( $has_agenda ) : ?>
 			<div class="news-box">
 				<div class="news-box__header">
 					<span class="news-box__icon" aria-hidden="true">
@@ -247,39 +254,55 @@ $archive_url = get_post_type_archive_link( 'post' ) ?: home_url( '/berita/' );
 					<h3 class="news-box__title"><?php esc_html_e( 'Agenda', 'jalaversity' ); ?></h3>
 				</div>
 
-				<?php if ( $agenda_query->have_posts() ) :
-					while ( $agenda_query->have_posts() ) :
-						$agenda_query->the_post();
-					?>
-					<div class="agenda-item">
-						<div class="agenda-item__date" aria-label="<?php echo esc_attr( get_the_date( 'd M' ) ); ?>">
-							<span class="agenda-item__day"><?php echo esc_html( get_the_date( 'd' ) ); ?></span>
-							<span class="agenda-item__month"><?php echo esc_html( strtoupper( get_the_date( 'M' ) ) ); ?></span>
-						</div>
-						<div class="agenda-item__info">
-							<div class="agenda-item__title"><?php the_title(); ?></div>
-							<?php $event_time = get_post_meta( get_the_ID(), '_event_time', true ); ?>
-							<?php if ( $event_time ) : ?>
-							<div class="agenda-item__meta">
-								<?php jalaversity_icon_e( 'clock', 13 ); ?>
-								<?php echo esc_html( $event_time ); ?>
-							</div>
-							<?php endif; ?>
-						</div>
+				<?php
+				while ( $agenda_query->have_posts() ) :
+					$agenda_query->the_post();
+					$tgl_mulai  = get_field( 'tanggal_mulai' );
+					$jam_mulai  = get_field( 'jam_mulai' );
+					$jam_selesai = get_field( 'jam_selesai' );
+					$lokasi     = get_field( 'lokasi' );
+					$dt         = $tgl_mulai ? new DateTime( $tgl_mulai ) : null;
+				?>
+				<div class="agenda-item">
+					<div class="agenda-item__date" aria-label="<?php echo $dt ? esc_attr( $dt->format( 'd M' ) ) : ''; ?>">
+						<span class="agenda-item__day"><?php echo $dt ? esc_html( $dt->format( 'd' ) ) : '—'; ?></span>
+						<span class="agenda-item__month"><?php echo $dt ? esc_html( strtoupper( $dt->format( 'M' ) ) ) : ''; ?></span>
 					</div>
-					<?php endwhile;
-					wp_reset_postdata();
-				else : ?>
-					<p class="news-box__empty"><?php esc_html_e( 'Belum ada agenda.', 'jalaversity' ); ?></p>
-				<?php endif; ?>
+					<div class="agenda-item__info">
+						<div class="agenda-item__title">
+							<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+						</div>
+						<?php if ( $jam_mulai ) : ?>
+						<div class="agenda-item__meta">
+							<?php jalaversity_icon_e( 'clock', 13 ); ?>
+							<?php
+							echo esc_html( $jam_mulai );
+							if ( $jam_selesai ) {
+								echo ' – ' . esc_html( $jam_selesai );
+							}
+							?>
+						</div>
+						<?php endif; ?>
+						<?php if ( $lokasi ) : ?>
+						<div class="agenda-item__meta">
+							<?php jalaversity_icon_e( 'map-pin', 13 ); ?>
+							<?php echo esc_html( $lokasi ); ?>
+						</div>
+						<?php endif; ?>
+					</div>
+				</div>
+				<?php endwhile;
+				wp_reset_postdata(); ?>
 
-				<a href="<?php echo esc_url( get_category_link( get_cat_ID( 'agenda' ) ) ?: $archive_url ); ?>" class="news-box__link">
-					<?php esc_html_e( 'Lihat kalender', 'jalaversity' ); ?>
+				<a href="<?php echo esc_url( get_post_type_archive_link( 'agenda' ) ?: $archive_url ); ?>" class="news-box__link">
+					<?php esc_html_e( 'Lihat semua agenda', 'jalaversity' ); ?>
 					<?php jalaversity_icon_e( 'chevron-right', 15 ); ?>
 				</a>
 			</div>
+			<?php endif; ?>
 
 		</div><!-- /.news-section__bottom -->
+		<?php endif; // has_pengumuman || has_agenda ?>
 
 	</div>
 </section>

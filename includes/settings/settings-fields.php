@@ -33,98 +33,20 @@ function jalaversity_settings_schema(): array {
 				'kontak' => [
 					'label'  => __( 'Kontak & PMB', 'jalaversity' ),
 					'fields' => [
-						[ 'key' => 'contact_address', 'label' => __( 'Alamat', 'jalaversity' ), 'type' => 'textarea' ],
-						[ 'key' => 'contact_phone', 'label' => __( 'Telepon', 'jalaversity' ), 'type' => 'tel' ],
-						[ 'key' => 'contact_email', 'label' => __( 'Email', 'jalaversity' ), 'type' => 'email' ],
-						[ 'key' => 'contact_url', 'label' => __( 'URL Kontak (tombol "Hubungi Kami")', 'jalaversity' ), 'type' => 'url', 'default' => '#' ],
-						[ 'key' => 'footer_copyright', 'label' => __( 'Teks Copyright Footer', 'jalaversity' ), 'type' => 'text' ],
+						[ 'key' => 'contact_address',  'label' => __( 'Alamat', 'jalaversity' ),                                           'type' => 'textarea' ],
+						[ 'key' => 'contact_phone',    'label' => __( 'Telepon', 'jalaversity' ),                                          'type' => 'tel' ],
+						[ 'key' => 'contact_whatsapp', 'label' => __( 'WhatsApp', 'jalaversity' ),                                         'type' => 'text', 'desc' => __( 'Format angka saja tanpa tanda + atau spasi. Contoh: 6281234567890', 'jalaversity' ) ],
+						[ 'key' => 'contact_email',    'label' => __( 'Email', 'jalaversity' ),                                            'type' => 'email' ],
+						[ 'key' => 'contact_hours',    'label' => __( 'Jam Operasional', 'jalaversity' ),                                  'type' => 'text', 'default' => __( 'Sen–Jum: 08.00–16.00 WIB', 'jalaversity' ) ],
+						[ 'key' => 'contact_maps_url', 'label' => __( 'Google Maps Embed URL', 'jalaversity' ),                            'type' => 'url', 'desc' => __( 'Google Maps → Share → Embed a map → salin URL dari src="..."', 'jalaversity' ) ],
+						[ 'key' => 'contact_url',      'label' => __( 'URL Kontak (tombol "Hubungi Kami")', 'jalaversity' ),               'type' => 'url', 'default' => '#' ],
+						[ 'key' => 'footer_copyright', 'label' => __( 'Teks Copyright Footer', 'jalaversity' ),                           'type' => 'text' ],
 						[ 'key' => 'pmb_wave_label', 'label' => __( 'PMB — Label Gelombang', 'jalaversity' ), 'type' => 'text', 'default' => __( 'Penerimaan Mahasiswa Baru 2026/2027', 'jalaversity' ), 'desc' => __( 'Teks kecil di atas heading PMB, mis. "Gelombang II · 2026/2027".', 'jalaversity' ) ],
 						[ 'key' => 'pmb_heading', 'label' => __( 'PMB — Heading', 'jalaversity' ), 'type' => 'text', 'default' => __( 'Gelombang II Telah Dibuka', 'jalaversity' ) ],
 						[ 'key' => 'pmb_body', 'label' => __( 'PMB — Body', 'jalaversity' ), 'type' => 'textarea', 'default' => __( 'Pendaftaran berlangsung 24 Juni – 15 Agustus 2026. Tersedia beasiswa tahfizh, prestasi, dan bidikmisi bagi calon mahasiswa terpilih.', 'jalaversity' ) ],
 						[ 'key' => 'pmb_url', 'label' => __( 'PMB — URL Pendaftaran', 'jalaversity' ), 'type' => 'url', 'default' => '#' ],
 						[ 'key' => 'pmb_label', 'label' => __( 'PMB — Teks Tombol', 'jalaversity' ), 'type' => 'text', 'default' => __( 'Daftar PMB Sekarang', 'jalaversity' ) ],
 						[ 'key' => 'pmb_brochure_url', 'label' => __( 'PMB — URL Brosur (opsional)', 'jalaversity' ), 'type' => 'url' ],
-					],
-				],
-			],
-		],
-
-		'beranda' => [
-			'label'    => __( 'Beranda', 'jalaversity' ),
-			'sections' => [
-				'hero' => [
-					'label'  => __( 'Hero', 'jalaversity' ),
-					'fields' => [
-						[ 'key' => 'hero_tagline', 'label' => __( 'Badge/Tagline', 'jalaversity' ), 'type' => 'text', 'default' => get_bloginfo( 'name' ) ],
-						[ 'key' => 'hero_heading', 'label' => __( 'Heading (H1)', 'jalaversity' ), 'type' => 'text', 'default' => __( 'Menuntut Ilmu, Menebar Manfaat untuk Peradaban', 'jalaversity' ) ],
-						[ 'key' => 'hero_highlight', 'label' => __( 'Frase Highlight', 'jalaversity' ), 'type' => 'text', 'default' => __( 'Menebar Manfaat', 'jalaversity' ), 'desc' => __( 'Frase dalam heading di atas yang diberi warna gold.', 'jalaversity' ) ],
-						[ 'key' => 'hero_lead', 'label' => __( 'Lead Paragraph', 'jalaversity' ), 'type' => 'textarea' ],
-						[ 'key' => 'hero_image_id', 'label' => __( 'Gambar Hero', 'jalaversity' ), 'type' => 'image' ],
-						[ 'key' => 'hero_image_alt', 'label' => __( 'Alt Text Gambar', 'jalaversity' ), 'type' => 'text', 'default' => get_bloginfo( 'name' ) ],
-						[ 'key' => 'hero_trust_1', 'label' => __( 'Trust Badge 1', 'jalaversity' ), 'type' => 'text', 'default' => __( 'Terakreditasi Unggul', 'jalaversity' ) ],
-						[ 'key' => 'hero_trust_2', 'label' => __( 'Trust Badge 2', 'jalaversity' ), 'type' => 'text', 'default' => __( '18 Program Studi', 'jalaversity' ) ],
-						[ 'key' => 'hero_trust_3', 'label' => __( 'Trust Badge 3', 'jalaversity' ), 'type' => 'text', 'default' => __( 'Beasiswa Tahfizh', 'jalaversity' ) ],
-						[ 'key' => 'accreditation_label', 'label' => __( 'Label Floating Badge', 'jalaversity' ), 'type' => 'text', 'default' => __( 'Akreditasi Institusi', 'jalaversity' ) ],
-						[ 'key' => 'accreditation_value', 'label' => __( 'Value Floating Badge', 'jalaversity' ), 'type' => 'text', 'default' => __( 'UNGGUL', 'jalaversity' ) ],
-					],
-				],
-				'tentang' => [
-					'label'  => __( 'Tentang', 'jalaversity' ),
-					'fields' => [
-						[ 'key' => 'about_heading', 'label' => __( 'Heading', 'jalaversity' ), 'type' => 'text' ],
-						[ 'key' => 'about_body', 'label' => __( 'Body', 'jalaversity' ), 'type' => 'textarea' ],
-						[ 'key' => 'about_image_id', 'label' => __( 'Gambar', 'jalaversity' ), 'type' => 'image' ],
-						[ 'key' => 'about_years', 'label' => __( 'Angka Tahun (badge)', 'jalaversity' ), 'type' => 'text', 'default' => '28+' ],
-						[ 'key' => 'about_years_label', 'label' => __( 'Label Tahun', 'jalaversity' ), 'type' => 'text' ],
-						[ 'key' => 'about_link_label', 'label' => __( 'Teks Link', 'jalaversity' ), 'type' => 'text' ],
-						[ 'key' => 'about_link_url', 'label' => __( 'URL Link', 'jalaversity' ), 'type' => 'url', 'default' => '#' ],
-					],
-				],
-				'statistik' => [
-					'label'  => __( 'Statistik', 'jalaversity' ),
-					'fields' => [
-						[ 'key' => 'stats_1_value', 'label' => __( 'Statistik 1 — Value', 'jalaversity' ), 'type' => 'text' ],
-						[ 'key' => 'stats_1_label', 'label' => __( 'Statistik 1 — Label', 'jalaversity' ), 'type' => 'text' ],
-						[ 'key' => 'stats_2_value', 'label' => __( 'Statistik 2 — Value', 'jalaversity' ), 'type' => 'text' ],
-						[ 'key' => 'stats_2_label', 'label' => __( 'Statistik 2 — Label', 'jalaversity' ), 'type' => 'text' ],
-						[ 'key' => 'stats_3_value', 'label' => __( 'Statistik 3 — Value', 'jalaversity' ), 'type' => 'text' ],
-						[ 'key' => 'stats_3_label', 'label' => __( 'Statistik 3 — Label', 'jalaversity' ), 'type' => 'text' ],
-						[ 'key' => 'stats_4_value', 'label' => __( 'Statistik 4 — Value', 'jalaversity' ), 'type' => 'text' ],
-						[ 'key' => 'stats_4_label', 'label' => __( 'Statistik 4 — Label', 'jalaversity' ), 'type' => 'text' ],
-					],
-				],
-				'fakultas' => [
-					'label'  => __( 'Fakultas & Program Studi', 'jalaversity' ),
-					'fields' => array_merge(
-						[
-							[ 'key' => 'faculty_heading', 'label' => __( 'Heading Section', 'jalaversity' ), 'type' => 'text' ],
-							[ 'key' => 'faculty_subhead', 'label' => __( 'Lead Paragraph', 'jalaversity' ), 'type' => 'textarea' ],
-						],
-						jalaversity_settings_faculty_fields()
-					),
-				],
-				'riset' => [
-					'label'  => __( 'Riset & Inovasi', 'jalaversity' ),
-					'fields' => [
-						[ 'key' => 'research_heading', 'label' => __( 'Heading', 'jalaversity' ), 'type' => 'text' ],
-						[ 'key' => 'research_body', 'label' => __( 'Body', 'jalaversity' ), 'type' => 'textarea' ],
-						[ 'key' => 'research_image_id', 'label' => __( 'Gambar', 'jalaversity' ), 'type' => 'image' ],
-						[ 'key' => 'research_badge_value', 'label' => __( 'Value Badge', 'jalaversity' ), 'type' => 'text' ],
-						[ 'key' => 'research_badge_label', 'label' => __( 'Label Badge', 'jalaversity' ), 'type' => 'text' ],
-					],
-				],
-				'lokasi' => [
-					'label'  => __( 'Lokasi Kampus', 'jalaversity' ),
-					'fields' => array_merge(
-						[ [ 'key' => 'locations_heading', 'label' => __( 'Heading Section', 'jalaversity' ), 'type' => 'text' ] ],
-						jalaversity_settings_campus_fields()
-					),
-				],
-				'cta' => [
-					'label'  => __( 'CTA Penutup', 'jalaversity' ),
-					'fields' => [
-						[ 'key' => 'cta_heading', 'label' => __( 'Heading', 'jalaversity' ), 'type' => 'text' ],
-						[ 'key' => 'cta_body', 'label' => __( 'Body', 'jalaversity' ), 'type' => 'textarea' ],
 					],
 				],
 			],
@@ -166,6 +88,11 @@ function jalaversity_settings_schema(): array {
 			],
 		],
 
+		'tim_layanan' => [
+			'label'  => __( 'Tim Layanan', 'jalaversity' ),
+			'render' => 'jalaversity_render_tim_layanan_tab',
+		],
+
 		'update' => [
 			'label'    => __( 'Update', 'jalaversity' ),
 			'sections' => [
@@ -187,56 +114,6 @@ function jalaversity_settings_schema(): array {
 }
 
 /**
- * 2 field (image, url) untuk masing-masing 6 fakultas. Nama/icon/desc tiap
- * fakultas hardcode di jalaversity_get_faculties() — disertakan di label
- * field di sini supaya admin tahu field mana untuk fakultas mana.
- *
- * @return array
- */
-function jalaversity_settings_faculty_fields(): array {
-	$names  = [
-		1 => __( 'Tarbiyah & Keguruan', 'jalaversity' ),
-		2 => __( 'Syariah & Hukum', 'jalaversity' ),
-		3 => __( 'Ushuluddin & Dakwah', 'jalaversity' ),
-		4 => __( 'Ekonomi & Bisnis Islam', 'jalaversity' ),
-		5 => __( 'Adab & Humaniora', 'jalaversity' ),
-		6 => __( 'Pascasarjana', 'jalaversity' ),
-	];
-	$fields = [];
-
-	foreach ( $names as $id => $name ) {
-		$fields[] = [ 'key' => "faculty_{$id}_image_id", 'label' => sprintf( __( 'Gambar — %s', 'jalaversity' ), $name ), 'type' => 'image' ];
-		$fields[] = [ 'key' => "faculty_{$id}_url", 'label' => sprintf( __( 'URL — %s', 'jalaversity' ), $name ), 'type' => 'url', 'default' => '#' ];
-	}
-
-	return $fields;
-}
-
-/**
- * 5 field (name/desc/addr/map/image) untuk masing-masing 3 kampus.
- *
- * @return array
- */
-function jalaversity_settings_campus_fields(): array {
-	$defaults = [
-		1 => [ 'name' => __( 'Kampus Pusat', 'jalaversity' ), 'desc' => __( 'Rektorat, Fakultas Tarbiyah & Syariah, Perpustakaan Pusat.', 'jalaversity' ), 'addr' => __( 'Jl. Pendidikan No. 1, Subang', 'jalaversity' ) ],
-		2 => [ 'name' => __( 'Kampus 2 Terpadu', 'jalaversity' ), 'desc' => __( 'Fakultas Ekonomi & Bisnis Islam, Pusat Inkubator.', 'jalaversity' ), 'addr' => __( 'Jl. Pesantren No. 25, Subang', 'jalaversity' ) ],
-		3 => [ 'name' => __( 'Kampus Pascasarjana', 'jalaversity' ), 'desc' => __( 'Program Magister & Doktor, Pusat Riset Lanjut.', 'jalaversity' ), 'addr' => __( 'Jl. Cendekia No. 7, Subang', 'jalaversity' ) ],
-	];
-	$fields = [];
-
-	foreach ( $defaults as $id => $d ) {
-		$fields[] = [ 'key' => "campus_{$id}_name", 'label' => sprintf( __( 'Nama — Kampus %d', 'jalaversity' ), $id ), 'type' => 'text', 'default' => $d['name'] ];
-		$fields[] = [ 'key' => "campus_{$id}_desc", 'label' => sprintf( __( 'Deskripsi — Kampus %d', 'jalaversity' ), $id ), 'type' => 'textarea', 'default' => $d['desc'] ];
-		$fields[] = [ 'key' => "campus_{$id}_addr", 'label' => sprintf( __( 'Alamat — Kampus %d', 'jalaversity' ), $id ), 'type' => 'text', 'default' => $d['addr'] ];
-		$fields[] = [ 'key' => "campus_{$id}_map", 'label' => sprintf( __( 'URL Google Maps — Kampus %d', 'jalaversity' ), $id ), 'type' => 'url' ];
-		$fields[] = [ 'key' => "campus_{$id}_image_id", 'label' => sprintf( __( 'Gambar — Kampus %d', 'jalaversity' ), $id ), 'type' => 'image' ];
-	}
-
-	return $fields;
-}
-
-/**
  * Registrasi setting + semua section/field ke WordPress Settings API.
  */
 add_action( 'admin_init', function (): void {
@@ -252,6 +129,10 @@ add_action( 'admin_init', function (): void {
 	);
 
 	foreach ( jalaversity_settings_schema() as $tab_slug => $tab ) {
+		if ( isset( $tab['render'] ) ) {
+			continue; // custom-render tabs tidak pakai Settings API sections
+		}
+
 		$page = 'jalaversity_settings_' . $tab_slug;
 
 		foreach ( $tab['sections'] as $section_slug => $section ) {
@@ -273,3 +154,73 @@ add_action( 'admin_init', function (): void {
 		}
 	}
 } );
+
+/**
+ * Render tab Tim Layanan — repeater kustom, disimpan di jalaversity_options.
+ */
+function jalaversity_render_tim_layanan_tab(): void {
+	$message  = jalaversity_get_option( 'wa_default_message', __( 'Halo, saya ingin bertanya mengenai informasi penerimaan mahasiswa baru.', 'jalaversity' ) );
+	$contacts = jalaversity_get_option( 'tim_layanan_contacts', [] );
+	if ( ! is_array( $contacts ) ) {
+		$contacts = [];
+	}
+	?>
+	<h2><?php esc_html_e( 'WhatsApp Widget', 'jalaversity' ); ?></h2>
+	<table class="form-table" role="presentation">
+		<tr>
+			<th scope="row">
+				<label for="jalaversity-field-wa_default_message"><?php esc_html_e( 'Pesan Default WhatsApp', 'jalaversity' ); ?></label>
+			</th>
+			<td>
+				<textarea
+					id="jalaversity-field-wa_default_message"
+					name="jalaversity_options[wa_default_message]"
+					rows="3"
+					class="large-text"
+				><?php echo esc_textarea( $message ); ?></textarea>
+				<p class="description"><?php esc_html_e( 'Pesan yang otomatis terisi saat pengunjung membuka chat WhatsApp.', 'jalaversity' ); ?></p>
+			</td>
+		</tr>
+	</table>
+
+	<h2><?php esc_html_e( 'Daftar Tim Layanan', 'jalaversity' ); ?></h2>
+	<p class="description" style="margin-bottom:12px;"><?php esc_html_e( 'Tombol WhatsApp di footer hanya muncul jika ada petugas di sini.', 'jalaversity' ); ?></p>
+
+	<div id="jalaversity-tim-layanan-repeater">
+		<?php foreach ( $contacts as $i => $row ) :
+			$photo_id  = absint( $row['photo'] ?? 0 );
+			$photo_url = $photo_id ? wp_get_attachment_image_url( $photo_id, 'thumbnail' ) : '';
+		?>
+		<div class="jalaversity-tim-row">
+			<div class="jalaversity-tim-row__handle" title="<?php esc_attr_e( 'Drag to reorder', 'jalaversity' ); ?>">⠿</div>
+			<div class="jalaversity-tim-row__fields">
+				<label><?php esc_html_e( 'Nama', 'jalaversity' ); ?>
+					<input type="text" name="jalaversity_options[tim_layanan_contacts][<?php echo (int) $i; ?>][nama]" value="<?php echo esc_attr( $row['nama'] ?? '' ); ?>" class="regular-text" required>
+				</label>
+				<label><?php esc_html_e( 'Jabatan', 'jalaversity' ); ?>
+					<input type="text" name="jalaversity_options[tim_layanan_contacts][<?php echo (int) $i; ?>][jabatan]" value="<?php echo esc_attr( $row['jabatan'] ?? '' ); ?>" class="regular-text">
+				</label>
+				<label><?php esc_html_e( 'Nomor WhatsApp', 'jalaversity' ); ?>
+					<input type="text" name="jalaversity_options[tim_layanan_contacts][<?php echo (int) $i; ?>][whatsapp]" value="<?php echo esc_attr( $row['whatsapp'] ?? '' ); ?>" class="regular-text" placeholder="6281234567890">
+					<span class="description"><?php esc_html_e( 'Angka saja, tanpa + atau spasi.', 'jalaversity' ); ?></span>
+				</label>
+			</div>
+			<div class="jalaversity-tim-row__photo jalaversity-image-field">
+				<input type="hidden" name="jalaversity_options[tim_layanan_contacts][<?php echo (int) $i; ?>][photo]" value="<?php echo esc_attr( $photo_id ); ?>" class="jalaversity-image-field__input">
+				<div class="jalaversity-image-field__preview" <?php echo $photo_url ? '' : 'style="display:none;"'; ?>>
+					<img src="<?php echo esc_url( $photo_url ); ?>" alt="" width="60" height="60" style="border-radius:50%;object-fit:cover;">
+				</div>
+				<button type="button" class="button jalaversity-image-field__select"><?php esc_html_e( 'Foto', 'jalaversity' ); ?></button>
+				<button type="button" class="button jalaversity-image-field__remove" <?php echo $photo_url ? '' : 'style="display:none;"'; ?>><?php esc_html_e( 'Hapus', 'jalaversity' ); ?></button>
+			</div>
+			<button type="button" class="button jalaversity-tim-row__remove" style="align-self:start;">✕ <?php esc_html_e( 'Hapus', 'jalaversity' ); ?></button>
+		</div>
+		<?php endforeach; ?>
+	</div>
+
+	<button type="button" class="button button-secondary" id="jalaversity-tim-add-row" style="margin-top:12px;">
+		+ <?php esc_html_e( 'Tambah Petugas', 'jalaversity' ); ?>
+	</button>
+
+	<?php
+}
