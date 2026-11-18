@@ -1,0 +1,16 @@
+# Normalisasi line ending ke LF di repo
+* text=auto eol=lf
+
+# File biner
+*.jpg  binary
+*.jpeg binary
+*.png  binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.otf  binary
+*.eot  binary
+*.ttf  binary
+*.woff binary
+*.woff2 binary
+*.zip  binary

@@ -1,0 +1,34 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+    - phpstan-baseline.neon
+
+parameters:
+    level: 5
+    reportUnmatchedIgnoredErrors: false
+    parallel:
+        maximumNumberOfProcesses: 1
+    paths:
+        - functions.php
+        - includes/
+        - page-templates/
+        - template-parts/
+        - header.php
+        - footer.php
+        - index.php
+        - single.php
+        - page.php
+        - archive.php
+        - search.php
+        - sidebar.php
+    excludePaths:
+        - vendor/*
+        - node_modules/*
+        - dist/*
+        - build/*
+    bootstrapFiles:
+        - phpstan-bootstrap.php
+    ignoreErrors:
+        # WordPress & ACF stateful loop helpers (WP_Query::have_posts() / have_rows() mutate internal state via the_post() / the_row())
+        - '#While loop condition is always true\.#'
+        - '#Left side of && is always true\.#'
+        - '#Unreachable statement - code above always terminates\.#'
