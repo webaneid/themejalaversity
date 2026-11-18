@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Sanitize submitted settings, merged onto the existing stored option.
  *
  * @param mixed $input Raw submitted value for 'jalaversity_options'.
- * @return array
+ * @return array<string, mixed>
  */
 function jalaversity_sanitize_options( mixed $input ): array {
 	$existing = get_option( 'jalaversity_options', [] );
@@ -36,7 +36,7 @@ function jalaversity_sanitize_options( mixed $input ): array {
 	$sanitized = [];
 
 	foreach ( jalaversity_settings_schema() as $tab ) {
-		// Tab dengan custom render (misal tim_layanan) tidak punya sections
+		// Tab dengan custom render (misal tim_layanan) tidak punya sections.
 		if ( isset( $tab['render'] ) ) {
 			continue;
 		}
@@ -49,14 +49,19 @@ function jalaversity_sanitize_options( mixed $input ): array {
 					continue;
 				}
 
+				if ( 'contact_maps_url' === $key ) {
+					$sanitized[ $key ] = jalaversity_clean_maps_embed_url( (string) $input[ $key ] );
+					continue;
+				}
+
 				$sanitized[ $key ] = jalaversity_sanitize_field_value( $input[ $key ], $field['type'] ?? 'text' );
 			}
 		}
 	}
 
-	// Sanitasi tab Tim Layanan
+	// Sanitasi tab Tim Layanan.
 	if ( array_key_exists( 'wa_default_message', $input ) ) {
-		$sanitized['wa_default_message'] = sanitize_textarea_field( $input['wa_default_message'] );
+		$sanitized['wa_default_message'] = sanitize_textarea_field( (string) $input['wa_default_message'] );
 	}
 
 	if ( array_key_exists( 'tim_layanan_contacts', $input ) && is_array( $input['tim_layanan_contacts'] ) ) {
@@ -65,13 +70,13 @@ function jalaversity_sanitize_options( mixed $input ): array {
 			if ( ! is_array( $row ) ) {
 				continue;
 			}
-			$nomor = preg_replace( '/[^0-9]/', '', $row['whatsapp'] ?? '' );
+			$nomor = preg_replace( '/[^0-9]/', '', (string) ( $row['whatsapp'] ?? '' ) );
 			if ( ! $nomor ) {
-				continue; // baris tanpa nomor WA dibuang
+				continue; // Baris tanpa nomor WA dibuang.
 			}
 			$clean_contacts[] = [
-				'nama'     => sanitize_text_field( $row['nama'] ?? '' ),
-				'jabatan'  => sanitize_text_field( $row['jabatan'] ?? '' ),
+				'nama'     => sanitize_text_field( (string) ( $row['nama'] ?? '' ) ),
+				'jabatan'  => sanitize_text_field( (string) ( $row['jabatan'] ?? '' ) ),
 				'whatsapp' => $nomor,
 				'photo'    => absint( $row['photo'] ?? 0 ),
 			];
@@ -86,24 +91,25 @@ function jalaversity_sanitize_options( mixed $input ): array {
  * Sanitize a single field value according to its declared type.
  *
  * @param mixed  $value Raw value.
- * @param string $type  Field type (text|textarea|url|email|tel|color|image).
+ * @param string $type  Field type (text|textarea|url|email|tel|color|image|password).
  * @return mixed
  */
 function jalaversity_sanitize_field_value( mixed $value, string $type ): mixed {
 	switch ( $type ) {
 		case 'textarea':
-			return sanitize_textarea_field( $value );
+			return sanitize_textarea_field( (string) $value );
 		case 'url':
-			return esc_url_raw( $value );
+			return esc_url_raw( (string) $value );
 		case 'email':
-			return sanitize_email( $value );
+			return sanitize_email( (string) $value );
 		case 'color':
-			return sanitize_hex_color( $value ) ?: '';
+			return sanitize_hex_color( (string) $value ) ?: '';
 		case 'image':
 			return absint( $value );
+		case 'password':
+			return trim( (string) preg_replace( '/[\r\n\t\0\x0B]/', '', (string) $value ) );
 		case 'tel':
-			return sanitize_text_field( $value );
 		default:
-			return sanitize_text_field( $value );
+			return sanitize_text_field( (string) $value );
 	}
 }

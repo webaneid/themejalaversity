@@ -3,7 +3,7 @@
  * Security Hardening
  *
  * WordPress security hardening. All hardening is intentional — do not remove.
- * See docs/06-security-checklist.md for the full checklist.
+ * See docs/architecture/architecture-security.md for the full checklist.
  *
  * @package Jalaversity
  */
@@ -16,9 +16,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 remove_action( 'wp_head', 'wp_generator' );
 add_filter( 'the_generator', '__return_empty_string' );
 
-// 2. Strip version query strings from enqueued asset URLs.
+/**
+ * 2. Strip WordPress core version query string from enqueued asset URLs,
+ * while preserving theme/plugin version strings (e.g. JALAVERSITY_VERSION)
+ * so browser & CDN cache-busting works properly after theme auto-update.
+ *
+ * @param string $src Asset URL.
+ * @return string
+ */
 function jalaversity_remove_version_query( string $src ): string {
-	if ( str_contains( $src, '?ver=' ) ) {
+	$wp_version = get_bloginfo( 'version' );
+	if ( $wp_version && str_contains( $src, 'ver=' . $wp_version ) ) {
 		$src = remove_query_arg( 'ver', $src );
 	}
 	return $src;
@@ -53,16 +61,20 @@ add_filter(
 	}
 );
 
-// 6. Block author enumeration via ?author=N URL parameter.
+/**
+ * 6. Block author enumeration via ?author=N URL parameter.
+ */
 function jalaversity_block_author_enumeration(): void {
-	if ( ! is_admin() && isset( $_GET['author'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+	if ( ! is_admin() && isset( $_GET['author'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		wp_safe_redirect( home_url( '/' ), 301 );
 		exit;
 	}
 }
 add_action( 'init', 'jalaversity_block_author_enumeration' );
 
-// 7. Add security response headers on all front-end requests.
+/**
+ * 7. Add security response headers on all front-end requests.
+ */
 function jalaversity_security_headers(): void {
 	if ( is_admin() ) {
 		return;
@@ -84,39 +96,53 @@ if ( ! defined( 'DISALLOW_FILE_EDIT' ) ) {
 add_action(
 	'after_setup_theme',
 	function (): void {
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			show_admin_bar( false );
 		}
 	}
 );
 
-// 10. Sanitize uploaded file names: lowercase, ASCII-only, no spaces.
+/**
+ * 10. Sanitize uploaded file names: lowercase, ASCII-only, no spaces.
+ *
+ * @param string $filename Raw uploaded filename.
+ * @return string
+ */
 function jalaversity_sanitize_filename( string $filename ): string {
 	$filename = remove_accents( $filename );
 	$filename = strtolower( $filename );
-	$filename = preg_replace( '/[^a-z0-9\-\_\.]/', '-', $filename );
-	$filename = preg_replace( '/-+/', '-', $filename );
+	$filename = (string) preg_replace( '/[^a-z0-9\-\_\.]/', '-', $filename );
+	$filename = (string) preg_replace( '/-+/', '-', $filename );
 	return trim( $filename, '-' );
 }
 add_filter( 'sanitize_file_name', 'jalaversity_sanitize_filename' );
 
-// 11. Limit login attempts to prevent brute-force attacks.
-//     Max 5 attempts per 15-minute window; 30-minute lockout after that.
-//     Uses WP transients — no extra table, no plugin required.
-
+/**
+ * 11. Limit login attempts to prevent brute-force attacks.
+ * Max 5 attempts per 15-minute window; 30-minute lockout after that.
+ * Uses WP transients — no extra table, no plugin required.
+ *
+ * @return string Transient key hashed with MD5.
+ */
 function jalaversity_login_transient_key(): string {
-	$ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0'; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
-	return 'jalaversity_login_' . md5( $ip );   // MD5 so raw IP is never stored.
+	$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '0.0.0.0';
+	return 'jalaversity_login_' . md5( $ip );
 }
 
-// Block login early if lockout is active (priority 1 = before WP authenticates).
+/**
+ * Block login early if lockout is active (priority 1 = before WP authenticates).
+ *
+ * @param mixed  $user     WP_User, WP_Error, or null.
+ * @param string $username Username or email.
+ * @return mixed
+ */
 function jalaversity_maybe_block_login( mixed $user, string $username ): mixed {
 	if ( empty( $username ) ) {
 		return $user;
 	}
 	$data = get_transient( jalaversity_login_transient_key() );
-	if ( $data && $data['count'] >= 5 ) {
-		$minutes = (int) ceil( max( 0, $data['expires'] - time() ) / 60 );
+	if ( is_array( $data ) && ( $data['count'] ?? 0 ) >= 5 ) {
+		$minutes = (int) ceil( max( 0, ( $data['expires'] ?? 0 ) - time() ) / 60 );
 		return new WP_Error(
 			'too_many_attempts',
 			sprintf(
@@ -130,19 +156,28 @@ function jalaversity_maybe_block_login( mixed $user, string $username ): mixed {
 }
 add_filter( 'authenticate', 'jalaversity_maybe_block_login', 1, 2 );
 
-// Record each failed attempt.
+/**
+ * Record each failed login attempt.
+ */
 function jalaversity_record_login_failure(): void {
 	$key  = jalaversity_login_transient_key();
-	$data = get_transient( $key ) ?: [ 'count' => 0, 'expires' => 0 ];
-	$data['count']++;
-	// First 4 failures: reset window to 15 min. On 5th+: 30-min lockout.
-	$ttl            = $data['count'] >= 5 ? 30 * MINUTE_IN_SECONDS : 15 * MINUTE_IN_SECONDS;
+	$data = get_transient( $key );
+	if ( ! is_array( $data ) ) {
+		$data = [
+			'count'   => 0,
+			'expires' => 0,
+		];
+	}
+	++$data['count'];
+	$ttl             = $data['count'] >= 5 ? 30 * MINUTE_IN_SECONDS : 15 * MINUTE_IN_SECONDS;
 	$data['expires'] = time() + $ttl;
 	set_transient( $key, $data, $ttl );
 }
 add_action( 'wp_login_failed', 'jalaversity_record_login_failure' );
 
-// Clear counter on successful login.
+/**
+ * Clear counter on successful login.
+ */
 function jalaversity_clear_login_attempts(): void {
 	delete_transient( jalaversity_login_transient_key() );
 }

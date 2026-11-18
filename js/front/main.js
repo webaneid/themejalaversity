@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initArabicParagraphs();
   initCopyLink();
   initWaWidget();
+  initPostViewTracker();
 });
 
 /* ── Sticky Header ──────────────────────────────────────────────────── */
@@ -287,4 +288,37 @@ function initWaWidget() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !popup.hidden) closePopup();
   });
+}
+
+/* ── Post View Tracker (AJAX non-blocking) ─────────────────────────── */
+
+function initPostViewTracker() {
+  const data = window.jalaversityData;
+  if (!data || !data.ajaxUrl || !data.nonce || !(Number(data.postId) > 0)) {
+    return;
+  }
+
+  const body = new URLSearchParams({
+    action: 'jalaversity_track_view',
+    nonce: String(data.nonce),
+    post_id: String(data.postId),
+  });
+
+  fetch(data.ajaxUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+    body: body.toString(),
+    credentials: 'same-origin',
+    keepalive: true,
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      if (json && json.success && json.data && json.data.formatted) {
+        const el = document.querySelector('[data-jalaversity-views]');
+        if (el) {
+          el.textContent = json.data.formatted;
+        }
+      }
+    })
+    .catch(() => {});
 }
