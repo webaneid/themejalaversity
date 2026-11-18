@@ -20,8 +20,8 @@ $email     = jalaversity_get_option( 'contact_email', '' );
 $copyright = jalaversity_get_option( 'footer_copyright', '' );
 
 if ( ! $copyright ) {
-	/* translators: %d: current year, %s: site name */
 	$copyright = sprintf(
+		/* translators: 1: current year, 2: site name */
 		__( '&copy; %1$d %2$s. Hak cipta dilindungi.', 'jalaversity' ),
 		(int) gmdate( 'Y' ),
 		get_bloginfo( 'name' )
@@ -99,7 +99,7 @@ $footer_cols = [
 				$social_html = ob_get_clean();
 
 				if ( $social_html ) :
-				?>
+					?>
 				<div class="site-footer__social" role="list" aria-label="<?php esc_attr_e( 'Media sosial', 'jalaversity' ); ?>">
 					<?php
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -112,14 +112,18 @@ $footer_cols = [
 
 			<!-- Kolom 2–4: Nav menu dinamis -->
 			<?php foreach ( $footer_cols as $col ) : ?>
-			<?php if ( ! has_nav_menu( $col['location'] ) ) : continue; endif; ?>
+				<?php
+				if ( ! has_nav_menu( $col['location'] ) ) :
+					continue;
+endif;
+				?>
 			<div class="site-footer__col">
 				<h4 class="site-footer__col-title"><?php echo esc_html( $col['label'] ); ?></h4>
 				<?php
 				wp_nav_menu(
 					[
 						'theme_location' => $col['location'],
-						'container'      => false,
+						'container'      => '',
 						'menu_class'     => 'site-footer__nav-list',
 						'depth'          => 1,
 						'fallback_cb'    => false,
@@ -134,16 +138,14 @@ $footer_cols = [
 
 			<!-- Kolom 5: Kontak cepat (opsional, dari Settings) -->
 			<?php
-			$social_fb = jalaversity_get_option( 'social_facebook', '' );
-			$social_ig = jalaversity_get_option( 'social_instagram', '' );
-			$social_wa = jalaversity_get_option( 'social_whatsapp', '' );
+			$social_wa = (string) jalaversity_get_option( 'social_whatsapp', '' );
 			if ( $social_wa ) :
-			?>
+				?>
 			<div class="site-footer__col">
 				<h4 class="site-footer__col-title"><?php esc_html_e( 'Hubungi Kami', 'jalaversity' ); ?></h4>
 				<div class="site-footer__contact-col">
 					<?php if ( $phone ) : ?>
-					<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $phone ) ); ?>" class="site-footer__link">
+					<a href="tel:<?php echo esc_attr( (string) preg_replace( '/[^0-9+]/', '', $phone ) ); ?>" class="site-footer__link">
 						<?php jalaversity_icon_e( 'phone', 15 ); ?>
 						<?php echo esc_html( $phone ); ?>
 					</a>
@@ -154,12 +156,10 @@ $footer_cols = [
 						<?php echo esc_html( antispambot( $email ) ); ?>
 					</a>
 					<?php endif; ?>
-					<?php if ( $social_wa ) : ?>
 					<a href="<?php echo esc_url( $social_wa ); ?>" class="site-footer__link" target="_blank" rel="noopener noreferrer">
 						<?php jalaversity_icon_e( 'chat', 15 ); ?>
 						<?php esc_html_e( 'Chat WhatsApp', 'jalaversity' ); ?>
 					</a>
-					<?php endif; ?>
 				</div>
 			</div>
 			<?php endif; ?>
@@ -181,7 +181,7 @@ $footer_cols = [
 					wp_nav_menu(
 						[
 							'theme_location' => 'footer-about',
-							'container'      => false,
+							'container'      => '',
 							'menu_class'     => 'site-footer__bottom-menu',
 							'depth'          => 1,
 							'fallback_cb'    => false,

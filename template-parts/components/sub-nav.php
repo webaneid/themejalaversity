@@ -26,11 +26,12 @@ if ( ! $items ) {
 ?>
 <nav class="sub-nav" aria-label="<?php esc_attr_e( 'Navigasi halaman', 'jalaversity' ); ?>">
 	<div class="container sub-nav__inner">
-		<?php foreach ( $items as $item ) :
+		<?php
+		foreach ( $items as $item ) :
 			if ( empty( $item['label'] ) || empty( $item['href'] ) ) {
 				continue;
 			}
-		?>
+			?>
 		<a href="<?php echo esc_url( $item['href'] ); ?>" class="sub-nav__link">
 			<?php echo esc_html( $item['label'] ); ?>
 		</a>

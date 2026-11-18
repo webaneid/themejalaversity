@@ -119,7 +119,7 @@ function jalaversity_get_faculties(): array {
 		[
 			'id'    => 3,
 			'icon'  => 'book-open',
-			'title' => __( "Ushuluddin & Dakwah", 'jalaversity' ),
+			'title' => __( 'Ushuluddin & Dakwah', 'jalaversity' ),
 			'desc'  => __( "Ilmu Al-Qur'an & Tafsir · KPI · BKI", 'jalaversity' ),
 		],
 		[
@@ -255,14 +255,14 @@ function jalaversity_get_campuses(): array {
  */
 function jalaversity_get_hero_home_args(): array {
 	return [
-		'variant'     => 'home',
-		'badge'       => jalaversity_get_option( 'hero_tagline', get_bloginfo( 'name' ) ),
-		'heading'     => jalaversity_get_option( 'hero_heading', __( 'Menuntut Ilmu, Menebar Manfaat untuk Peradaban', 'jalaversity' ) ),
-		'highlight'   => jalaversity_get_option( 'hero_highlight', __( 'Menebar Manfaat', 'jalaversity' ) ),
-		'lead'        => jalaversity_get_option( 'hero_lead', __( 'Membentuk cendekiawan muslim yang berakhlak mulia, unggul dalam keilmuan, dan berdaya saing global di tengah dinamika zaman.', 'jalaversity' ) ),
-		'image_id'    => (int) jalaversity_get_option( 'hero_image_id', 0 ),
-		'image_alt'   => jalaversity_get_option( 'hero_image_alt', get_bloginfo( 'name' ) ),
-		'trust_items' => [
+		'variant'        => 'home',
+		'badge'          => jalaversity_get_option( 'hero_tagline', get_bloginfo( 'name' ) ),
+		'heading'        => jalaversity_get_option( 'hero_heading', __( 'Menuntut Ilmu, Menebar Manfaat untuk Peradaban', 'jalaversity' ) ),
+		'highlight'      => jalaversity_get_option( 'hero_highlight', __( 'Menebar Manfaat', 'jalaversity' ) ),
+		'lead'           => jalaversity_get_option( 'hero_lead', __( 'Membentuk cendekiawan muslim yang berakhlak mulia, unggul dalam keilmuan, dan berdaya saing global di tengah dinamika zaman.', 'jalaversity' ) ),
+		'image_id'       => (int) jalaversity_get_option( 'hero_image_id', 0 ),
+		'image_alt'      => jalaversity_get_option( 'hero_image_alt', get_bloginfo( 'name' ) ),
+		'trust_items'    => [
 			jalaversity_get_option( 'hero_trust_1', __( 'Terakreditasi Unggul', 'jalaversity' ) ),
 			jalaversity_get_option( 'hero_trust_2', __( '18 Program Studi', 'jalaversity' ) ),
 			jalaversity_get_option( 'hero_trust_3', __( 'Beasiswa Tahfizh', 'jalaversity' ) ),
@@ -293,9 +293,9 @@ function jalaversity_get_about_args(): array {
 			'position' => 'top-right',
 			'variant'  => 'dark',
 		],
-		'items'        => jalaversity_get_about_values(),
-		'items_layout' => 'grid',
-		'link'         => [
+		'items'          => jalaversity_get_about_values(),
+		'items_layout'   => 'grid',
+		'link'           => [
 			'label' => jalaversity_get_option( 'about_link_label', __( 'Pelajari profil institusi', 'jalaversity' ) ),
 			'url'   => jalaversity_get_option( 'about_link_url', '#' ),
 		],
@@ -323,7 +323,7 @@ function jalaversity_get_research_args(): array {
 			'position' => 'bottom-left',
 			'variant'  => 'gold',
 		],
-		'items'        => jalaversity_get_research_items(),
-		'items_layout' => 'rows',
+		'items'          => jalaversity_get_research_items(),
+		'items_layout'   => 'rows',
 	];
 }

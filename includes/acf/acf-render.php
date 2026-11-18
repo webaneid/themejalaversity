@@ -45,10 +45,14 @@ function jalaversity_render_dynamic_section( string $layout ): void {
 			jalaversity_render_acf_pmb_section();
 			break;
 		case 'news_section':
-			get_template_part( 'template-parts/content/news-section', null, [
-				'label'   => get_sub_field( 'label' )   ?: __( 'Kabar Kampus', 'jalaversity' ),
-				'heading' => get_sub_field( 'heading' ) ?: __( 'Berita & Pengumuman', 'jalaversity' ),
-			] );
+			get_template_part(
+				'template-parts/content/news-section',
+				null,
+				[
+					'label'   => get_sub_field( 'label' ) ?: __( 'Kabar Kampus', 'jalaversity' ),
+					'heading' => get_sub_field( 'heading' ) ?: __( 'Berita & Pengumuman', 'jalaversity' ),
+				]
+			);
 			break;
 		case 'sub_nav':
 			jalaversity_render_acf_sub_nav();
@@ -100,19 +104,23 @@ function jalaversity_render_acf_hero(): void {
 		get_sub_field( 'buttons' ) ?: []
 	);
 
-	get_template_part( 'template-parts/components/hero-page', null, [
-		'variant'         => get_sub_field( 'variant' ),
-		'badge'           => get_sub_field( 'badge' ),
-		'heading'         => get_sub_field( 'heading' ),
-		'highlight'       => get_sub_field( 'highlight' ),
-		'lead'            => get_sub_field( 'lead' ),
-		'image_id'        => (int) get_sub_field( 'image' ),
-		'show_search'     => (bool) get_sub_field( 'show_search' ),
-		'trust_items'     => wp_list_pluck( get_sub_field( 'trust_items' ) ?: [], 'text' ),
-		'buttons'         => $buttons,
-		'floating_badge'  => $floating_badge,
-		'show_breadcrumb' => (bool) get_sub_field( 'show_breadcrumb' ),
-	] );
+	get_template_part(
+		'template-parts/components/hero-page',
+		null,
+		[
+			'variant'         => get_sub_field( 'variant' ),
+			'badge'           => get_sub_field( 'badge' ),
+			'heading'         => get_sub_field( 'heading' ),
+			'highlight'       => get_sub_field( 'highlight' ),
+			'lead'            => get_sub_field( 'lead' ),
+			'image_id'        => (int) get_sub_field( 'image' ),
+			'show_search'     => (bool) get_sub_field( 'show_search' ),
+			'trust_items'     => wp_list_pluck( get_sub_field( 'trust_items' ) ?: [], 'text' ),
+			'buttons'         => $buttons,
+			'floating_badge'  => $floating_badge,
+			'show_breadcrumb' => (bool) get_sub_field( 'show_breadcrumb' ),
+		]
+	);
 }
 
 /**
@@ -154,19 +162,23 @@ function jalaversity_render_acf_content_media(): void {
 		get_sub_field( 'items' ) ?: []
 	);
 
-	get_template_part( 'template-parts/components/content-media', null, [
-		'label'          => get_sub_field( 'label' ),
-		'heading'        => get_sub_field( 'heading' ),
-		'body'           => get_sub_field( 'body' ),
-		'image_id'       => (int) get_sub_field( 'image' ),
-		'image_position' => get_sub_field( 'image_position' ),
-		'image_radius'   => get_sub_field( 'image_radius' ),
-		'bg'              => get_sub_field( 'bg' ),
-		'corner_badge'   => $corner_badge,
-		'items'          => $items,
-		'items_layout'   => get_sub_field( 'items_layout' ),
-		'link'           => jalaversity_acf_link_value( get_sub_field( 'link' ) ),
-	] );
+	get_template_part(
+		'template-parts/components/content-media',
+		null,
+		[
+			'label'          => get_sub_field( 'label' ),
+			'heading'        => get_sub_field( 'heading' ),
+			'body'           => get_sub_field( 'body' ),
+			'image_id'       => (int) get_sub_field( 'image' ),
+			'image_position' => get_sub_field( 'image_position' ),
+			'image_radius'   => get_sub_field( 'image_radius' ),
+			'bg'             => get_sub_field( 'bg' ),
+			'corner_badge'   => $corner_badge,
+			'items'          => $items,
+			'items_layout'   => get_sub_field( 'items_layout' ),
+			'link'           => jalaversity_acf_link_value( get_sub_field( 'link' ) ),
+		]
+	);
 }
 
 /**
@@ -203,15 +215,21 @@ function jalaversity_render_acf_card_grid(): void {
 	?>
 	<section class="<?php echo esc_attr( $section_class ); ?>" aria-label="<?php echo esc_attr( get_sub_field( 'heading' ) ?: __( 'Kartu', 'jalaversity' ) ); ?>">
 		<div class="container">
-			<?php get_template_part( 'template-parts/components/card-grid', null, [
-				'label'           => get_sub_field( 'label' ),
-				'heading'         => get_sub_field( 'heading' ),
-				'lead'            => get_sub_field( 'lead' ),
-				'center'          => (bool) get_sub_field( 'center' ),
-				'min_card_width'  => get_sub_field( 'min_card_width' ),
-				'dark'            => $dark,
-				'items'           => $items,
-			] ); ?>
+			<?php
+			get_template_part(
+				'template-parts/components/card-grid',
+				null,
+				[
+					'label'          => get_sub_field( 'label' ),
+					'heading'        => get_sub_field( 'heading' ),
+					'lead'           => get_sub_field( 'lead' ),
+					'center'         => (bool) get_sub_field( 'center' ),
+					'min_card_width' => get_sub_field( 'min_card_width' ),
+					'dark'           => $dark,
+					'items'          => $items,
+				]
+			);
+			?>
 		</div>
 	</section>
 	<?php
@@ -233,13 +251,19 @@ function jalaversity_render_acf_numbered_steps(): void {
 	?>
 	<section class="section-py" aria-label="<?php echo esc_attr( get_sub_field( 'heading' ) ?: __( 'Langkah-langkah', 'jalaversity' ) ); ?>">
 		<div class="container">
-			<?php get_template_part( 'template-parts/components/numbered-steps', null, [
-				'label'   => get_sub_field( 'label' ),
-				'heading' => get_sub_field( 'heading' ),
-				'lead'    => get_sub_field( 'lead' ),
-				'variant' => get_sub_field( 'variant' ),
-				'items'   => $items,
-			] ); ?>
+			<?php
+			get_template_part(
+				'template-parts/components/numbered-steps',
+				null,
+				[
+					'label'   => get_sub_field( 'label' ),
+					'heading' => get_sub_field( 'heading' ),
+					'lead'    => get_sub_field( 'lead' ),
+					'variant' => get_sub_field( 'variant' ),
+					'items'   => $items,
+				]
+			);
+			?>
 		</div>
 	</section>
 	<?php
@@ -292,15 +316,19 @@ function jalaversity_render_acf_pmb_section(): void {
 		get_sub_field( 'steps' ) ?: []
 	);
 
-	get_template_part( 'template-parts/content/pmb-section', null, [
-		'wave_label'   => get_sub_field( 'wave_label' ),
-		'heading'      => get_sub_field( 'heading' ),
-		'body'         => get_sub_field( 'body' ),
-		'cta_label'    => get_sub_field( 'cta_label' ),
-		'cta_url'      => get_sub_field( 'cta_url' ),
-		'brochure_url' => get_sub_field( 'brochure_url' ),
-		'steps'        => $steps,
-	] );
+	get_template_part(
+		'template-parts/content/pmb-section',
+		null,
+		[
+			'wave_label'   => get_sub_field( 'wave_label' ),
+			'heading'      => get_sub_field( 'heading' ),
+			'body'         => get_sub_field( 'body' ),
+			'cta_label'    => get_sub_field( 'cta_label' ),
+			'cta_url'      => get_sub_field( 'cta_url' ),
+			'brochure_url' => get_sub_field( 'brochure_url' ),
+			'steps'        => $steps,
+		]
+	);
 }
 
 /**
@@ -315,24 +343,32 @@ function jalaversity_render_acf_sub_nav(): void {
 		get_sub_field( 'items' ) ?: []
 	);
 
-	get_template_part( 'template-parts/components/sub-nav', null, [
-		'items' => $items,
-	] );
+	get_template_part(
+		'template-parts/components/sub-nav',
+		null,
+		[
+			'items' => $items,
+		]
+	);
 }
 
 /**
  * Layout: Profile + Quote
  */
 function jalaversity_render_acf_profile_quote(): void {
-	get_template_part( 'template-parts/components/profile-quote', null, [
-		'image_id' => (int) get_sub_field( 'image' ),
-		'name'     => get_sub_field( 'name' ),
-		'title'    => get_sub_field( 'title' ),
-		'label'    => get_sub_field( 'label' ),
-		'heading'  => get_sub_field( 'heading' ),
-		'quote'    => get_sub_field( 'quote' ),
-		'body'     => get_sub_field( 'body' ),
-	] );
+	get_template_part(
+		'template-parts/components/profile-quote',
+		null,
+		[
+			'image_id' => (int) get_sub_field( 'image' ),
+			'name'     => get_sub_field( 'name' ),
+			'title'    => get_sub_field( 'title' ),
+			'label'    => get_sub_field( 'label' ),
+			'heading'  => get_sub_field( 'heading' ),
+			'quote'    => get_sub_field( 'quote' ),
+			'body'     => get_sub_field( 'body' ),
+		]
+	);
 }
 
 /**
@@ -356,11 +392,15 @@ function jalaversity_render_acf_checklist_cards(): void {
 		get_sub_field( 'cards' ) ?: []
 	);
 
-	get_template_part( 'template-parts/components/checklist-cards', null, [
-		'label'         => get_sub_field( 'label' ),
-		'heading'       => get_sub_field( 'heading' ),
-		'checklist'     => $checklist,
-		'cards_heading' => get_sub_field( 'cards_heading' ),
-		'cards'         => $cards,
-	] );
+	get_template_part(
+		'template-parts/components/checklist-cards',
+		null,
+		[
+			'label'         => get_sub_field( 'label' ),
+			'heading'       => get_sub_field( 'heading' ),
+			'checklist'     => $checklist,
+			'cards_heading' => get_sub_field( 'cards_heading' ),
+			'cards'         => $cards,
+		]
+	);
 }

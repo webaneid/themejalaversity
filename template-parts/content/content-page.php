@@ -28,7 +28,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php if ( has_post_thumbnail() ) : ?>
 		<div class="single-page__image">
-			<?php the_post_thumbnail( 'jalaversity-medium', [ 'class' => 'single-page__img', 'loading' => 'eager' ] ); ?>
+			<?php
+			the_post_thumbnail(
+				'jalaversity-medium',
+				[
+					'class'   => 'single-page__img',
+					'loading' => 'eager',
+				]
+			);
+			?>
 		</div>
 		<?php endif; ?>
 

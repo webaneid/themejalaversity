@@ -26,7 +26,7 @@ if ( $total_pages <= 1 ) {
 
 $links = paginate_links(
 	[
-		'base'      => str_replace( PHP_INT_MAX, '%#%', esc_url( get_pagenum_link( PHP_INT_MAX ) ) ),
+		'base'      => str_replace( (string) PHP_INT_MAX, '%#%', esc_url( get_pagenum_link( PHP_INT_MAX ) ) ),
 		'format'    => '?paged=%#%',
 		'current'   => max( 1, (int) get_query_var( 'paged' ) ),
 		'total'     => $total_pages,
@@ -42,12 +42,12 @@ if ( empty( $links ) ) {
 ?>
 <nav class="pagination" aria-label="<?php esc_attr_e( 'Navigasi halaman', 'jalaversity' ); ?>">
 	<ul class="pagination__list">
-		<?php foreach ( $links as $link ) : ?>
+		<?php foreach ( $links as $page_link ) : ?>
 		<li class="pagination__item">
 			<?php
 			// paginate_links returns escaped HTML — safe to output directly.
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo str_replace( 'page-numbers', 'pagination__link', $link );
+			echo str_replace( 'page-numbers', 'pagination__link', $page_link );
 			?>
 		</li>
 		<?php endforeach; ?>

@@ -50,10 +50,16 @@ $checklist_items = array_map(
 			<?php endif; ?>
 			<h2 id="checklist-cards-heading" class="checklist-cards__heading text-section"><?php echo esc_html( $heading ); ?></h2>
 
-			<?php get_template_part( 'template-parts/components/icon-list', null, [
-				'items'  => $checklist_items,
-				'layout' => 'rows',
-			] ); ?>
+			<?php
+			get_template_part(
+				'template-parts/components/icon-list',
+				null,
+				[
+					'items'  => $checklist_items,
+					'layout' => 'rows',
+				]
+			);
+			?>
 		</div>
 
 		<?php if ( $cards ) : ?>
@@ -62,10 +68,16 @@ $checklist_items = array_map(
 			<h3 class="checklist-cards__sub-heading text-section"><?php echo esc_html( $cards_heading ); ?></h3>
 			<?php endif; ?>
 
-			<?php get_template_part( 'template-parts/components/card-grid', null, [
-				'items'          => $cards,
-				'min_card_width' => '190px',
-			] ); ?>
+			<?php
+			get_template_part(
+				'template-parts/components/card-grid',
+				null,
+				[
+					'items'          => $cards,
+					'min_card_width' => '190px',
+				]
+			);
+			?>
 		</div>
 		<?php endif; ?>
 

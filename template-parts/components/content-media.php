@@ -29,6 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$args           = is_array( $args ?? null ) ? $args : [];
 $label          = $args['label'] ?? '';
 $heading        = $args['heading'] ?? '';
 $heading_id     = $args['heading_id'] ?? '';
@@ -40,7 +41,7 @@ $image_radius   = $args['image_radius'] ?? 'default';
 $corner_badge   = $args['corner_badge'] ?? null;
 $items          = $args['items'] ?? [];
 $items_layout   = $args['items_layout'] ?? 'grid';
-$link           = $args['link'] ?? null;
+$cta_link       = $args['link'] ?? null;
 $bg             = ( 'surface' === ( $args['bg'] ?? 'cream' ) ) ? 'surface' : 'cream';
 
 if ( ! $heading ) {
@@ -56,7 +57,8 @@ $img_radius_class = 'content-media__img-wrap--' . sanitize_html_class( $image_ra
 
 			<div class="content-media__visual">
 				<div class="content-media__img-wrap <?php echo esc_attr( $img_radius_class ); ?>">
-					<?php if ( $image_id && wp_attachment_is_image( $image_id ) ) :
+					<?php
+					if ( $image_id && wp_attachment_is_image( $image_id ) ) :
 						echo wp_get_attachment_image(
 							$image_id,
 							'large',
@@ -67,17 +69,19 @@ $img_radius_class = 'content-media__img-wrap--' . sanitize_html_class( $image_ra
 								'loading' => 'lazy',
 							]
 						);
-					else : ?>
+					else :
+						?>
 						<div class="content-media__img-placeholder" aria-hidden="true">
 							<?php jalaversity_icon_e( 'photo', 48 ); ?>
 						</div>
 					<?php endif; ?>
 				</div>
 
-				<?php if ( $corner_badge ) :
+				<?php
+				if ( $corner_badge ) :
 					$badge_pos     = ( 'bottom-left' === ( $corner_badge['position'] ?? '' ) ) ? 'bottom-left' : 'top-right';
 					$badge_variant = ( 'gold' === ( $corner_badge['variant'] ?? '' ) ) ? 'gold' : 'dark';
-				?>
+					?>
 				<div
 					class="content-media__badge content-media__badge--<?php echo esc_attr( $badge_pos ); ?> content-media__badge--<?php echo esc_attr( $badge_variant ); ?>"
 					aria-label="<?php echo esc_attr( ( $corner_badge['value'] ?? '' ) . ' ' . ( $corner_badge['label'] ?? '' ) ); ?>"
@@ -95,27 +99,44 @@ $img_radius_class = 'content-media__img-wrap--' . sanitize_html_class( $image_ra
 				<?php endif; ?>
 
 				<h2
-					<?php if ( $heading_id ) : ?>id="<?php echo esc_attr( $heading_id ); ?>"<?php endif; ?>
+					<?php
+					if ( $heading_id ) :
+						?>
+						id="<?php echo esc_attr( $heading_id ); ?>"<?php endif; ?>
 					class="content-media__heading text-section"
 				>
 					<?php echo esc_html( $heading ); ?>
 				</h2>
 
-				<?php if ( $body ) :
+				<?php
+				if ( $body ) :
 					$paragraphs = array_filter( array_map( 'trim', preg_split( '/\n{2,}/', $body ) ) );
-					foreach ( $paragraphs as $para ) : ?>
+					foreach ( $paragraphs as $para ) :
+						?>
 				<p class="content-media__body"><?php echo nl2br( esc_html( $para ) ); ?></p>
-				<?php endforeach; endif; ?>
+						<?php
+				endforeach;
+endif;
+				?>
 
 				<?php if ( $items ) : ?>
 				<div class="content-media__items">
-					<?php get_template_part( 'template-parts/components/icon-list', null, [ 'items' => $items, 'layout' => $items_layout ] ); ?>
+					<?php
+					get_template_part(
+						'template-parts/components/icon-list',
+						null,
+						[
+							'items'  => $items,
+							'layout' => $items_layout,
+						]
+					);
+					?>
 				</div>
 				<?php endif; ?>
 
-				<?php if ( $link ) : ?>
-				<a href="<?php echo esc_url( $link['url'] ?? '#' ); ?>" class="link-arrow">
-					<?php echo esc_html( $link['label'] ?? '' ); ?>
+				<?php if ( $cta_link ) : ?>
+				<a href="<?php echo esc_url( $cta_link['url'] ?? '#' ); ?>" class="link-arrow">
+					<?php echo esc_html( $cta_link['label'] ?? '' ); ?>
 					<?php jalaversity_icon_e( 'arrow-right', 17 ); ?>
 				</a>
 				<?php endif; ?>

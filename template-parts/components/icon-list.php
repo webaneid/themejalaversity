@@ -22,7 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$items = $args['items'] ?? [];
+$args   = is_array( $args ?? null ) ? $args : [];
+$items  = $args['items'] ?? [];
 $layout = in_array( $args['layout'] ?? 'grid', [ 'rows', 'plain' ], true ) ? $args['layout'] : 'grid';
 
 if ( ! $items ) {

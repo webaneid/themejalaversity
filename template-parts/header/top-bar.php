@@ -45,12 +45,11 @@ $has_top = has_nav_menu( 'topbar' );
 					wp_nav_menu(
 						[
 							'theme_location' => 'topbar',
-							'container'      => false,
+							'container'      => '',
 							'menu_class'     => 'topbar-menu',
 							'depth'          => 1,
 							'fallback_cb'    => false,
 							'items_wrap'     => '<ul id="%1$s" class="%2$s" role="list">%3$s</ul>',
-							'walker'         => null,
 						]
 					);
 					?>

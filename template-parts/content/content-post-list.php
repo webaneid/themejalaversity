@@ -23,15 +23,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( is_home() && ! is_front_page() ) {
 	$posts_page_id = get_option( 'page_for_posts' );
-	$title         = $posts_page_id ? get_the_title( $posts_page_id ) : __( 'Artikel Terbaru', 'jalaversity' );
+	$archive_title = $posts_page_id ? get_the_title( (int) $posts_page_id ) : __( 'Artikel Terbaru', 'jalaversity' );
 } elseif ( is_search() ) {
-	$title = sprintf(
+	$archive_title = sprintf(
 		/* translators: %s: kata kunci pencarian */
 		__( 'Hasil pencarian: %s', 'jalaversity' ),
 		'<span>' . esc_html( get_search_query() ) . '</span>'
 	);
 } else {
-	$title = get_the_archive_title();
+	$archive_title = get_the_archive_title();
 }
 ?>
 
@@ -39,7 +39,7 @@ if ( is_home() && ! is_front_page() ) {
 	<?php get_template_part( 'template-parts/components/breadcrumb' ); ?>
 
 	<h1 class="archive-header__title text-hero-sub">
-		<?php echo wp_kses_post( $title ); ?>
+		<?php echo wp_kses_post( $archive_title ); ?>
 	</h1>
 
 	<?php the_archive_description( '<div class="archive-header__desc">', '</div>' ); ?>
@@ -59,10 +59,14 @@ if ( is_home() && ! is_front_page() ) {
 				$post_index = 0;
 				while ( have_posts() ) :
 					the_post();
-					get_template_part( 'template-parts/content/content-card', null, [
-						'variant' => ( 0 === $post_index ) ? 'overlay' : 'list',
-					] );
-					$post_index++;
+					get_template_part(
+						'template-parts/content/content-card',
+						null,
+						[
+							'variant' => ( 0 === $post_index ) ? 'overlay' : 'list',
+						]
+					);
+					++$post_index;
 				endwhile;
 				?>
 			</div>

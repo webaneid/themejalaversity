@@ -33,19 +33,19 @@ function jalaversity_social_icon_paths(): array {
 /**
  * Return SVG HTML for a brand/social icon (fill style).
  *
- * @param string $name  Icon name (facebook, instagram, youtube, twitter, linkedin, whatsapp, telegram, tiktok).
- * @param int    $size  Width and height in pixels (default 20).
- * @param string $class Optional CSS class(es).
- * @return string       Safe SVG HTML.
+ * @param string $name      Icon name (facebook, instagram, youtube, twitter, linkedin, whatsapp, telegram, tiktok).
+ * @param int    $size      Width and height in pixels (default 20).
+ * @param string $css_class Optional CSS class(es).
+ * @return string           Safe SVG HTML.
  */
-function jalaversity_social_icon( string $name, int $size = 20, string $class = '' ): string {
+function jalaversity_social_icon( string $name, int $size = 20, string $css_class = '' ): string {
 	$paths = jalaversity_social_icon_paths();
 
 	if ( ! isset( $paths[ $name ] ) ) {
 		return '';
 	}
 
-	$cls_attr = $class ? ' class="' . esc_attr( $class ) . '"' : '';
+	$cls_attr = $css_class ? ' class="' . esc_attr( $css_class ) . '"' : '';
 
 	return sprintf(
 		'<svg xmlns="http://www.w3.org/2000/svg" width="%1$d" height="%1$d" viewBox="0 0 24 24" aria-hidden="true"%2$s>%3$s</svg>',
@@ -58,13 +58,13 @@ function jalaversity_social_icon( string $name, int $size = 20, string $class = 
 /**
  * Echo SVG HTML for a brand/social icon.
  *
- * @param string $name  Icon name.
- * @param int    $size  Size in pixels.
- * @param string $class Optional CSS class.
+ * @param string $name      Icon name.
+ * @param int    $size      Size in pixels.
+ * @param string $css_class Optional CSS class.
  */
-function jalaversity_social_icon_e( string $name, int $size = 20, string $class = '' ): void {
+function jalaversity_social_icon_e( string $name, int $size = 20, string $css_class = '' ): void {
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	echo jalaversity_social_icon( $name, $size, $class );
+	echo jalaversity_social_icon( $name, $size, $css_class );
 }
 
 /**
@@ -106,16 +106,13 @@ function jalaversity_social_links( string $link_class = 'footer-social-link', in
 			continue;
 		}
 
-		$url   = esc_url( $url );
-		$label = esc_attr( jalaversity_social_label( $platform ) );
-		$icon  = jalaversity_social_icon( $platform, $icon_size );
-		$class = esc_attr( $link_class );
+		$icon = jalaversity_social_icon( $platform, $icon_size );
 
 		printf(
 			'<a href="%s" class="%s" aria-label="%s" target="_blank" rel="noopener noreferrer">%s</a>',
-			$url,
-			$class,
-			$label,
+			esc_url( (string) $url ),
+			esc_attr( $link_class ),
+			esc_attr( jalaversity_social_label( $platform ) ),
 			$icon // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		);
 	}

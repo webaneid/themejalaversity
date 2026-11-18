@@ -25,14 +25,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$image_id  = (int) ( $args['image_id'] ?? 0 );
-$image_alt = $args['image_alt'] ?? get_bloginfo( 'name' );
-$name      = $args['name'] ?? '';
-$title     = $args['title'] ?? '';
-$label     = $args['label'] ?? '';
-$heading   = $args['heading'] ?? '';
-$quote     = $args['quote'] ?? '';
-$body      = $args['body'] ?? '';
+$args       = is_array( $args ?? null ) ? $args : [];
+$image_id   = (int) ( $args['image_id'] ?? 0 );
+$image_alt  = $args['image_alt'] ?? get_bloginfo( 'name' );
+$name       = $args['name'] ?? '';
+$role_title = $args['title'] ?? '';
+$label      = $args['label'] ?? '';
+$heading    = $args['heading'] ?? '';
+$quote      = $args['quote'] ?? '';
+$body       = $args['body'] ?? '';
 
 if ( ! $heading || ! $name ) {
 	return;
@@ -44,7 +45,8 @@ if ( ! $heading || ! $name ) {
 
 		<div class="profile-quote__photo-col">
 			<div class="profile-quote__photo-wrap">
-				<?php if ( $image_id && wp_attachment_is_image( $image_id ) ) :
+				<?php
+				if ( $image_id && wp_attachment_is_image( $image_id ) ) :
 					echo wp_get_attachment_image(
 						$image_id,
 						'medium',
@@ -55,15 +57,16 @@ if ( ! $heading || ! $name ) {
 							'loading' => 'lazy',
 						]
 					);
-				else : ?>
+				else :
+					?>
 					<div class="profile-quote__photo-placeholder" aria-hidden="true">
 						<?php jalaversity_icon_e( 'user', 48 ); ?>
 					</div>
 				<?php endif; ?>
 			</div>
 			<div class="profile-quote__name"><?php echo esc_html( $name ); ?></div>
-			<?php if ( $title ) : ?>
-			<div class="profile-quote__role"><?php echo esc_html( $title ); ?></div>
+			<?php if ( $role_title ) : ?>
+			<div class="profile-quote__role"><?php echo esc_html( $role_title ); ?></div>
 			<?php endif; ?>
 		</div>
 
