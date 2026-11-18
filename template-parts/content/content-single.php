@@ -43,19 +43,21 @@ $editor = function_exists( 'get_field' ) ? get_field( 'editor' ) : null;
 					printf(
 						/* translators: %d: estimasi waktu baca dalam menit */
 						esc_html__( '%d menit baca', 'jalaversity' ),
-						jalaversity_reading_time()
+						(int) jalaversity_reading_time()
 					);
 					?>
 				</span>
 				<span class="post-meta__item">
 					<?php jalaversity_icon_e( 'eye', 15 ); ?>
-					<?php
-					printf(
-						/* translators: %s: jumlah views terformat */
-						esc_html__( '%s views', 'jalaversity' ),
-						esc_html( number_format_i18n( jalaversity_get_views( get_the_ID() ) ) )
-					);
-					?>
+					<span data-jalaversity-views>
+						<?php
+						printf(
+							/* translators: %s: jumlah views terformat */
+							esc_html__( '%s views', 'jalaversity' ),
+							esc_html( number_format_i18n( jalaversity_get_views( (int) get_the_ID() ) ) )
+						);
+						?>
+					</span>
 				</span>
 			</div>
 
@@ -82,12 +84,18 @@ $editor = function_exists( 'get_field' ) ? get_field( 'editor' ) : null;
 
 		<?php if ( has_post_thumbnail() ) : ?>
 		<div class="single-post__image">
-			<?php the_post_thumbnail( 'jalaversity-medium', [ 'class' => 'single-post__img', 'loading' => 'eager' ] ); ?>
 			<?php
+			the_post_thumbnail(
+				'jalaversity-medium',
+				[
+					'class'   => 'single-post__img',
+					'loading' => 'eager',
+				]
+			);
 			$caption = get_the_post_thumbnail_caption();
 			if ( $caption ) :
-			?>
-			<figcaption class="single-post__caption"><?php echo esc_html( $caption ); ?></figcaption>
+				?>
+				<figcaption class="single-post__caption"><?php echo esc_html( $caption ); ?></figcaption>
 			<?php endif; ?>
 		</div>
 		<?php endif; ?>

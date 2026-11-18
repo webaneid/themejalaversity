@@ -7,8 +7,8 @@ Dokumen ini melacak status eksekusi setiap fase retrofit theme **Jalaversity (`j
 ## Ringkasan Status
 
 - **Versi Theme Saat Ini:** `1.1.1` (baseline commit `c2e3112`)
-- **Fase Terakhir Selesai:** **Fase 01 — Hardening Updater, Pembersihan Aset Font, & Otomasi CI/CD Rilis (`Done` — 2026-11-18)**
-- **Fase Berikutnya:** **Fase 02 — Remediasi Keamanan, Cache-Busting Aset, & AJAX Post Views (`Planned`)**
+- **Fase Terakhir Selesai:** **Fase 02 — Remediasi Keamanan, Cache-Busting Aset, & AJAX Post Views (`Done` — 2026-11-18)**
+- **Fase Berikutnya:** **Fase 03 — Perbaikan Bug Komponen UI (`Planned`)**
 
 ---
 
@@ -21,7 +21,7 @@ Dokumen ini melacak status eksekusi setiap fase retrofit theme **Jalaversity (`j
 | :--- | :--- | :--- | :--- | :--- |
 | **00** | Audit Awal & Pemasangan Fondasi Standar (`AGENTS.md`, `docs/*`, Composer, PHPCS, PHPStan, `bin/*`, `.distignore`) | [`docs/phases/phase-00-fondasi.md`](phases/phase-00-fondasi.md) | **Done** | 2026-11-18 |
 | **01** | Hardening Updater (CSRF Nonce & Diagnostik Error), Pembersihan 15 File Font `.otf` Tak Terpakai, & Otomasi CI/CD Rilis (`ci.yml`, `release.yml`, `.releaserc.json`) | [`docs/phases/phase-01-updater-dan-ci.md`](phases/phase-01-updater-dan-ci.md) | **Done** | 2026-11-18 |
-| **02** | Remediasi Keamanan (Validasi Iframe Maps & Sanitasi Token), Perbaikan Cache-Busting `?ver=` Aset Theme, & Endpoint AJAX Post Views | `docs/phases/phase-02-security-dan-ajax-views.md` | **Planned** | — |
+| **02** | Remediasi Keamanan (Validasi Iframe Maps & Sanitasi Token), Perbaikan Cache-Busting `?ver=` Aset Theme, & Endpoint AJAX Post Views | [`docs/phases/phase-02-security-dan-ajax-views.md`](phases/phase-02-security-dan-ajax-views.md) | **Done** | 2026-11-18 |
 | **03** | Perbaikan Bug Komponen UI (Panel Tab Kategori `news-section.php`, Prop Hero & Tag `<main>` `page-contact.php`, Sinkronisasi Ikon SVG `wa-widget.php`, & Hapus Stub Mati) | `docs/phases/phase-03-perbaikan-komponen-ui.md` | **Planned** | — |
 | **04** | Template Konten Kampus (`single-agenda.php` dengan Detail ACF Agenda, `single-pengumuman.php`, & Halaman `404.php`) | `docs/phases/phase-04-template-agenda-pengumuman-404.md` | **Planned** | — |
 | **05** | Standarisasi Kode WPCS (`WordPress-Extra` 0 Error) & Penyelesaian Seluruh 17 Error PHPStan Level 5 (Baseline Kosong) | `docs/phases/phase-05-standarisasi-wpcs-dan-phpstan.md` | **Planned** | — |

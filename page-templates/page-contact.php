@@ -18,7 +18,7 @@ $whatsapp  = jalaversity_get_option( 'contact_whatsapp' );
 $email     = jalaversity_get_option( 'contact_email' );
 $address   = jalaversity_get_option( 'contact_address' );
 $hours     = jalaversity_get_option( 'contact_hours', __( 'Sen–Jum: 08.00–16.00 WIB', 'jalaversity' ) );
-$maps_url  = jalaversity_get_option( 'contact_maps_url' );
+$maps_url  = jalaversity_clean_maps_embed_url( (string) jalaversity_get_option( 'contact_maps_url' ) );
 
 $contact_cards = [
 	$phone     ? [ 'icon' => 'phone',          'label' => __( 'Telepon', 'jalaversity' ),          'value' => $phone,    'href' => 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ) ] : null,

@@ -26,7 +26,7 @@ function jalaversity_enqueue_scripts(): void {
 		'jalaversity-fonts',
 		'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap',
 		[],
-		null // Google Fonts manages its own cache headers.
+		null // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Google Fonts manages its own cache headers.
 	);
 
 	// Front-end CSS (compiled from scss/front/main.scss via PostCSS + Tailwind).
@@ -55,6 +55,7 @@ function jalaversity_enqueue_scripts(): void {
 			'nonce'   => wp_create_nonce( 'jalaversity_ajax' ),
 			'homeUrl' => home_url( '/' ),
 			'isRtl'   => is_rtl() ? 'true' : 'false',
+			'postId'  => is_singular( 'post' ) ? (int) get_queried_object_id() : 0,
 		]
 	);
 
@@ -140,8 +141,7 @@ function jalaversity_preconnect_fonts(): void {
 	echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
 
 	// Preload self-hosted heading font — browser discovers it from CSS too late otherwise.
-	$font_url = esc_url( JALAVERSITY_URI . '/fonts/Gontor-Bold.otf' );
-	echo '<link rel="preload" href="' . $font_url . '" as="font" type="font/otf" crossorigin="anonymous">' . "\n";
+	echo '<link rel="preload" href="' . esc_url( JALAVERSITY_URI . '/fonts/Gontor-Bold.otf' ) . '" as="font" type="font/otf" crossorigin="anonymous">' . "\n";
 }
 add_action( 'wp_head', 'jalaversity_preconnect_fonts', 1 );
 
