@@ -3145,6 +3145,22 @@
       min-height: 44px;
     }
 
+    .sidebar__category-list a,
+    .wp-block-archives-list a,
+    .wp-block-categories-list a,
+    .wp-block-latest-posts__post-title {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+
+    /* Tautan kategori kecil di dalam kartu: minimal 24px (WCAG 2.5.8 AA). */
+    .post-meta-line__category {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+    }
+
     .mobile-menu__close {
       min-width: 44px;
       min-height: 44px;
