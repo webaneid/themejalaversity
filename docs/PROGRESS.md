@@ -7,8 +7,8 @@ Dokumen ini melacak status eksekusi setiap fase retrofit theme **Jalaversity (`j
 ## Ringkasan Status
 
 - **Versi Theme Saat Ini:** `1.1.1` (baseline commit `c2e3112`)
-- **Fase Terakhir Selesai:** **Fase 08 — Penerapan Standar `webane-pagespeed-cwv` & Aksesibilitas 100 (`Done` — 2026-11-19)**
-- **Fase Berikutnya:** **Fase 09 — Dashboard Admin Kustom Kampus (`includes/dashboard.php`) (`Planned`)**
+- **Fase Terakhir Selesai:** **Fase 09 — Dashboard Admin Kustom Kampus (`includes/dashboard.php` — Gaya Makhadane) (`Done` — 2026-11-19)**
+- **Fase Berikutnya:** **Seluruh Fase Retrofit (00–09) Selesai (`100% Done`)**
 
 ---
 
@@ -28,4 +28,4 @@ Dokumen ini melacak status eksekusi setiap fase retrofit theme **Jalaversity (`j
 | **06** | Mesin SEO Hybrid Kampus (`includes/seo.php`), Schema JSON-LD (`CollegeOrUniversity`, `WebSite`, `Article`, `Event`), & Endpoint GEO `/llms.txt` | [`docs/phases/phase-06-seo-hybrid-dan-llms-txt.md`](phases/phase-06-seo-hybrid-dan-llms-txt.md) | **Done** | 2026-11-19 |
 | **07** | Integrasi Tracking (`GTM`, `GA4`, `Meta Pixel`, `TikTok Pixel`, Verifikasi Webmaster) & Dukungan Sosial Media `Threads` | [`docs/phases/phase-07-tracking-dan-sosmed-threads.md`](phases/phase-07-tracking-dan-sosmed-threads.md) | **Done** | 2026-11-19 |
 | **08** | Penerapan Standar `webane-pagespeed-cwv` (WebP 78, Preload LCP `wp_head`, DPR-Aware `sizes`, Preconnect `<= 4`, Async Font CSS, `content-visibility: auto`, & Aksesibilitas 100) | [`docs/phases/phase-08-optimasi-pagespeed-cwv.md`](phases/phase-08-optimasi-pagespeed-cwv.md) | **Done** | 2026-11-19 |
-| **09** | Dashboard Admin Kustom Kampus (`includes/dashboard.php`: KPI Berita/Agenda/Pengumuman/Halaman, Grafik 12 Bulan SVG, Status Kampus & Pintasan Cepat) | `docs/phases/phase-09-dashboard-admin.md` | **Planned** | — |
+| **09** | Dashboard Admin Kustom Kampus (`includes/dashboard.php`: KPI Berita/Agenda/Pengumuman/Halaman, Grafik 12 Bulan SVG, Status Kampus & Pintasan Cepat) | [`docs/phases/phase-09-dashboard-admin.md`](phases/phase-09-dashboard-admin.md) | **Done** | 2026-11-19 |

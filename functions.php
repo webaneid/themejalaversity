@@ -54,6 +54,7 @@ $jalaversity_includes = [
 	'/includes/acf/acf-fields.php',          // Requires icon-helpers.php (icon choices).
 	'/includes/acf/acf-render.php',
 	'/includes/acf/acf-post-fields.php',
+	'/includes/dashboard.php',               // Custom Admin Dashboard (Makhadane style).
 	'/includes/updater.php',                 // GitHub auto-updater (load last — needs options-helpers.php).
 ];
 
