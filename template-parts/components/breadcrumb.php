@@ -108,28 +108,21 @@ $dark      = ! empty( $args['dark'] );
 $nav_class = 'breadcrumb' . ( $dark ? ' breadcrumb--on-dark' : '' );
 ?>
 <nav class="<?php echo esc_attr( $nav_class ); ?>" aria-label="<?php esc_attr_e( 'Breadcrumb', 'jalaversity' ); ?>">
-	<ol class="breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+	<ol class="breadcrumb__list">
 		<?php
 		foreach ( $items as $index => $item ) :
-			$position = $index + 1;
-			$is_last  = $index === count( $items ) - 1;
+			$is_last = $index === count( $items ) - 1;
 			?>
-		<li
-			class="breadcrumb__item<?php echo $is_last ? ' breadcrumb__item--active' : ''; ?>"
-			itemprop="itemListElement"
-			itemscope
-			itemtype="https://schema.org/ListItem"
-		>
+		<li class="breadcrumb__item<?php echo $is_last ? ' breadcrumb__item--active' : ''; ?>">
 			<?php if ( $item['url'] && ! $is_last ) : ?>
-				<a href="<?php echo esc_url( $item['url'] ); ?>" class="breadcrumb__link" itemprop="item">
-					<span itemprop="name"><?php echo esc_html( $item['label'] ); ?></span>
+				<a href="<?php echo esc_url( $item['url'] ); ?>" class="breadcrumb__link">
+					<span><?php echo esc_html( $item['label'] ); ?></span>
 				</a>
 			<?php else : ?>
-				<span class="breadcrumb__current" itemprop="name" aria-current="page">
+				<span class="breadcrumb__current" aria-current="page">
 					<?php echo esc_html( $item['label'] ); ?>
 				</span>
 			<?php endif; ?>
-			<meta itemprop="position" content="<?php echo esc_attr( (string) $position ); ?>">
 			<?php if ( ! $is_last ) : ?>
 			<span class="breadcrumb__sep" aria-hidden="true">
 				<?php jalaversity_icon_e( 'chevron-right', 14 ); ?>
