@@ -24,11 +24,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$pmb_wave    = $args['wave_label'] ?? jalaversity_get_option( 'pmb_wave_label', __( 'Penerimaan Mahasiswa Baru 2026/2027', 'jalaversity' ) );
-$pmb_heading = $args['heading'] ?? jalaversity_get_option( 'pmb_heading', __( 'Gelombang II Telah Dibuka', 'jalaversity' ) );
-$pmb_body    = $args['body'] ?? jalaversity_get_option( 'pmb_body', __( 'Pendaftaran berlangsung 24 Juni – 15 Agustus 2026. Tersedia beasiswa tahfizh, prestasi, dan bidikmisi bagi calon mahasiswa terpilih.', 'jalaversity' ) );
-$pmb_url     = $args['cta_url'] ?? jalaversity_get_option( 'pmb_url', '#' );
-$pmb_label   = $args['cta_label'] ?? jalaversity_get_option( 'pmb_label', __( 'Daftar Sekarang', 'jalaversity' ) );
+$pmb_wave         = $args['wave_label'] ?? jalaversity_get_option( 'pmb_wave_label', __( 'Penerimaan Mahasiswa Baru 2026/2027', 'jalaversity' ) );
+$pmb_heading      = $args['heading'] ?? jalaversity_get_option( 'pmb_heading', __( 'Gelombang II Telah Dibuka', 'jalaversity' ) );
+$pmb_body         = $args['body'] ?? jalaversity_get_option( 'pmb_body', __( 'Pendaftaran berlangsung 24 Juni – 15 Agustus 2026. Tersedia beasiswa tahfizh, prestasi, dan bidikmisi bagi calon mahasiswa terpilih.', 'jalaversity' ) );
+$pmb_url          = $args['cta_url'] ?? jalaversity_get_option( 'pmb_url', '#' );
+$pmb_label        = $args['cta_label'] ?? jalaversity_get_option( 'pmb_label', __( 'Daftar Sekarang', 'jalaversity' ) );
 $pmb_brochure_url = $args['brochure_url'] ?? jalaversity_get_option( 'pmb_brochure_url', '' );
 
 $steps = $args['steps'] ?? jalaversity_get_pmb_steps();
@@ -71,10 +71,16 @@ $steps = $args['steps'] ?? jalaversity_get_pmb_steps();
 		</div>
 
 		<?php /* 4 Step Cards — generic numbered-steps component */ ?>
-		<?php get_template_part( 'template-parts/components/numbered-steps', null, [
-			'items'   => $steps,
-			'variant' => 'on-dark',
-		] ); ?>
+		<?php
+		get_template_part(
+			'template-parts/components/numbered-steps',
+			null,
+			[
+				'items'   => $steps,
+				'variant' => 'on-dark',
+			]
+		);
+		?>
 
 	</div>
 </section>

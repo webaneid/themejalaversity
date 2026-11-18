@@ -44,7 +44,7 @@ $site_name = get_bloginfo( 'name' );
 				wp_nav_menu(
 					[
 						'theme_location' => 'primary',
-						'container'      => false,
+						'container'      => '',
 						'menu_id'        => 'primary-menu',
 						'menu_class'     => 'nav-menu',
 						'depth'          => 2,
@@ -118,7 +118,7 @@ $site_name = get_bloginfo( 'name' );
 			wp_nav_menu(
 				[
 					'theme_location' => 'primary',
-					'container'      => false,
+					'container'      => '',
 					'menu_id'        => 'mobile-primary-menu',
 					'menu_class'     => 'mobile-nav-menu',
 					'depth'          => 2,
@@ -135,7 +135,7 @@ $site_name = get_bloginfo( 'name' );
 		$phone = jalaversity_get_option( 'contact_phone', '' );
 		$email = jalaversity_get_option( 'contact_email', '' );
 		if ( $phone || $email ) :
-		?>
+			?>
 		<div class="mobile-menu__footer">
 			<?php if ( $phone ) : ?>
 			<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $phone ) ); ?>" class="mobile-menu__contact-item">

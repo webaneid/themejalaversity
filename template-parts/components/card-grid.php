@@ -39,6 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$args       = is_array( $args ?? null ) ? $args : [];
 $label      = $args['label'] ?? '';
 $heading    = $args['heading'] ?? '';
 $heading_id = $args['heading_id'] ?? '';
@@ -54,43 +55,52 @@ if ( ! $items ) {
 ?>
 <div class="card-grid-section">
 
-	<?php if ( $heading ) :
-		get_template_part( 'template-parts/components/section-header', null, [
-			'label'      => $label,
-			'heading'    => $heading,
-			'heading_id' => $heading_id,
-			'lead'       => $lead,
-			'center'     => $center,
-			'dark'       => $dark,
-		] );
-	endif; ?>
+	<?php
+	if ( $heading ) :
+		get_template_part(
+			'template-parts/components/section-header',
+			null,
+			[
+				'label'      => $label,
+				'heading'    => $heading,
+				'heading_id' => $heading_id,
+				'lead'       => $lead,
+				'center'     => $center,
+				'dark'       => $dark,
+			]
+		);
+	endif;
+	?>
 
 	<div class="card-grid" role="list" style="--card-grid-min: <?php echo esc_attr( $min_card ); ?>;">
-		<?php foreach ( $items as $item ) :
-			$has_icon  = ! empty( $item['icon'] );
-			$has_image = ! empty( $item['image_id'] ) && wp_attachment_is_image( (int) $item['image_id'] );
-			$title     = $item['title'] ?? '';
-			$has_code  = ! empty( $item['code'] );
-			$has_badge = ! empty( $item['badge'] );
-			$meta      = $item['meta'] ?? [];
+		<?php
+		foreach ( $items as $item ) :
+			$has_icon   = ! empty( $item['icon'] );
+			$has_image  = ! empty( $item['image_id'] ) && wp_attachment_is_image( (int) $item['image_id'] );
+			$card_title = $item['title'] ?? '';
+			$has_code   = ! empty( $item['code'] );
+			$has_badge  = ! empty( $item['badge'] );
+			$meta       = $item['meta'] ?? [];
 			$card_class = 'card card--grid' . ( $has_image ? ' card--grid-photo' : '' ) . ( $dark ? ' card--grid-dark' : '' );
-		?>
+			?>
 		<article class="<?php echo esc_attr( $card_class ); ?>" role="listitem">
 
 			<?php if ( $has_image || $has_icon ) : ?>
 			<div class="card__media">
-				<?php if ( $has_image ) :
+				<?php
+				if ( $has_image ) :
 					echo wp_get_attachment_image(
 						(int) $item['image_id'],
 						'medium',
 						false,
 						[
 							'class'   => 'card__media-img',
-							'alt'     => esc_attr( $title ),
+							'alt'     => esc_attr( $card_title ),
 							'loading' => 'lazy',
 						]
 					);
-				elseif ( $has_icon ) : ?>
+				elseif ( $has_icon ) :
+					?>
 					<div class="card__media-placeholder" aria-hidden="true"></div>
 				<?php endif; ?>
 
@@ -108,9 +118,10 @@ if ( ! $items ) {
 					<?php if ( $has_code ) : ?>
 					<div class="card__code"><?php echo esc_html( $item['code'] ); ?></div>
 					<?php endif; ?>
-					<?php if ( $has_badge ) :
+					<?php
+					if ( $has_badge ) :
 						$badge_variant = ( 'gold' === ( $item['badge_variant'] ?? 'green' ) ) ? 'gold' : 'green';
-					?>
+						?>
 					<span class="card__badge card__badge--<?php echo esc_attr( $badge_variant ); ?>"><?php echo esc_html( $item['badge'] ); ?></span>
 					<?php endif; ?>
 				</div>
@@ -122,7 +133,7 @@ if ( ! $items ) {
 				</div>
 				<?php endif; ?>
 
-				<h3 class="card__title"><?php echo esc_html( $title ); ?></h3>
+				<h3 class="card__title"><?php echo esc_html( $card_title ); ?></h3>
 
 				<?php if ( ! empty( $item['desc'] ) ) : ?>
 				<p class="card__desc"><?php echo esc_html( $item['desc'] ); ?></p>
@@ -152,7 +163,10 @@ if ( ! $items ) {
 				<a
 					href="<?php echo esc_url( $item['link']['url'] ); ?>"
 					class="link-arrow link-arrow--gold"
-					<?php if ( ! empty( $item['link']['external'] ) ) : ?>target="_blank" rel="noopener noreferrer"<?php endif; ?>
+					<?php
+					if ( ! empty( $item['link']['external'] ) ) :
+						?>
+						target="_blank" rel="noopener noreferrer"<?php endif; ?>
 				>
 					<?php echo esc_html( $item['link']['label'] ?? '' ); ?>
 					<?php jalaversity_icon_e( 'chevron-right', 16 ); ?>

@@ -33,14 +33,23 @@ $heading = ( 'random' === $result['source'] )
 ?>
 <section class="related-posts section-py" aria-labelledby="related-posts-heading">
 	<div class="container">
-		<?php get_template_part( 'template-parts/components/section-header', null, [
-			'heading'    => $heading,
-			'heading_id' => 'related-posts-heading',
-			'center'     => false,
-		] ); ?>
+		<?php
+		get_template_part(
+			'template-parts/components/section-header',
+			null,
+			[
+				'heading'    => $heading,
+				'heading_id' => 'related-posts-heading',
+				'center'     => false,
+			]
+		);
+		?>
 
 		<div class="post-cards-grid">
-			<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+			<?php
+			while ( $query->have_posts() ) :
+				$query->the_post();
+				?>
 				<?php get_template_part( 'template-parts/content/content-card', null, [ 'variant' => 'overlay' ] ); ?>
 			<?php endwhile; ?>
 		</div>

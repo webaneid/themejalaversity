@@ -28,23 +28,23 @@ $items[] = [
 ];
 
 if ( is_single() ) {
-	$post_type = get_post_type();
+	$current_post_type = (string) get_post_type();
 
 	// Archive link (jika ada).
-	if ( 'post' === $post_type ) {
-		$blog_id = get_option( 'page_for_posts' );
-		if ( $blog_id ) {
+	if ( 'post' === $current_post_type ) {
+		$posts_page_id = (int) get_option( 'page_for_posts' );
+		if ( $posts_page_id ) {
 			$items[] = [
-				'label' => get_the_title( $blog_id ),
-				'url'   => get_permalink( $blog_id ),
+				'label' => get_the_title( $posts_page_id ),
+				'url'   => (string) get_permalink( $posts_page_id ),
 			];
 		}
-	} elseif ( get_post_type_archive_link( $post_type ) ) {
-		$pt_obj = get_post_type_object( $post_type );
+	} elseif ( get_post_type_archive_link( $current_post_type ) ) {
+		$pt_obj = get_post_type_object( $current_post_type );
 		if ( $pt_obj ) {
 			$items[] = [
 				'label' => esc_html( $pt_obj->labels->name ),
-				'url'   => get_post_type_archive_link( $post_type ),
+				'url'   => (string) get_post_type_archive_link( $current_post_type ),
 			];
 		}
 	}
@@ -57,11 +57,11 @@ if ( is_single() ) {
 
 } elseif ( is_page() ) {
 	// Ancestor pages.
-	$ancestors = array_reverse( get_post_ancestors( get_the_ID() ) );
+	$ancestors = array_reverse( get_post_ancestors( (int) get_the_ID() ) );
 	foreach ( $ancestors as $ancestor_id ) {
 		$items[] = [
 			'label' => get_the_title( $ancestor_id ),
-			'url'   => get_permalink( $ancestor_id ),
+			'url'   => (string) get_permalink( $ancestor_id ),
 		];
 	}
 	$items[] = [
@@ -70,14 +70,13 @@ if ( is_single() ) {
 	];
 
 } elseif ( is_category() || is_tag() || is_tax() ) {
-	$term = get_queried_object();
-	if ( $term instanceof WP_Term ) {
+	$queried_term = get_queried_object();
+	if ( $queried_term instanceof WP_Term ) {
 		$items[] = [
-			'label' => $term->name,
+			'label' => $queried_term->name,
 			'url'   => '',
 		];
 	}
-
 } elseif ( is_archive() ) {
 	$items[] = [
 		'label' => get_the_archive_title(),
@@ -105,15 +104,16 @@ if ( count( $items ) <= 1 ) {
 	return;
 }
 
-$dark       = ! empty( $args['dark'] );
-$nav_class  = 'breadcrumb' . ( $dark ? ' breadcrumb--on-dark' : '' );
+$dark      = ! empty( $args['dark'] );
+$nav_class = 'breadcrumb' . ( $dark ? ' breadcrumb--on-dark' : '' );
 ?>
 <nav class="<?php echo esc_attr( $nav_class ); ?>" aria-label="<?php esc_attr_e( 'Breadcrumb', 'jalaversity' ); ?>">
 	<ol class="breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">
-		<?php foreach ( $items as $index => $item ) :
-			$position  = $index + 1;
-			$is_last   = $index === count( $items ) - 1;
-		?>
+		<?php
+		foreach ( $items as $index => $item ) :
+			$position = $index + 1;
+			$is_last  = $index === count( $items ) - 1;
+			?>
 		<li
 			class="breadcrumb__item<?php echo $is_last ? ' breadcrumb__item--active' : ''; ?>"
 			itemprop="itemListElement"

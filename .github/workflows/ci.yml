@@ -27,8 +27,8 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
 
-      - name: Check PHP Syntax
-        run: composer lint:syntax
+      - name: Check PHP Syntax & WPCS Coding Standards
+        run: composer lint
 
       - name: Run Security Scanner
         run: composer security:scan

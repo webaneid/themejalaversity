@@ -97,20 +97,20 @@ function jalaversity_setup(): void {
 	// Custom image sizes — 16:9 "golden ratio" untuk large/medium/thumbnail,
 	// + square 1:1 untuk crop kotak. Param ke-4 `true` = hard-crop tengah
 	// ke rasio pas (bukan cuma scale) — lihat docs/02-architecture.md §10.
-	add_image_size( 'jalaversity-large',     1120, 630, true ); // 16:9
-	add_image_size( 'jalaversity-medium',     800, 450, true ); // 16:9
-	add_image_size( 'jalaversity-thumbnail',  400, 225, true ); // 16:9
-	add_image_size( 'jalaversity-square',     400, 400, true ); // 1:1
+	add_image_size( 'jalaversity-large', 1120, 630, true ); // 16:9
+	add_image_size( 'jalaversity-medium', 800, 450, true ); // 16:9
+	add_image_size( 'jalaversity-thumbnail', 400, 225, true ); // 16:9
+	add_image_size( 'jalaversity-square', 400, 400, true ); // 1:1
 
 	// Navigation menu locations.
 	register_nav_menus(
 		[
-			'primary'        => __( 'Primary Navigation', 'jalaversity' ),
-			'topbar'         => __( 'Top Bar Menu', 'jalaversity' ),
-			'footer-about'   => __( 'Footer: Tentang', 'jalaversity' ),
-			'footer-akademik'=> __( 'Footer: Akademik', 'jalaversity' ),
-			'footer-layanan' => __( 'Footer: Layanan', 'jalaversity' ),
-			'social'         => __( 'Social Links', 'jalaversity' ),
+			'primary'         => __( 'Primary Navigation', 'jalaversity' ),
+			'topbar'          => __( 'Top Bar Menu', 'jalaversity' ),
+			'footer-about'    => __( 'Footer: Tentang', 'jalaversity' ),
+			'footer-akademik' => __( 'Footer: Akademik', 'jalaversity' ),
+			'footer-layanan'  => __( 'Footer: Layanan', 'jalaversity' ),
+			'social'          => __( 'Social Links', 'jalaversity' ),
 		]
 	);
 }

@@ -47,7 +47,7 @@ jobs:
 
       - name: Run Quality Gates
         run: |
-          composer lint:syntax
+          composer lint
           composer analyse
           composer css:check
           composer dist:check

@@ -22,9 +22,9 @@ if ( ! $url ) {
 	return;
 }
 
-$title         = get_the_title();
+$share_title   = get_the_title();
 $encoded_url   = rawurlencode( $url );
-$encoded_title = rawurlencode( $title );
+$encoded_title = rawurlencode( $share_title );
 ?>
 <div class="share-buttons">
 	<span class="share-buttons__label"><?php esc_html_e( 'Bagikan', 'jalaversity' ); ?></span>

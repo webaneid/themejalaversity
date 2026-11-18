@@ -85,19 +85,21 @@ class Jalaversity_Nav_Walker extends Walker_Nav_Menu {
 		}
 
 		// Remove default WP classes that we replace with our own.
-		$classes = array_filter( $classes, static fn( string $c ): bool =>
+		$classes = array_filter(
+			$classes,
+			static fn( string $c ): bool =>
 			! in_array( $c, [ 'menu-item-has-children', 'page_item', 'page-item-has-children' ], true )
 		);
 
 		$class_str = implode( ' ', array_unique( array_filter( $classes ) ) );
 
-		$output .= "{$indent}<li class=\"" . esc_attr( $class_str ) . "\"";
+		$output .= "{$indent}<li class=\"" . esc_attr( $class_str ) . '"';
 		$output .= " id=\"menu-item-{$item->ID}\">\n";
 
 		/* ── Link ─────────────────────────────────────────────────── */
-		$atts           = [];
-		$atts['href']   = ! empty( $item->url ) ? $item->url : '#';
-		$atts['class']  = $depth > 0 ? 'nav-link nav-link--sub' : 'nav-link';
+		$atts          = [];
+		$atts['href']  = ! empty( $item->url ) ? $item->url : '#';
+		$atts['class'] = $depth > 0 ? 'nav-link nav-link--sub' : 'nav-link';
 
 		if ( $is_current ) {
 			$atts['aria-current'] = 'page';
@@ -124,9 +126,11 @@ class Jalaversity_Nav_Walker extends Walker_Nav_Menu {
 			$atts_str .= ' ' . esc_attr( $attr ) . '="' . esc_attr( $val ) . '"';
 		}
 
-		$title = apply_filters( 'the_title', $item->title, $item->ID );
+		/** @var object{ID: int, title?: string} $menu_item */
+		$menu_item  = $item;
+		$item_title = (string) apply_filters( 'the_title', $menu_item->title ?? '', $item->ID );
 
-		$output .= "{$indent}\t<a{$atts_str}>" . esc_html( $title ) . '</a>' . "\n";
+		$output .= "{$indent}\t<a{$atts_str}>" . esc_html( $item_title ) . '</a>' . "\n";
 
 		/* ── Submenu toggle button (depth 0 only, when has children) ── */
 		if ( $has_children && 0 === $depth ) {
@@ -134,7 +138,7 @@ class Jalaversity_Nav_Walker extends Walker_Nav_Menu {
 			$label   = sprintf(
 				/* translators: %s: menu item title */
 				esc_attr__( 'Open submenu of %s', 'jalaversity' ),
-				esc_attr( $title )
+				esc_attr( $item_title )
 			);
 
 			$expanded = $is_current ? 'true' : 'false';

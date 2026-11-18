@@ -7,8 +7,8 @@ Dokumen ini melacak status eksekusi setiap fase retrofit theme **Jalaversity (`j
 ## Ringkasan Status
 
 - **Versi Theme Saat Ini:** `1.1.1` (baseline commit `c2e3112`)
-- **Fase Terakhir Selesai:** **Fase 04 — Template Konten Kampus (`single-agenda.php`, `single-pengumuman.php`, & `404.php`) (`Done` — 2026-11-18)**
-- **Fase Berikutnya:** **Fase 05 — Standarisasi Kode WPCS & PHPStan 0 Error (`Planned`)**
+- **Fase Terakhir Selesai:** **Fase 05 — Standarisasi Kode WPCS & PHPStan 0 Error (`Done` — 2026-11-18)**
+- **Fase Berikutnya:** **Fase 06 — Mesin SEO Hybrid Kampus, Schema JSON-LD, & `llms.txt` (`Planned`)**
 
 ---
 
@@ -24,7 +24,7 @@ Dokumen ini melacak status eksekusi setiap fase retrofit theme **Jalaversity (`j
 | **02** | Remediasi Keamanan (Validasi Iframe Maps & Sanitasi Token), Perbaikan Cache-Busting `?ver=` Aset Theme, & Endpoint AJAX Post Views | [`docs/phases/phase-02-security-dan-ajax-views.md`](phases/phase-02-security-dan-ajax-views.md) | **Done** | 2026-11-18 |
 | **03** | Perbaikan Bug Komponen UI (Panel Tab Kategori `news-section.php`, Prop Hero & Tag `<main>` `page-contact.php`, Sinkronisasi Ikon SVG `wa-widget.php`, & Hapus Stub Mati) | [`docs/phases/phase-03-perbaikan-komponen-ui.md`](phases/phase-03-perbaikan-komponen-ui.md) | **Done** | 2026-11-18 |
 | **04** | Template Konten Kampus (`single-agenda.php` dengan Detail ACF Agenda, `single-pengumuman.php`, & Halaman `404.php`) | [`docs/phases/phase-04-template-agenda-pengumuman-404.md`](phases/phase-04-template-agenda-pengumuman-404.md) | **Done** | 2026-11-18 |
-| **05** | Standarisasi Kode WPCS (`WordPress-Extra` 0 Error) & Penyelesaian Seluruh 17 Error PHPStan Level 5 (Baseline Kosong) | `docs/phases/phase-05-standarisasi-wpcs-dan-phpstan.md` | **Planned** | — |
+| **05** | Standarisasi Kode WPCS (`WordPress-Extra` 0 Error) & Penyelesaian Seluruh 17 Error PHPStan Level 5 (Baseline Kosong) | [`docs/phases/phase-05-standarisasi-wpcs-dan-phpstan.md`](phases/phase-05-standarisasi-wpcs-dan-phpstan.md) | **Done** | 2026-11-18 |
 | **06** | Mesin SEO Hybrid Kampus (`includes/seo.php`), Schema JSON-LD (`CollegeOrUniversity`, `WebSite`, `Article`, `Event`), & Endpoint GEO `/llms.txt` | `docs/phases/phase-06-seo-hybrid-dan-llms-txt.md` | **Planned** | — |
 | **07** | Integrasi Tracking (`GTM`, `GA4`, `Meta Pixel`, `TikTok Pixel`, Verifikasi Webmaster) & Dukungan Sosial Media `Threads` | `docs/phases/phase-07-tracking-dan-sosmed-threads.md` | **Planned** | — |
 | **08** | Penerapan Standar `webane-pagespeed-cwv` (WebP 78, Preload LCP `wp_head`, DPR-Aware `sizes`, Preconnect `<= 4`, Async Font CSS, `content-visibility: auto`, & Aksesibilitas 100) | `docs/phases/phase-08-optimasi-pagespeed-cwv.md` | **Planned** | — |

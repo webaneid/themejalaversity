@@ -30,8 +30,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$args           = is_array( $args ?? null ) ? $args : [];
 $valid_variants = [ 'overlay', 'list', 'klasik', 'title' ];
-$variant         = in_array( $args['variant'] ?? 'list', $valid_variants, true ) ? $args['variant'] : 'list';
+$variant        = in_array( $args['variant'] ?? 'list', $valid_variants, true ) ? $args['variant'] : 'list';
 ?>
 <article <?php post_class( 'card card--post card--post-' . $variant ); ?>>
 
@@ -59,7 +60,7 @@ $variant         = in_array( $args['variant'] ?? 'list', $valid_variants, true )
 			<?php jalaversity_card_title( 'h3' ); ?>
 		</div>
 
-	<?php else : // 'list' (default) ?>
+	<?php else : ?>
 
 		<?php jalaversity_card_thumbnail( 'jalaversity-square', 24 ); ?>
 		<div class="card__body">

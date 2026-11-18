@@ -24,20 +24,26 @@ if ( have_posts() ) :
 	the_post();
 endif;
 
-get_template_part( 'template-parts/components/hero-page', null, [
-	'variant'         => 'subpage',
-	'heading'         => get_the_title(),
-	'show_breadcrumb' => true,
-] );
+get_template_part(
+	'template-parts/components/hero-page',
+	null,
+	[
+		'variant'         => 'subpage',
+		'heading'         => get_the_title(),
+		'show_breadcrumb' => true,
+	]
+);
 
 // ── Berita Utama (post dengan field ACF is_featured) ──────────────────
-$featured_query = new WP_Query( [
-	'post_type'           => 'post',
-	'posts_per_page'      => 3,
-	'meta_key'            => 'is_featured',
-	'meta_value'          => '1',
-	'ignore_sticky_posts' => true,
-] );
+$featured_query = new WP_Query(
+	[
+		'post_type'           => 'post',
+		'posts_per_page'      => 3,
+		'meta_key'            => 'is_featured',
+		'meta_value'          => '1',
+		'ignore_sticky_posts' => true,
+	]
+);
 
 $featured_ids = [];
 
@@ -46,12 +52,18 @@ if ( $featured_query->have_posts() ) :
 	?>
 	<section class="section-py" aria-labelledby="featured-posts-heading">
 		<div class="container">
-			<?php get_template_part( 'template-parts/components/section-header', null, [
-				'label'      => __( 'Berita Utama', 'jalaversity' ),
-				'heading'    => __( 'Sorotan Terkini', 'jalaversity' ),
-				'heading_id' => 'featured-posts-heading',
-				'center'     => false,
-			] ); ?>
+			<?php
+			get_template_part(
+				'template-parts/components/section-header',
+				null,
+				[
+					'label'      => __( 'Berita Utama', 'jalaversity' ),
+					'heading'    => __( 'Sorotan Terkini', 'jalaversity' ),
+					'heading_id' => 'featured-posts-heading',
+					'center'     => false,
+				]
+			);
+			?>
 			<div class="post-cards-grid">
 				<?php
 				while ( $featured_query->have_posts() ) :
@@ -67,24 +79,32 @@ if ( $featured_query->have_posts() ) :
 
 <?php
 // ── Artikel Terbaru (exclude yang sudah tampil di Berita Utama) ───────
-$paged = max( 1, (int) get_query_var( 'paged' ) );
+$current_page = max( 1, (int) get_query_var( 'paged' ) );
 
-$latest_query = new WP_Query( [
-	'post_type'           => 'post',
-	'posts_per_page'      => 9,
-	'paged'               => $paged,
-	'post__not_in'        => $featured_ids,
-	'ignore_sticky_posts' => true,
-] );
+$latest_query = new WP_Query(
+	[
+		'post_type'           => 'post',
+		'posts_per_page'      => 9,
+		'paged'               => $current_page,
+		'post__not_in'        => $featured_ids,
+		'ignore_sticky_posts' => true,
+	]
+);
 ?>
 
 <section class="section-py" aria-labelledby="latest-posts-heading">
 	<div class="container">
-		<?php get_template_part( 'template-parts/components/section-header', null, [
-			'heading'    => __( 'Artikel Terbaru', 'jalaversity' ),
-			'heading_id' => 'latest-posts-heading',
-			'center'     => false,
-		] ); ?>
+		<?php
+		get_template_part(
+			'template-parts/components/section-header',
+			null,
+			[
+				'heading'    => __( 'Artikel Terbaru', 'jalaversity' ),
+				'heading_id' => 'latest-posts-heading',
+				'center'     => false,
+			]
+		);
+		?>
 
 		<?php if ( $latest_query->have_posts() ) : ?>
 			<div class="archive-list">

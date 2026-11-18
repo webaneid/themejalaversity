@@ -60,7 +60,7 @@ function jalaversity_get_thumbnail( int $post_id, string $size = 'jalaversity-me
  */
 function jalaversity_get_placeholder_image( string $size = 'jalaversity-medium' ): string {
 
-	$dimensions = JALAVERSITY_IMAGE_SIZES[ $size ] ?? [ 800, 450 ];
+	$dimensions         = JALAVERSITY_IMAGE_SIZES[ $size ] ?? [ 800, 450 ];
 	[ $width, $height ] = $dimensions;
 
 	$svg = sprintf(
@@ -75,7 +75,7 @@ function jalaversity_get_placeholder_image( string $size = 'jalaversity-medium' 
 
 	return sprintf(
 		'<img src="%s" width="%d" height="%d" alt="%s" class="w-full h-full object-cover" loading="lazy">',
-		esc_attr( 'data:image/svg+xml;base64,' . base64_encode( $svg ) ),
+		esc_attr( 'data:image/svg+xml;base64,' . base64_encode( $svg ) ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Inline SVG data-URI placeholder.
 		esc_attr( (string) $width ),
 		esc_attr( (string) $height ),
 		esc_attr__( 'Placeholder image', 'jalaversity' )

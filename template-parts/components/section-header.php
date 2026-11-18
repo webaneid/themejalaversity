@@ -24,13 +24,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$label      = $args['label'] ?? '';
-$heading    = $args['heading'] ?? '';
-$heading_id = $args['heading_id'] ?? '';
-$lead       = $args['lead'] ?? '';
-$center     = ! empty( $args['center'] );
-$tag        = isset( $args['tag'] ) ? tag_escape( $args['tag'] ) : 'h2';
-$dark       = ! empty( $args['dark'] );
+$args        = is_array( $args ?? null ) ? $args : [];
+$label       = $args['label'] ?? '';
+$heading     = $args['heading'] ?? '';
+$heading_id  = $args['heading_id'] ?? '';
+$lead        = $args['lead'] ?? '';
+$center      = ! empty( $args['center'] );
+$heading_tag = isset( $args['tag'] ) ? tag_escape( $args['tag'] ) : 'h2';
+$dark        = ! empty( $args['dark'] );
 
 if ( ! $heading ) {
 	return;
@@ -43,9 +44,13 @@ $class = 'section-header' . ( $center ? ' section-header--center' : '' ) . ( $da
 		<?php jalaversity_section_label( $label, $center, $dark ); ?>
 	<?php endif; ?>
 
-	<<?php echo $tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped — tag_escape() above ?> <?php if ( $heading_id ) : ?>id="<?php echo esc_attr( $heading_id ); ?>"<?php endif; ?> class="section-header__heading text-section">
+	<<?php echo $heading_tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- tag_escape() above. ?>
+	<?php
+	if ( $heading_id ) :
+		?>
+		id="<?php echo esc_attr( $heading_id ); ?>"<?php endif; ?> class="section-header__heading text-section">
 		<?php echo esc_html( $heading ); ?>
-	</<?php echo $tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	</<?php echo $heading_tag; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 
 	<?php if ( $lead ) : ?>
 	<p class="section-header__lead"><?php echo esc_html( $lead ); ?></p>

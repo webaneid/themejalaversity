@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $heading = $args['heading'] ?? __( 'Wujudkan Cita-citamu Bersama Kami', 'jalaversity' );
-$body    = $args['body']    ?? __( 'Bergabunglah dengan komunitas akademik yang menumbuhkan ilmu, iman, dan amal. Masa depanmu dimulai di sini.', 'jalaversity' );
+$body    = $args['body'] ?? __( 'Bergabunglah dengan komunitas akademik yang menumbuhkan ilmu, iman, dan amal. Masa depanmu dimulai di sini.', 'jalaversity' );
 
 $pmb_url   = jalaversity_get_option( 'pmb_url', '#' );
 $pmb_label = jalaversity_get_option( 'pmb_label', __( 'Daftar PMB Sekarang', 'jalaversity' ) );

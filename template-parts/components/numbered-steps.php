@@ -39,13 +39,17 @@ if ( ! $items ) {
 }
 
 if ( $heading ) :
-	get_template_part( 'template-parts/components/section-header', null, [
-		'label'      => $label,
-		'heading'    => $heading,
-		'heading_id' => $heading_id,
-		'lead'       => $lead,
-		'center'     => true,
-	] );
+	get_template_part(
+		'template-parts/components/section-header',
+		null,
+		[
+			'label'      => $label,
+			'heading'    => $heading,
+			'heading_id' => $heading_id,
+			'lead'       => $lead,
+			'center'     => true,
+		]
+	);
 endif;
 ?>
 <div class="numbered-steps numbered-steps--<?php echo esc_attr( $variant ); ?>" role="list" aria-label="<?php esc_attr_e( 'Langkah-langkah', 'jalaversity' ); ?>">

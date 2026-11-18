@@ -13,17 +13,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'admin_menu', function (): void {
-	add_menu_page(
-		__( 'Jalaversity Settings', 'jalaversity' ),
-		__( 'Jalaversity', 'jalaversity' ),
-		'manage_options',
-		'jalaversity-settings',
-		'jalaversity_render_settings_page',
-		'dashicons-admin-customizer',
-		61
-	);
-} );
+add_action(
+	'admin_menu',
+	function (): void {
+		add_menu_page(
+			__( 'Jalaversity Settings', 'jalaversity' ),
+			__( 'Jalaversity', 'jalaversity' ),
+			'manage_options',
+			'jalaversity-settings',
+			'jalaversity_render_settings_page',
+			'dashicons-admin-customizer',
+			61
+		);
+	}
+);
 
 /**
  * Render the Settings Page with tab navigation.
@@ -35,7 +38,7 @@ function jalaversity_render_settings_page(): void {
 
 	$schema      = jalaversity_settings_schema();
 	$tab_keys    = array_keys( $schema );
-	$current_tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : '';
+	$current_tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	if ( ! in_array( $current_tab, $tab_keys, true ) ) {
 		$current_tab = $tab_keys[0];
 	}
@@ -46,10 +49,17 @@ function jalaversity_render_settings_page(): void {
 		<?php settings_errors(); ?>
 
 		<h2 class="nav-tab-wrapper">
-			<?php foreach ( $schema as $slug => $tab ) :
-				$url = add_query_arg( [ 'page' => 'jalaversity-settings', 'tab' => $slug ], admin_url( 'admin.php' ) );
+			<?php
+			foreach ( $schema as $slug => $tab ) :
+				$url    = add_query_arg(
+					[
+						'page' => 'jalaversity-settings',
+						'tab'  => $slug,
+					],
+					admin_url( 'admin.php' )
+				);
 				$active = ( $slug === $current_tab ) ? ' nav-tab-active' : '';
-			?>
+				?>
 				<a href="<?php echo esc_url( $url ); ?>" class="nav-tab<?php echo esc_attr( $active ); ?>">
 					<?php echo esc_html( $tab['label'] ); ?>
 				</a>
@@ -145,7 +155,7 @@ function jalaversity_render_settings_field( array $field ): void {
 					type="hidden"
 					id="<?php echo esc_attr( $id ); ?>"
 					name="<?php echo esc_attr( $name ); ?>"
-					value="<?php echo esc_attr( $image_id ); ?>"
+					value="<?php echo esc_attr( (string) $image_id ); ?>"
 					class="jalaversity-image-field__input"
 				>
 				<div class="jalaversity-image-field__preview" <?php echo $image_url ? '' : 'style="display:none;"'; ?>>

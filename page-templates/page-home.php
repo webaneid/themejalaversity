@@ -40,13 +40,19 @@ get_header();
 <?php /* Fakultas & Program Studi — white bg, card grid icon overlay */ ?>
 <section class="faculty-section section-py" aria-labelledby="faculty-heading">
 	<div class="container">
-		<?php get_template_part( 'template-parts/components/card-grid', null, [
-			'label'      => __( 'Program Akademik', 'jalaversity' ),
-			'heading'    => jalaversity_get_option( 'faculty_heading', __( 'Fakultas & Program Studi', 'jalaversity' ) ),
-			'heading_id' => 'faculty-heading',
-			'lead'       => jalaversity_get_option( 'faculty_subhead', __( 'Lima fakultas dan program pascasarjana dengan 18 program studi terakreditasi, dirancang untuk membentuk ahli yang kompeten dan berintegritas.', 'jalaversity' ) ),
-			'items'      => jalaversity_get_faculties(),
-		] ); ?>
+		<?php
+		get_template_part(
+			'template-parts/components/card-grid',
+			null,
+			[
+				'label'      => __( 'Program Akademik', 'jalaversity' ),
+				'heading'    => jalaversity_get_option( 'faculty_heading', __( 'Fakultas & Program Studi', 'jalaversity' ) ),
+				'heading_id' => 'faculty-heading',
+				'lead'       => jalaversity_get_option( 'faculty_subhead', __( 'Lima fakultas dan program pascasarjana dengan 18 program studi terakreditasi, dirancang untuk membentuk ahli yang kompeten dan berintegritas.', 'jalaversity' ) ),
+				'items'      => jalaversity_get_faculties(),
+			]
+		);
+		?>
 	</div>
 </section>
 
@@ -62,13 +68,19 @@ get_header();
 <?php /* Lokasi Kampus — cream bg, card grid foto */ ?>
 <section class="locations-section section-py" aria-labelledby="locations-heading">
 	<div class="container">
-		<?php get_template_part( 'template-parts/components/card-grid', null, [
-			'heading'        => jalaversity_get_option( 'locations_heading', __( 'Tiga Kampus, Satu Visi Keilmuan', 'jalaversity' ) ),
-			'heading_id'     => 'locations-heading',
-			'label'          => __( 'Lokasi Kampus', 'jalaversity' ),
-			'items'          => jalaversity_get_campuses(),
-			'min_card_width' => '300px',
-		] ); ?>
+		<?php
+		get_template_part(
+			'template-parts/components/card-grid',
+			null,
+			[
+				'heading'        => jalaversity_get_option( 'locations_heading', __( 'Tiga Kampus, Satu Visi Keilmuan', 'jalaversity' ) ),
+				'heading_id'     => 'locations-heading',
+				'label'          => __( 'Lokasi Kampus', 'jalaversity' ),
+				'items'          => jalaversity_get_campuses(),
+				'min_card_width' => '300px',
+			]
+		);
+		?>
 	</div>
 </section>
 

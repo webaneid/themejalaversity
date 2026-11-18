@@ -30,6 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$args      = is_array( $args ?? null ) ? $args : [];
 $variant   = ( 'subpage' === ( $args['variant'] ?? '' ) ) ? 'subpage' : 'home';
 $is_home   = 'home' === $variant;
 $heading   = $args['heading'] ?? '';
@@ -91,7 +92,7 @@ $section_class = 'hero-page'
 				<?php endif; ?>
 
 				<h1 id="hero-heading" class="hero-page__heading <?php echo $is_home ? 'text-hero' : 'text-hero-sub'; ?>">
-					<?php echo $heading_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped — sanitized above ?>
+					<?php echo $heading_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Sanitized above. ?>
 				</h1>
 
 				<?php if ( $lead ) : ?>
@@ -100,16 +101,20 @@ $section_class = 'hero-page'
 
 				<?php if ( $buttons ) : ?>
 				<div class="hero-page__buttons">
-					<?php foreach ( $buttons as $button ) :
+					<?php
+					foreach ( $buttons as $button ) :
 						if ( empty( $button['url'] ) ) {
 							continue;
 						}
 						$btn_class = ( 'ghost' === ( $button['style'] ?? 'primary' ) ) ? 'btn--ghost-white' : 'btn--accent-solid';
-					?>
+						?>
 					<a
 						href="<?php echo esc_url( $button['url'] ); ?>"
 						class="btn <?php echo esc_attr( $btn_class ); ?>"
-						<?php if ( ! empty( $button['external'] ) ) : ?>target="_blank" rel="noopener noreferrer"<?php endif; ?>
+						<?php
+						if ( ! empty( $button['external'] ) ) :
+							?>
+							target="_blank" rel="noopener noreferrer"<?php endif; ?>
 					>
 						<?php echo esc_html( $button['label'] ?? '' ); ?>
 					</a>
@@ -144,11 +149,12 @@ $section_class = 'hero-page'
 
 				<?php if ( $trust_items ) : ?>
 				<ul class="hero-page__trust" aria-label="<?php esc_attr_e( 'Keunggulan institusi', 'jalaversity' ); ?>">
-					<?php foreach ( $trust_items as $trust ) :
+					<?php
+					foreach ( $trust_items as $trust ) :
 						if ( ! $trust ) {
 							continue;
 						}
-					?>
+						?>
 					<li class="hero-page__trust-item">
 						<?php jalaversity_icon_e( 'check-circle', 16 ); ?>
 						<?php echo esc_html( $trust ); ?>
@@ -162,7 +168,8 @@ $section_class = 'hero-page'
 			<?php if ( $image_id || $floating_badge ) : ?>
 			<div class="hero-page__visual anim-fadeup">
 				<div class="hero-page__img-wrap img-hero-radius">
-					<?php if ( $image_id && wp_attachment_is_image( $image_id ) ) :
+					<?php
+					if ( $image_id && wp_attachment_is_image( $image_id ) ) :
 						echo wp_get_attachment_image(
 							$image_id,
 							'large',
@@ -173,7 +180,8 @@ $section_class = 'hero-page'
 								'loading' => 'eager',
 							]
 						);
-					else : ?>
+					else :
+						?>
 						<div class="hero-page__img-placeholder" aria-hidden="true">
 							<?php jalaversity_icon_e( 'photo', 48 ); ?>
 						</div>
