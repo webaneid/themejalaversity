@@ -494,10 +494,21 @@
       gap: 24px;
       padding-top: 12px;
       padding-bottom: 12px;
+
+      @media (max-width: 767px) {
+        gap: 12px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
     }
 
     &__logo {
       flex: none;
+
+      @media (max-width: 767px) {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
 
       /* Override WP custom logo defaults */
       .custom-logo-link {
@@ -510,6 +521,12 @@
         height: 46px;
         width: auto;
         display: block;
+
+        @media (max-width: 767px) {
+          height: 38px;
+          max-width: min(210px, 68vw);
+          object-fit: contain;
+        }
       }
     }
 
@@ -537,6 +554,12 @@
       align-items: center;
       gap: 12px;
       flex: none;
+
+      @media (max-width: 767px) {
+        .btn--pmb {
+          display: none;
+        }
+      }
     }
   }
 
@@ -894,6 +917,12 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+    }
+
+    &__pmb {
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 4px;
     }
 
     &__contact-item {
@@ -2439,6 +2468,10 @@
 
   .breadcrumb {
     padding: 14px 0;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
 
   .breadcrumb__list {
@@ -2884,6 +2917,201 @@
     font-size: 14px;
     margin-top: 8px;
     border: 1px solid var(--color-border);
+  }
+
+  /* ── Mobile & Tablet Responsive Overrides ─────────────────────────────── */
+
+  @media (max-width: 1023px) {
+    .news-grid,
+    .contact-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-map {
+      position: static;
+      height: 360px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .topbar__nav,
+    .topbar__divider {
+      display: none;
+    }
+
+    .hero-page {
+      &__inner {
+        padding-top: 32px;
+        padding-bottom: 76px;
+        gap: 28px;
+      }
+
+      &--subpage &__inner {
+        padding-top: 24px;
+        padding-bottom: 40px;
+      }
+
+      &__content,
+      &__visual,
+      &--text-only &__content {
+        min-width: 0;
+        width: 100%;
+        flex-basis: 100%;
+      }
+
+      &__img,
+      &__img-placeholder {
+        height: 280px;
+      }
+
+      &__search {
+        padding: 6px 6px 6px 14px;
+      }
+
+      &__search-btn {
+        padding: 10px 16px;
+      }
+    }
+
+    .img-hero-radius {
+      border-radius: 110px 110px 20px 20px;
+    }
+
+    .floating-badge {
+      left: 10px;
+      bottom: 12px;
+      padding: 10px 14px;
+    }
+
+    .stats-bar {
+      margin-top: -44px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .stats-item {
+      padding: 16px 14px;
+      gap: 10px;
+      border-bottom: 1px solid var(--color-divider);
+
+      &__icon {
+        width: 40px;
+        height: 40px;
+      }
+
+      &__value {
+        font-size: 22px;
+      }
+    }
+
+    .content-media {
+      &__inner {
+        gap: 28px;
+      }
+
+      &__visual,
+      &__content {
+        min-width: 0;
+        width: 100%;
+        flex-basis: 100%;
+      }
+
+      &__img,
+      &__img-placeholder {
+        height: 260px;
+      }
+
+      &__badge--top-right {
+        right: 8px;
+        top: 8px;
+      }
+
+      &__badge--bottom-left {
+        left: 8px;
+        bottom: 8px;
+      }
+    }
+
+    .profile-quote {
+      gap: 28px;
+
+      &__photo-col,
+      &__content {
+        min-width: 0;
+        width: 100%;
+        flex-basis: 100%;
+      }
+    }
+
+    .card-grid,
+    .news-section__bottom {
+      grid-template-columns: 1fr;
+    }
+
+    .checklist-cards {
+      gap: 28px;
+
+      &__col {
+        min-width: 0;
+        width: 100%;
+        flex-basis: 100%;
+      }
+    }
+
+    .pmb-section {
+      padding: 52px 0;
+
+      &__intro {
+        min-width: 0;
+        width: 100%;
+      }
+    }
+
+    .cta-banner {
+      padding: 36px 20px;
+      border-radius: var(--radius-xl);
+    }
+
+    .cta-section {
+      padding-bottom: 52px;
+    }
+
+    .card--news-featured .card__media--news {
+      height: 210px;
+    }
+
+    .card--news-featured .card__body {
+      padding: 18px;
+    }
+
+    .card--news-list .card__media--list {
+      width: 104px;
+    }
+
+    .news-box {
+      padding: 20px 18px;
+    }
+
+    .site-footer {
+      &__grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding-top: 44px;
+        padding-bottom: 32px;
+      }
+
+      &__brand {
+        min-width: 0;
+      }
+    }
+
+    .wa-widget {
+      bottom: 16px;
+      right: 15px;
+    }
+
+    .wa-popup {
+      width: min(320px, calc(100vw - 30px));
+    }
   }
 
 } /* end @layer components */

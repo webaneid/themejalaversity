@@ -134,11 +134,14 @@ $site_name = get_bloginfo( 'name' );
 		<?php
 		$phone = jalaversity_get_option( 'contact_phone', '' );
 		$email = jalaversity_get_option( 'contact_email', '' );
-		if ( $phone || $email ) :
-			?>
+		?>
 		<div class="mobile-menu__footer">
+			<a href="<?php echo esc_url( $pmb_url ); ?>" class="btn btn--pmb mobile-menu__pmb">
+				<?php echo esc_html( $pmb_label ); ?>
+				<?php jalaversity_icon_e( 'arrow-right', 17 ); ?>
+			</a>
 			<?php if ( $phone ) : ?>
-			<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $phone ) ); ?>" class="mobile-menu__contact-item">
+			<a href="tel:<?php echo esc_attr( (string) preg_replace( '/[^0-9+]/', '', $phone ) ); ?>" class="mobile-menu__contact-item">
 				<?php jalaversity_icon_e( 'phone', 16 ); ?>
 				<?php echo esc_html( $phone ); ?>
 			</a>
@@ -150,7 +153,6 @@ $site_name = get_bloginfo( 'name' );
 			</a>
 			<?php endif; ?>
 		</div>
-		<?php endif; ?>
 
 	</div><!-- /.mobile-menu__panel -->
 </div><!-- #mobile-menu -->

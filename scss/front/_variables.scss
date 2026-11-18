@@ -92,3 +92,9 @@
   --container-width-sm: 1120px;
   --container-px:       24px;
 }
+
+@media (max-width: 767px) {
+  :root {
+    --container-px: 15px;
+  }
+}
