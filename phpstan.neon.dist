@@ -16,10 +16,13 @@ parameters:
         - footer.php
         - index.php
         - single.php
+        - single-agenda.php
+        - single-pengumuman.php
         - page.php
         - archive.php
         - search.php
         - sidebar.php
+        - 404.php
     excludePaths:
         - vendor/*
         - node_modules/*

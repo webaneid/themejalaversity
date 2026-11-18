@@ -720,3 +720,139 @@
   flex: none;
 }
 
+/* ── Single Agenda Detail Card & Speakers (CPT: agenda) ─────────────── */
+
+.agenda-detail-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin: var(--space-lg) 0 var(--space-2xl);
+  box-shadow: var(--shadow-sm);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-divider);
+  }
+
+  &__quota {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+
+    svg { color: var(--color-accent); }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-lg);
+    margin: 0;
+  }
+
+  &__item {
+    dt {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--color-text-caption);
+      margin-bottom: 4px;
+
+      svg { color: var(--color-accent); flex: none; }
+    }
+
+    dd {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+
+      a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--color-accent);
+        text-decoration: none;
+
+        &:hover { color: var(--color-accent-dark); text-decoration: underline; }
+      }
+    }
+  }
+
+  &__cta {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-divider);
+  }
+}
+
+.agenda-speakers {
+  margin-bottom: var(--space-2xl);
+
+  &__title {
+    font-family: var(--font-heading);
+    font-size: 21px;
+    color: var(--color-primary);
+    margin: 0 0 var(--space-md);
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+  }
+}
+
+.agenda-speaker-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  &__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: 15px;
+    color: var(--color-text-primary);
+  }
+
+  &__role {
+    font-size: 13px;
+    color: var(--color-text-muted);
+  }
+}
+
+
