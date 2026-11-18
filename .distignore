@@ -1,0 +1,40 @@
+# File/folder yang TIDAK ikut ZIP rilis ke customer (dipakai CI, lihat ADR-0002).
+# Satu pola per baris (format rsync --exclude-from).
+
+# 1. Semua dotfile & dotfolder (.git, .github, .claude, .agents, .cursor, .gemini, .vscode, .DS_Store, .releaserc.json, dll)
+.*
+
+# 2. Semua file Markdown di mana pun (AGENTS.md, CLAUDE.md, README.md, CHANGELOG.md, dll)
+*.md
+
+# 3. Folder dokumentasi, blueprint, & skrip internal
+docs
+blueprints
+bin
+tests
+scss
+
+# 4. Dependency & konfigurasi tooling dev (Composer, PHPCS, PHPStan, Node/NPM, PostCSS/Tailwind)
+vendor
+node_modules
+composer.json
+composer.lock
+package.json
+package-lock.json
+postcss.config.js
+tailwind.config.js
+phpcs.xml
+phpcs.xml.dist
+phpstan.neon
+phpstan.neon.dist
+phpstan-baseline.neon
+phpstan-bootstrap.php
+phpunit.xml
+phpunit.xml.dist
+
+# 5. Output build sementara & log (hanya css/front.css dan css/admin.css yang masuk rilis)
+dist
+build
+*.map
+*.log
+*.zip

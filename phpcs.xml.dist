@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Jalaversity Theme Coding Standards" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/PHPCSStandards/PHP_CodeSniffer/master/phpcs.xsd">
+	<description>WordPress Coding Standards for Jalaversity Theme.</description>
+
+	<file>.</file>
+
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/dist/*</exclude-pattern>
+	<exclude-pattern>/build/*</exclude-pattern>
+	<exclude-pattern>/css/*</exclude-pattern>
+	<exclude-pattern>/js/*</exclude-pattern>
+	<exclude-pattern>/fonts/*</exclude-pattern>
+	<exclude-pattern>/images/*</exclude-pattern>
+	<exclude-pattern>/docs/*</exclude-pattern>
+	<exclude-pattern>/phpstan-bootstrap.php</exclude-pattern>
+
+	<arg value="sp"/>
+	<arg name="basepath" value="."/>
+	<arg name="colors"/>
+	<arg name="extensions" value="php"/>
+	<arg name="parallel" value="8"/>
+
+	<config name="testVersion" value="8.1-"/>
+	<config name="minimum_wp_version" value="6.0"/>
+
+	<rule ref="WordPress-Extra">
+		<exclude name="WordPress.Files.FileName"/>
+		<exclude name="Universal.Files.SeparateFunctionsFromOO.Mixed"/>
+		<!-- Yoda condition tidak diwajibkan (lihat docs/conventions.md) -->
+		<exclude name="WordPress.PHP.YodaConditions"/>
+		<!-- Short array syntax [] dan shorthand ternary ?: diizinkan untuk PHP 8.1+ -->
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+		<exclude name="Universal.Operators.DisallowShortTernary"/>
+		<!-- Komentar boleh tanpa titik di akhir -->
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="jalaversity"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.Security.EscapeOutput">
+		<properties>
+			<property name="customAutoEscapedFunctions" type="array">
+				<element value="jalaversity_icon"/>
+				<element value="jalaversity_social_icon"/>
+				<element value="jalaversity_get_thumbnail"/>
+				<element value="jalaversity_get_placeholder_image"/>
+				<element value="jalaversity_responsive_image"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="jalaversity"/>
+				<element value="JALAVERSITY"/>
+				<element value="Jalaversity"/>
+			</property>
+		</properties>
+		<exclude-pattern>/template-parts/*</exclude-pattern>
+		<exclude-pattern>/page-templates/*</exclude-pattern>
+		<exclude-pattern>/*.php</exclude-pattern>
+	</rule>
+</ruleset>
