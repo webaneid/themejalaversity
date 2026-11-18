@@ -54,6 +54,11 @@ function jalaversity_sanitize_options( mixed $input ): array {
 					continue;
 				}
 
+				if ( in_array( $key, [ 'gsc_verification', 'yandex_verification', 'bing_verification', 'fb_domain_verify', 'gtm_id', 'ga4_id', 'yandex_metrica_id', 'fb_pixel_id', 'tiktok_pixel_id' ], true ) ) {
+					$sanitized[ $key ] = jalaversity_clean_tracking_field( $key, (string) $input[ $key ] );
+					continue;
+				}
+
 				$sanitized[ $key ] = jalaversity_sanitize_field_value( $input[ $key ], $field['type'] ?? 'text' );
 			}
 		}

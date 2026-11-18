@@ -177,11 +177,13 @@ function jalaversity_render_settings_field( array $field ): void {
 			break;
 
 		default:
+			$placeholder = ! empty( $field['placeholder'] ) ? ' placeholder="' . esc_attr( (string) $field['placeholder'] ) . '"' : '';
 			printf(
-				'<input type="text" id="%s" name="%s" value="%s" class="regular-text">',
+				'<input type="text" id="%1$s" name="%2$s" value="%3$s" class="regular-text"%4$s>',
 				esc_attr( $id ),
 				esc_attr( $name ),
-				esc_attr( $value )
+				esc_attr( $value ),
+				$placeholder // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- esc_attr applied above.
 			);
 	}
 

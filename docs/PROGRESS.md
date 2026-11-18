@@ -7,8 +7,8 @@ Dokumen ini melacak status eksekusi setiap fase retrofit theme **Jalaversity (`j
 ## Ringkasan Status
 
 - **Versi Theme Saat Ini:** `1.1.1` (baseline commit `c2e3112`)
-- **Fase Terakhir Selesai:** **Fase 06 — Mesin SEO Hybrid Kampus, Schema JSON-LD, & `llms.txt` (`Done` — 2026-11-19)**
-- **Fase Berikutnya:** **Fase 07 — Integrasi Tracking (`GTM`, `GA4`, `Meta Pixel`, `TikTok Pixel`, Verifikasi Webmaster) & Dukungan Sosial Media `Threads` (`Planned`)**
+- **Fase Terakhir Selesai:** **Fase 07 — Integrasi Tracking (`GTM`, `GA4`, `Yandex`, `Bing`, `Meta Pixel`, `TikTok Pixel`) & Sosial Media `Threads` (`Done` — 2026-11-19)**
+- **Fase Berikutnya:** **Fase 08 — Penerapan Standar `webane-pagespeed-cwv` & Aksesibilitas 100 (`Planned`)**
 
 ---
 
@@ -26,6 +26,6 @@ Dokumen ini melacak status eksekusi setiap fase retrofit theme **Jalaversity (`j
 | **04** | Template Konten Kampus (`single-agenda.php` dengan Detail ACF Agenda, `single-pengumuman.php`, & Halaman `404.php`) | [`docs/phases/phase-04-template-agenda-pengumuman-404.md`](phases/phase-04-template-agenda-pengumuman-404.md) | **Done** | 2026-11-18 |
 | **05** | Standarisasi Kode WPCS (`WordPress-Extra` 0 Error) & Penyelesaian Seluruh 17 Error PHPStan Level 5 (Baseline Kosong) | [`docs/phases/phase-05-standarisasi-wpcs-dan-phpstan.md`](phases/phase-05-standarisasi-wpcs-dan-phpstan.md) | **Done** | 2026-11-18 |
 | **06** | Mesin SEO Hybrid Kampus (`includes/seo.php`), Schema JSON-LD (`CollegeOrUniversity`, `WebSite`, `Article`, `Event`), & Endpoint GEO `/llms.txt` | [`docs/phases/phase-06-seo-hybrid-dan-llms-txt.md`](phases/phase-06-seo-hybrid-dan-llms-txt.md) | **Done** | 2026-11-19 |
-| **07** | Integrasi Tracking (`GTM`, `GA4`, `Meta Pixel`, `TikTok Pixel`, Verifikasi Webmaster) & Dukungan Sosial Media `Threads` | `docs/phases/phase-07-tracking-dan-sosmed-threads.md` | **Planned** | — |
+| **07** | Integrasi Tracking (`GTM`, `GA4`, `Meta Pixel`, `TikTok Pixel`, Verifikasi Webmaster) & Dukungan Sosial Media `Threads` | [`docs/phases/phase-07-tracking-dan-sosmed-threads.md`](phases/phase-07-tracking-dan-sosmed-threads.md) | **Done** | 2026-11-19 |
 | **08** | Penerapan Standar `webane-pagespeed-cwv` (WebP 78, Preload LCP `wp_head`, DPR-Aware `sizes`, Preconnect `<= 4`, Async Font CSS, `content-visibility: auto`, & Aksesibilitas 100) | `docs/phases/phase-08-optimasi-pagespeed-cwv.md` | **Planned** | — |
 | **09** | Dashboard Admin Kustom Kampus (`includes/dashboard.php`: KPI Berita/Agenda/Pengumuman/Halaman, Grafik 12 Bulan SVG, Status Kampus & Pintasan Cepat) | `docs/phases/phase-09-dashboard-admin.md` | **Planned** | — |
