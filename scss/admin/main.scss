@@ -10,6 +10,7 @@
 
 /* @import harus di atas semua CSS rules (CSS spec + postcss-import) */
 @import 'admin-base';
+@import 'admin-dashboard';
 
 /* Admin-specific base variables */
 :root {
@@ -20,5 +21,16 @@
   --admin-border:       #ddd;
   --admin-text:         #1c2b24;
   --admin-text-muted:   #6e7d73;
+
+  /* Makhadane / Elemenane Dashboard Design Tokens */
+  --ane-color-primary:   #2d232e;
+  --ane-color-secondary: #474448;
+  --ane-color-body:      #1e2d2f;
+  --ane-color-accent:    #e0ddcf;
+  --ane-color-light:     #f1f0ea;
+  --ane-color-dark:      #1a1a1a;
+  --ane-color-white:     #ffffff;
+  --ane-radius-lg:       12px;
+  --ane-radius-md:       10px;
 }
 
