@@ -21,6 +21,7 @@
   --color-accent-dark:     #a87e26;  /* button hover */
   --color-accent-light:    #e9c970;  /* hero highlight, CTA button bg */
   --color-accent-surface:  #fbf3dd;  /* icon bg — gold context */
+  --color-accent-text:     #8a6516;  /* teks emas di bg terang (>=4,5:1); turunan accent bila didukung */
 
   /* ─── Neutral: Backgrounds & Surfaces ───────────────────────────── */
   --color-bg:      #f8f5ec;  /* page background — warm cream */
@@ -31,8 +32,8 @@
   /* ─── Text: On Light Backgrounds ────────────────────────────────── */
   --color-text-primary:   #1c2b24;  /* darkest body text */
   --color-text-secondary: #4b5a51;  /* body paragraphs */
-  --color-text-muted:     #6e7d73;  /* supporting text, card descriptions */
-  --color-text-caption:   #8a9690;  /* metadata, dates, small labels */
+  --color-text-muted:     #5a685f;  /* supporting text, card descriptions (>=4,5:1 di putih & krem) */
+  --color-text-caption:   #62706a;  /* metadata, dates, small labels (>=4,5:1 di putih & krem) */
   --color-text-nav:       #28392f;  /* navigation links */
 
   /* ─── Text: On Dark (Green) Backgrounds ─────────────────────────── */
@@ -96,5 +97,12 @@
 @media (max-width: 767px) {
   :root {
     --container-px: 15px;
+  }
+}
+
+/* Teks emas yang tetap terbaca: ikut warna accent dari Settings Page bila browser mendukung color-mix. */
+@supports (color: color-mix(in srgb, red 50%, blue)) {
+  :root {
+    --color-accent-text: color-mix(in srgb, var(--color-accent) 68%, #000);
   }
 }
