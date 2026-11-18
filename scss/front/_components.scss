@@ -919,6 +919,8 @@
     background: var(--color-primary-dark);
     color: #bcd3c4;
     position: relative;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 420px;
 
     &__grid {
       position: relative;
@@ -1959,6 +1961,8 @@
     background: linear-gradient(120deg, var(--color-primary) 0%, var(--color-primary-medium) 60%, var(--color-primary-dark) 100%);
     color: #fff;
     padding: 90px 0;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 520px;
 
     &__header {
       position: relative;
@@ -2074,7 +2078,11 @@
 
   /* ── News Section ───────────────────────────────────────────────────── */
 
-  .news-section { background: var(--color-bg); }
+  .news-section {
+    background: var(--color-bg);
+    content-visibility: auto;
+    contain-intrinsic-size: auto 680px;
+  }
 
   .news-section__top {
     display: flex;
@@ -2412,13 +2420,19 @@
 
   /* ── Locations Section ──────────────────────────────────────────────── */
 
-  .locations-section { background: var(--color-bg); }
+  .locations-section {
+    background: var(--color-bg);
+    content-visibility: auto;
+    contain-intrinsic-size: auto 480px;
+  }
 
   /* ── CTA Section wrapper ────────────────────────────────────────────── */
 
   .cta-section {
     background: var(--color-bg);
     padding-bottom: 96px;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 320px;
   }
 
   /* ── Breadcrumb ─────────────────────────────────────────────────────── */

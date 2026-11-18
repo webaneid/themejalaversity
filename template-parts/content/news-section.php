@@ -148,9 +148,11 @@ $archive_url = get_post_type_archive_link( 'post' ) ?: home_url( '/berita/' );
 										the_post_thumbnail(
 											'medium_large',
 											[
-												'class'   => 'card__media-img',
-												'loading' => 'lazy',
-												'alt'     => esc_attr( get_the_title() ),
+												'class'    => 'card__media-img',
+												'loading'  => 'lazy',
+												'decoding' => 'async',
+												'sizes'    => '(max-width: 767px) 88vw, 560px',
+												'alt'      => esc_attr( get_the_title() ),
 											]
 										);
 									else :
@@ -190,9 +192,11 @@ $archive_url = get_post_type_archive_link( 'post' ) ?: home_url( '/berita/' );
 										the_post_thumbnail(
 											'thumbnail',
 											[
-												'class'   => 'card__media-img',
-												'loading' => 'lazy',
-												'alt'     => esc_attr( get_the_title() ),
+												'class'    => 'card__media-img',
+												'loading'  => 'lazy',
+												'decoding' => 'async',
+												'sizes'    => '128px',
+												'alt'      => esc_attr( get_the_title() ),
 											]
 										);
 									else :
@@ -211,9 +215,9 @@ $archive_url = get_post_type_archive_link( 'post' ) ?: home_url( '/berita/' );
 											</time>
 										</span>
 									</div>
-									<h4 class="card__title card__title--list">
+									<h3 class="card__title card__title--list">
 										<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-									</h4>
+									</h3>
 								</div>
 							</article>
 							<?php
