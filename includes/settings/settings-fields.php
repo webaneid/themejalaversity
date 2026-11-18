@@ -164,6 +164,11 @@ function jalaversity_settings_schema(): array {
 							'label' => __( 'TikTok', 'jalaversity' ),
 							'type'  => 'url',
 						],
+						[
+							'key'   => 'social_threads',
+							'label' => __( 'Threads', 'jalaversity' ),
+							'type'  => 'url',
+						],
 					],
 				],
 			],
@@ -219,6 +224,90 @@ function jalaversity_settings_schema(): array {
 		'tim_layanan' => [
 			'label'  => __( 'Tim Layanan', 'jalaversity' ),
 			'render' => 'jalaversity_render_tim_layanan_tab',
+		],
+
+		'integrasi'   => [
+			'label'    => __( 'Integrasi & Tracking', 'jalaversity' ),
+			'sections' => [
+				'google'      => [
+					'label'  => __( 'Google (Search Console, Tag Manager, & Analytics 4)', 'jalaversity' ),
+					'fields' => [
+						[
+							'key'         => 'gsc_verification',
+							'label'       => __( 'Google Search Console Verification', 'jalaversity' ),
+							'type'        => 'text',
+							'placeholder' => 'Contoh: abc123XYZ_kode_verifikasi',
+							'desc'        => __( 'Isi kode verifikasi "HTML tag" dari Google Search Console — boleh kodenya saja atau seluruh tag <meta>. Theme mencetaknya otomatis di <head>.', 'jalaversity' ),
+						],
+						[
+							'key'         => 'gtm_id',
+							'label'       => __( 'Google Tag Manager (Container ID)', 'jalaversity' ),
+							'type'        => 'text',
+							'placeholder' => 'GTM-XXXXXXX',
+							'desc'        => __( 'Isi Container ID (diawali GTM-). Theme otomatis memasang skrip GTM di <head> dan <noscript> tepat setelah <body>. Jangan tempel snippet mentah.', 'jalaversity' ),
+						],
+						[
+							'key'         => 'ga4_id',
+							'label'       => __( 'Google Analytics 4 (Measurement ID)', 'jalaversity' ),
+							'type'        => 'text',
+							'placeholder' => 'G-XXXXXXXXXX',
+							'desc'        => __( 'Isi Measurement ID (diawali G-). Kosongkan bila Analytics sudah dipasang lewat Google Tag Manager agar tidak terhitung dua kali.', 'jalaversity' ),
+						],
+					],
+				],
+				'yandex_bing' => [
+					'label'  => __( 'Yandex & Bing (Webmaster & Metrica)', 'jalaversity' ),
+					'fields' => [
+						[
+							'key'         => 'yandex_verification',
+							'label'       => __( 'Yandex Webmaster Verification', 'jalaversity' ),
+							'type'        => 'text',
+							'placeholder' => 'Contoh: 1fa477a7ff934bf1',
+							'desc'        => __( 'Isi kode verifikasi dari Yandex Webmaster — boleh kodenya saja atau seluruh tag <meta name="yandex-verification">.', 'jalaversity' ),
+						],
+						[
+							'key'         => 'yandex_metrica_id',
+							'label'       => __( 'Yandex Metrica (Counter ID)', 'jalaversity' ),
+							'type'        => 'text',
+							'placeholder' => 'Contoh: 12345678',
+							'desc'        => __( 'Isi nomor counter Yandex Metrica (angka). Rekaman sesi (Webvisor) tidak diaktifkan demi privasi dan performa.', 'jalaversity' ),
+						],
+						[
+							'key'         => 'bing_verification',
+							'label'       => __( 'Bing Webmaster Verification', 'jalaversity' ),
+							'type'        => 'text',
+							'placeholder' => 'Contoh: 1234567890ABCDEF',
+							'desc'        => __( 'Opsional. Kode verifikasi dari Bing Webmaster Tools (msvalidate.01) — boleh kodenya saja atau seluruh tag <meta>.', 'jalaversity' ),
+						],
+					],
+				],
+				'meta_tiktok' => [
+					'label'  => __( 'Meta (Facebook Pixel & Domain) & TikTok Pixel', 'jalaversity' ),
+					'fields' => [
+						[
+							'key'         => 'fb_pixel_id',
+							'label'       => __( 'Meta / Facebook Pixel ID', 'jalaversity' ),
+							'type'        => 'text',
+							'placeholder' => 'Contoh: 123456789012345',
+							'desc'        => __( 'Isi deretan angka Pixel ID untuk melacak konversi kampanye PMB / iklan Meta.', 'jalaversity' ),
+						],
+						[
+							'key'         => 'fb_domain_verify',
+							'label'       => __( 'Meta / Facebook Domain Verification', 'jalaversity' ),
+							'type'        => 'text',
+							'placeholder' => 'Contoh: abc123xyz...',
+							'desc'        => __( 'Opsional. Kode verifikasi domain dari Meta Business Suite — boleh kodenya saja atau seluruh tag <meta name="facebook-domain-verification">.', 'jalaversity' ),
+						],
+						[
+							'key'         => 'tiktok_pixel_id',
+							'label'       => __( 'TikTok Pixel ID', 'jalaversity' ),
+							'type'        => 'text',
+							'placeholder' => 'Contoh: CXXXXXXXXXXXXXXXXXXX',
+							'desc'        => __( 'Opsional. Isi TikTok Pixel ID bila kampus menjalankan iklan di TikTok Ads.', 'jalaversity' ),
+						],
+					],
+				],
+			],
 		],
 
 		'update'      => [

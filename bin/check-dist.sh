@@ -70,6 +70,8 @@ REQUIRED_PATHS=(
     "includes/setup.php"
     "includes/security.php"
     "includes/enqueue.php"
+    "includes/seo.php"
+    "includes/tracking.php"
     "includes/updater.php"
 )
 

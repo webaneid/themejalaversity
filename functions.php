@@ -41,6 +41,7 @@ $jalaversity_includes = [
 	'/includes/helpers/options-helpers.php', // must load before enqueue.php
 	'/includes/enqueue.php',
 	'/includes/seo.php',
+	'/includes/tracking.php',
 	'/includes/helpers/image-helpers.php',
 	'/includes/helpers/icon-helpers.php',
 	'/includes/helpers/social-helpers.php',
