@@ -1775,6 +1775,14 @@
     gap: 24px;
   }
 
+  /* 5-6 kartu: maksimal 3 kolom di desktop supaya baris terakhir tidak pincang
+   * (container lebar 1536px menghasilkan 4+2). Jumlah lain tetap auto-fit. */
+  @media (min-width: 1024px) {
+    .card-grid:has(> :nth-child(5)):not(:has(> :nth-child(7))) {
+      grid-template-columns: repeat(auto-fit, minmax(max(var(--card-grid-min, 330px), calc((100% - 48px) / 3)), 1fr));
+    }
+  }
+
   .card--grid {
     .card__icon {
       width: 44px;
