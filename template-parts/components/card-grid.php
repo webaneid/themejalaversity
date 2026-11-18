@@ -94,9 +94,11 @@ if ( ! $items ) {
 						'medium',
 						false,
 						[
-							'class'   => 'card__media-img',
-							'alt'     => esc_attr( $card_title ),
-							'loading' => 'lazy',
+							'class'    => 'card__media-img',
+							'alt'      => esc_attr( $card_title ),
+							'loading'  => 'lazy',
+							'decoding' => 'async',
+							'sizes'    => '(max-width: 767px) 88vw, 380px',
 						]
 					);
 				elseif ( $has_icon ) :

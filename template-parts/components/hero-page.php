@@ -175,9 +175,12 @@ $section_class = 'hero-page'
 							'large',
 							false,
 							[
-								'class'   => 'hero-page__img',
-								'alt'     => esc_attr( $image_alt ),
-								'loading' => 'eager',
+								'class'         => 'hero-page__img',
+								'alt'           => esc_attr( $image_alt ),
+								'loading'       => false,
+								'fetchpriority' => 'high',
+								'decoding'      => 'async',
+								'sizes'         => '(max-width: 767px) 88vw, (max-width: 1023px) 480px, 560px',
 							]
 						);
 					else :

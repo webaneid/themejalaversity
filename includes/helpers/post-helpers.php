@@ -220,11 +220,17 @@ function jalaversity_card_thumbnail( string $size = 'jalaversity-medium', int $i
 	echo '<div class="card__media">';
 
 	if ( has_post_thumbnail() ) {
+		$sizes = ( 'jalaversity-square' === $size )
+			? '(max-width: 767px) 110px, 140px'
+			: '(max-width: 767px) 88vw, 380px';
+
 		the_post_thumbnail(
 			$size,
 			[
-				'class'   => 'card__media-img',
-				'loading' => 'lazy',
+				'class'    => 'card__media-img',
+				'loading'  => 'lazy',
+				'decoding' => 'async',
+				'sizes'    => $sizes,
 			]
 		);
 	} else {

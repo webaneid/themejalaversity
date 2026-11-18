@@ -30,10 +30,11 @@ function jalaversity_enqueue_scripts(): void {
 	);
 
 	// Front-end CSS (compiled from scss/front/main.scss via PostCSS + Tailwind).
+	// Tidak bergantung pada jalaversity-fonts agar front.css tidak terblokir request eksternal.
 	wp_enqueue_style(
 		'jalaversity-style',
 		JALAVERSITY_URI . '/css/front.css',
-		[ 'jalaversity-fonts' ],
+		[],
 		JALAVERSITY_VERSION
 	);
 
@@ -132,18 +133,143 @@ function jalaversity_admin_enqueue_scripts( string $hook ): void {
 add_action( 'admin_enqueue_scripts', 'jalaversity_admin_enqueue_scripts' );
 
 /**
- * Add preconnect hints for Google Fonts and preload self-hosted heading font.
- * Must run before the fonts stylesheet is printed (priority 1).
+ * Daftarkan preconnect hints terpusat melalui wp_resource_hints (<= 4 koneksi).
+ *
+ * @param array<int, string|array<string, string>> $urls          Daftar URL resource hints.
+ * @param string                                   $relation_type Tipe relasi (dns-prefetch, preconnect, dll).
+ * @return array<int, string|array<string, string>>
  */
-function jalaversity_preconnect_fonts(): void {
-	// Preconnect for Google Fonts (Plus Jakarta Sans body font).
-	echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
-	echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+function jalaversity_resource_hints( array $urls, string $relation_type ): array {
+	if ( 'preconnect' === $relation_type ) {
+		$urls[] = 'https://fonts.googleapis.com';
+		$urls[] = [
+			'href'        => 'https://fonts.gstatic.com',
+			'crossorigin' => 'anonymous',
+		];
+	}
 
+	return $urls;
+}
+add_filter( 'wp_resource_hints', 'jalaversity_resource_hints', 10, 2 );
+
+/**
+ * Muat Google Fonts stylesheet secara non-blocking (media="print" onload="this.media='all'")
+ * dengan fallback <noscript>, sesuai standar webane-pagespeed-cwv.
+ *
+ * @param string $html   Tag <link> penuh.
+ * @param string $handle Handle stylesheet.
+ * @param string $href   URL stylesheet.
+ * @return string
+ */
+function jalaversity_async_google_fonts( string $html, string $handle, string $href ): string {
+	if ( 'jalaversity-fonts' !== $handle || is_admin() ) {
+		return $html;
+	}
+
+	return sprintf(
+		"<link rel='stylesheet' id='%1\$s-css' href='%2\$s' media='print' onload=\"this.media='all'\" />\n<noscript><link rel='stylesheet' href='%2\$s' /></noscript>\n", // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet
+		esc_attr( $handle ),
+		esc_url( $href )
+	);
+}
+add_filter( 'style_loader_tag', 'jalaversity_async_google_fonts', 10, 3 );
+
+/**
+ * Deteksi attachment ID, ukuran gambar, dan atribut `sizes` untuk kandidat LCP
+ * pada halaman yang sedang dirender.
+ *
+ * @return array{id: int, size: string, sizes: string}|null
+ */
+function jalaversity_get_lcp_image_candidate(): ?array {
+	if ( is_admin() ) {
+		return null;
+	}
+
+	$hero_sizes   = '(max-width: 767px) 88vw, (max-width: 1023px) 480px, 560px';
+	$single_sizes = '(max-width: 767px) 92vw, 800px';
+
+	// 1. Halaman Beranda (template page-home.php atau front_page default).
+	if ( is_page_template( 'page-templates/page-home.php' ) || ( is_front_page() && ! is_page_template( 'page-templates/page-dynamic.php' ) ) ) {
+		$hero_id = (int) jalaversity_get_option( 'hero_image_id', 0 );
+		if ( $hero_id > 0 && wp_attachment_is_image( $hero_id ) ) {
+			return [
+				'id'    => $hero_id,
+				'size'  => 'large',
+				'sizes' => $hero_sizes,
+			];
+		}
+	}
+
+	// 2. Halaman Dinamis (ACF Flexible Content page_sections — row pertama layout 'hero').
+	if ( is_singular( 'page' ) && function_exists( 'get_field' ) ) {
+		$page_id  = (int) get_queried_object_id();
+		$sections = get_field( 'page_sections', $page_id );
+		if ( is_array( $sections ) && ! empty( $sections[0] ) && is_array( $sections[0] ) ) {
+			$first = $sections[0];
+			if ( 'hero' === ( $first['acf_fc_layout'] ?? '' ) && ! empty( $first['image'] ) ) {
+				$raw_img = $first['image'];
+				$img_id  = is_array( $raw_img ) ? (int) ( $raw_img['ID'] ?? $raw_img['id'] ?? 0 ) : (int) $raw_img;
+				if ( $img_id > 0 && wp_attachment_is_image( $img_id ) ) {
+					return [
+						'id'    => $img_id,
+						'size'  => 'large',
+						'sizes' => $hero_sizes,
+					];
+				}
+			}
+		}
+	}
+
+	// 3. Halaman Singular (post, page standar, agenda, pengumuman) dengan featured image.
+	if ( is_singular( [ 'post', 'page', 'agenda', 'pengumuman' ] ) ) {
+		$post_id  = (int) get_queried_object_id();
+		$thumb_id = (int) get_post_thumbnail_id( $post_id );
+		if ( $thumb_id > 0 && wp_attachment_is_image( $thumb_id ) ) {
+			return [
+				'id'    => $thumb_id,
+				'size'  => 'jalaversity-medium',
+				'sizes' => $single_sizes,
+			];
+		}
+	}
+
+	return null;
+}
+
+/**
+ * Preload font heading self-hosted dan gambar LCP di <head> prioritas 1.
+ */
+function jalaversity_preload_critical_assets(): void {
 	// Preload self-hosted heading font — browser discovers it from CSS too late otherwise.
 	echo '<link rel="preload" href="' . esc_url( JALAVERSITY_URI . '/fonts/Gontor-Bold.otf' ) . '" as="font" type="font/otf" crossorigin="anonymous">' . "\n";
+
+	$lcp = jalaversity_get_lcp_image_candidate();
+	if ( ! is_array( $lcp ) ) {
+		return;
+	}
+
+	$src = wp_get_attachment_image_url( $lcp['id'], $lcp['size'] );
+	if ( ! $src ) {
+		return;
+	}
+
+	$srcset = wp_get_attachment_image_srcset( $lcp['id'], $lcp['size'] );
+
+	if ( $srcset ) {
+		printf(
+			'<link rel="preload" as="image" href="%1$s" imagesrcset="%2$s" imagesizes="%3$s" fetchpriority="high">' . "\n",
+			esc_url( $src ),
+			esc_attr( $srcset ),
+			esc_attr( $lcp['sizes'] )
+		);
+	} else {
+		printf(
+			'<link rel="preload" as="image" href="%1$s" fetchpriority="high">' . "\n",
+			esc_url( $src )
+		);
+	}
 }
-add_action( 'wp_head', 'jalaversity_preconnect_fonts', 1 );
+add_action( 'wp_head', 'jalaversity_preload_critical_assets', 1 );
 
 /**
  * Add defer attribute to front-end script for non-blocking load.

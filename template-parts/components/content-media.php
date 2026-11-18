@@ -64,9 +64,11 @@ $img_radius_class = 'content-media__img-wrap--' . sanitize_html_class( $image_ra
 							'large',
 							false,
 							[
-								'class'   => 'content-media__img',
-								'alt'     => esc_attr( $image_alt ),
-								'loading' => 'lazy',
+								'class'    => 'content-media__img',
+								'alt'      => esc_attr( $image_alt ),
+								'loading'  => 'lazy',
+								'decoding' => 'async',
+								'sizes'    => '(max-width: 767px) 88vw, 560px',
 							]
 						);
 					else :

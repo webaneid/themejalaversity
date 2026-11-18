@@ -53,8 +53,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 				the_post_thumbnail(
 					'jalaversity-medium',
 					[
-						'class'   => 'single-post__img',
-						'loading' => 'eager',
+						'class'         => 'single-post__img',
+						'loading'       => false,
+						'fetchpriority' => 'high',
+						'decoding'      => 'async',
+						'sizes'         => '(max-width: 767px) 92vw, 800px',
 					]
 				);
 				$caption = get_the_post_thumbnail_caption();

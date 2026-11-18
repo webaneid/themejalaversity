@@ -37,8 +37,9 @@ const JALAVERSITY_IMAGE_SIZES = [
 function jalaversity_get_thumbnail( int $post_id, string $size = 'jalaversity-medium', array $attr = [] ): string {
 
 	$default_attr = [
-		'loading' => 'lazy',
-		'class'   => 'w-full h-full object-cover',
+		'loading'  => 'lazy',
+		'decoding' => 'async',
+		'class'    => 'w-full h-full object-cover',
 	];
 
 	$attr = array_merge( $default_attr, $attr );
@@ -74,7 +75,7 @@ function jalaversity_get_placeholder_image( string $size = 'jalaversity-medium' 
 	);
 
 	return sprintf(
-		'<img src="%s" width="%d" height="%d" alt="%s" class="w-full h-full object-cover" loading="lazy">',
+		'<img src="%s" width="%d" height="%d" alt="%s" class="w-full h-full object-cover" loading="lazy" decoding="async">',
 		esc_attr( 'data:image/svg+xml;base64,' . base64_encode( $svg ) ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Inline SVG data-URI placeholder.
 		esc_attr( (string) $width ),
 		esc_attr( (string) $height ),
@@ -116,9 +117,10 @@ function jalaversity_responsive_image( int $attachment_id, string $size = 'jalav
 	}
 
 	$default_attr = [
-		'loading' => 'lazy',
-		'class'   => 'w-full h-full object-cover',
-		'alt'     => $alt ?: get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ),
+		'loading'  => 'lazy',
+		'decoding' => 'async',
+		'class'    => 'w-full h-full object-cover',
+		'alt'      => $alt ?: get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ),
 	];
 
 	return wp_get_attachment_image( $attachment_id, $size, false, array_merge( $default_attr, $attr ) );
@@ -150,14 +152,14 @@ function jalaversity_webp_output_format( array $formats ): array {
 add_filter( 'image_editor_output_format', 'jalaversity_webp_output_format' );
 
 /**
- * Kualitas WebP 80% untuk ukuran turunan — titik seimbang ukuran file vs
- * tampilan, sesuai permintaan eksplisit (bukan default WP 82%).
+ * Kualitas WebP 78% untuk ukuran turunan — sesuai standar webane-pagespeed-cwv
+ * (titik seimbang ukuran file vs ketajaman visual untuk Core Web Vitals).
  *
  * @param int    $quality   Kualitas default WP untuk mime type ini.
  * @param string $mime_type Mime type output yang sedang digenerate.
  * @return int
  */
 function jalaversity_webp_quality( int $quality, string $mime_type ): int {
-	return ( 'image/webp' === $mime_type ) ? 80 : $quality;
+	return ( 'image/webp' === $mime_type ) ? 78 : $quality;
 }
 add_filter( 'wp_image_editor_default_quality', 'jalaversity_webp_quality', 10, 2 );

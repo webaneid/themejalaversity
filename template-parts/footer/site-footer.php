@@ -49,6 +49,7 @@ $footer_cols = [
 	<!-- ── Girih overlay handled by .site-footer::before via @mixin in CSS ── -->
 
 	<div class="container">
+		<h2 class="screen-reader-text"><?php esc_html_e( 'Informasi & Navigasi Kampus', 'jalaversity' ); ?></h2>
 		<div class="site-footer__grid">
 
 			<!-- Kolom 1: Logo + Deskripsi + Social + Alamat -->
@@ -118,7 +119,7 @@ $footer_cols = [
 endif;
 				?>
 			<div class="site-footer__col">
-				<h4 class="site-footer__col-title"><?php echo esc_html( $col['label'] ); ?></h4>
+				<h3 class="site-footer__col-title"><?php echo esc_html( $col['label'] ); ?></h3>
 				<?php
 				wp_nav_menu(
 					[
@@ -142,7 +143,7 @@ endif;
 			if ( $social_wa ) :
 				?>
 			<div class="site-footer__col">
-				<h4 class="site-footer__col-title"><?php esc_html_e( 'Hubungi Kami', 'jalaversity' ); ?></h4>
+				<h3 class="site-footer__col-title"><?php esc_html_e( 'Hubungi Kami', 'jalaversity' ); ?></h3>
 				<div class="site-footer__contact-col">
 					<?php if ( $phone ) : ?>
 					<a href="tel:<?php echo esc_attr( (string) preg_replace( '/[^0-9+]/', '', $phone ) ); ?>" class="site-footer__link">

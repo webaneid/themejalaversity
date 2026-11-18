@@ -52,9 +52,11 @@ if ( ! $heading || ! $name ) {
 						'medium',
 						false,
 						[
-							'class'   => 'profile-quote__photo',
-							'alt'     => esc_attr( $image_alt ),
-							'loading' => 'lazy',
+							'class'    => 'profile-quote__photo',
+							'alt'      => esc_attr( $image_alt ),
+							'loading'  => 'lazy',
+							'decoding' => 'async',
+							'sizes'    => '200px',
 						]
 					);
 				else :
