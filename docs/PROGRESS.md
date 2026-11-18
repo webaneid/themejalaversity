@@ -6,7 +6,7 @@ Dokumen ini melacak status eksekusi setiap fase retrofit theme **Jalaversity (`j
 
 ## Ringkasan Status
 
-- **Versi Theme Saat Ini:** `1.2.1` (retrofit selesai dari baseline `1.1.1` commit `c2e3112`)
+- **Versi Theme Saat Ini:** `1.2.2` (retrofit selesai dari baseline `1.1.1` commit `c2e3112`)
 - **Fase Terakhir Selesai:** **Fase 09 — Dashboard Admin Kustom Kampus (`includes/dashboard.php` — Gaya Makhadane) (`Done` — 2026-11-19)**
 - **Fase Berikutnya:** **Seluruh Fase Retrofit (00–09) Selesai (`100% Done`)**
 

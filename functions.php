@@ -30,7 +30,7 @@ if ( version_compare( PHP_VERSION, '8.1', '<' ) ) {
 }
 
 // Theme constants.
-define( 'JALAVERSITY_VERSION', '1.2.1' );
+define( 'JALAVERSITY_VERSION', '1.2.2' );
 define( 'JALAVERSITY_DIR', get_template_directory() );
 define( 'JALAVERSITY_URI', get_template_directory_uri() );
 
