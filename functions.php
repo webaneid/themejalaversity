@@ -50,11 +50,10 @@ $jalaversity_includes = [
 	'/includes/settings/settings-page.php',
 	'/includes/settings/settings-fields.php',
 	'/includes/settings/settings-sanitize.php',
-	'/includes/acf/acf-fields.php',          // Requires icon-helpers.php (icon choices)
+	'/includes/acf/acf-fields.php',          // Requires icon-helpers.php (icon choices).
 	'/includes/acf/acf-render.php',
 	'/includes/acf/acf-post-fields.php',
-	'/includes/acf/acf-options.php',         // ACF Options Pages (Tim Layanan, dll)
-	'/includes/updater.php',               // GitHub auto-updater (load last — needs options-helpers.php)
+	'/includes/updater.php',                 // GitHub auto-updater (load last — needs options-helpers.php).
 ];
 
 foreach ( $jalaversity_includes as $file ) {

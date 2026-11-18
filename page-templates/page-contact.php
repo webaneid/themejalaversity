@@ -13,33 +13,63 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$phone     = jalaversity_get_option( 'contact_phone' );
-$whatsapp  = jalaversity_get_option( 'contact_whatsapp' );
-$email     = jalaversity_get_option( 'contact_email' );
-$address   = jalaversity_get_option( 'contact_address' );
-$hours     = jalaversity_get_option( 'contact_hours', __( 'Sen–Jum: 08.00–16.00 WIB', 'jalaversity' ) );
-$maps_url  = jalaversity_clean_maps_embed_url( (string) jalaversity_get_option( 'contact_maps_url' ) );
+$phone    = (string) jalaversity_get_option( 'contact_phone' );
+$whatsapp = (string) jalaversity_get_option( 'contact_whatsapp' );
+$email    = (string) jalaversity_get_option( 'contact_email' );
+$address  = (string) jalaversity_get_option( 'contact_address' );
+$hours    = (string) jalaversity_get_option( 'contact_hours', __( 'Sen–Jum: 08.00–16.00 WIB', 'jalaversity' ) );
+$maps_url = jalaversity_clean_maps_embed_url( (string) jalaversity_get_option( 'contact_maps_url' ) );
 
-$contact_cards = [
-	$phone     ? [ 'icon' => 'phone',          'label' => __( 'Telepon', 'jalaversity' ),          'value' => $phone,    'href' => 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ) ] : null,
-	$whatsapp  ? [ 'icon' => 'message-circle', 'label' => __( 'WhatsApp', 'jalaversity' ),         'value' => $whatsapp, 'href' => 'https://wa.me/' . preg_replace( '/[^0-9]/', '', $whatsapp ), 'external' => true ] : null,
-	$email     ? [ 'icon' => 'mail',           'label' => __( 'Email', 'jalaversity' ),            'value' => $email,    'href' => 'mailto:' . $email ] : null,
-	$address   ? [ 'icon' => 'map-pin',        'label' => __( 'Alamat', 'jalaversity' ),           'value' => $address,  'href' => null ] : null,
-	$hours     ? [ 'icon' => 'clock',          'label' => __( 'Jam Operasional', 'jalaversity' ),  'value' => $hours,    'href' => null ] : null,
-];
-$contact_cards = array_filter( $contact_cards );
+$contact_cards = array_filter(
+	[
+		$phone ? [
+			'icon'  => 'phone',
+			'label' => __( 'Telepon', 'jalaversity' ),
+			'value' => $phone,
+			'href'  => 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ),
+		] : null,
+		$whatsapp ? [
+			'icon'     => 'message-circle',
+			'label'    => __( 'WhatsApp', 'jalaversity' ),
+			'value'    => $whatsapp,
+			'href'     => 'https://wa.me/' . preg_replace( '/[^0-9]/', '', $whatsapp ),
+			'external' => true,
+		] : null,
+		$email ? [
+			'icon'  => 'mail',
+			'label' => __( 'Email', 'jalaversity' ),
+			'value' => $email,
+			'href'  => 'mailto:' . $email,
+		] : null,
+		$address ? [
+			'icon'  => 'map-pin',
+			'label' => __( 'Alamat', 'jalaversity' ),
+			'value' => $address,
+			'href'  => null,
+		] : null,
+		$hours ? [
+			'icon'  => 'clock',
+			'label' => __( 'Jam Operasional', 'jalaversity' ),
+			'value' => $hours,
+			'href'  => null,
+		] : null,
+	]
+);
 
 get_header();
+
+get_template_part(
+	'template-parts/components/hero-page',
+	null,
+	[
+		'variant'         => 'subpage',
+		'heading'         => get_the_title(),
+		'show_breadcrumb' => true,
+	]
+);
 ?>
 
-<?php
-get_template_part( 'template-parts/components/hero-page', null, [
-	'variant' => 'subpage',
-	'title'   => get_the_title(),
-] );
-?>
-
-<main id="main" class="contact-page section-py">
+<section class="contact-page section-py" aria-label="<?php esc_attr_e( 'Informasi Kontak', 'jalaversity' ); ?>">
 	<div class="container">
 
 		<?php if ( $contact_cards ) : ?>
@@ -55,7 +85,9 @@ get_template_part( 'template-parts/components/hero-page', null, [
 					<a
 						href="<?php echo esc_url( $card['href'] ); ?>"
 						class="contact-card__value"
-						<?php if ( ! empty( $card['external'] ) ) : ?>rel="noopener noreferrer" target="_blank"<?php endif; ?>
+						<?php if ( ! empty( $card['external'] ) ) : ?>
+							rel="noopener noreferrer" target="_blank"
+						<?php endif; ?>
 					><?php echo nl2br( esc_html( $card['value'] ) ); ?></a>
 					<?php else : ?>
 					<div class="contact-card__value"><?php echo nl2br( esc_html( $card['value'] ) ); ?></div>
@@ -84,17 +116,19 @@ get_template_part( 'template-parts/components/hero-page', null, [
 			<?php endif; ?>
 
 			<div class="contact-form">
-				<?php if ( have_posts() ) :
+				<?php
+				if ( have_posts() ) :
 					while ( have_posts() ) :
 						the_post();
 						the_content();
 					endwhile;
-				endif; ?>
+				endif;
+				?>
 			</div>
 
 		</div>
 
 	</div>
-</main>
+</section>
 
 <?php get_footer(); ?>
