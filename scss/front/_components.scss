@@ -45,7 +45,7 @@
     gap: 10px;
     color: var(--color-accent-text);
     font-weight: 700;
-    font-size: 13px;
+    font-size: var(--text-sm);
     letter-spacing: 0.16em;
     text-transform: uppercase;
     margin-bottom: 14px;
@@ -100,7 +100,7 @@
     &__icon {
       width: 52px;
       height: 52px;
-      border-radius: 14px;
+      border-radius: var(--radius-md);
       background: var(--color-primary-light);
       color: var(--color-primary-medium);
       display: flex;
@@ -118,7 +118,7 @@
     }
 
     &__label {
-      font-size: 13.5px;
+      font-size: var(--text-sm);
       color: var(--color-text-muted);
       font-weight: 500;
       margin-top: 5px;
@@ -151,7 +151,7 @@
   .badge {
     display: inline-flex;
     align-items: center;
-    font-size: 12px;
+    font-size: var(--text-xs);
     font-weight: 700;
     padding: 4px 12px;
     border-radius: var(--radius-full);
@@ -162,7 +162,7 @@
   .badge-cat {
     background: var(--color-primary);
     color: #fff;
-    font-size: 12px;
+    font-size: var(--text-xs);
     font-weight: 700;
     padding: 6px 13px;
     border-radius: var(--radius-full);
@@ -179,7 +179,7 @@
     bottom: 34px;
     background: var(--color-surface);
     color: var(--color-text-primary);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 15px 18px;
     display: flex;
     align-items: center;
@@ -191,7 +191,7 @@
     &__icon {
       width: 46px;
       height: 46px;
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       background: var(--color-accent-surface);
       color: var(--color-accent-text);
       display: flex;
@@ -201,7 +201,7 @@
     }
 
     &__label {
-      font-size: 12px;
+      font-size: var(--text-xs);
       color: var(--color-text-muted);
       font-weight: 600;
     }
@@ -245,7 +245,7 @@
     }
 
     &__body {
-      font-size: 17px;
+      font-size: var(--text-base);
       line-height: 1.6;
       color: var(--color-on-dark);
       margin: 0 0 30px;
@@ -270,7 +270,7 @@
     padding: 15px 28px;
     border-radius: var(--radius-btn);
     font-weight: 700;
-    font-size: 15.5px;
+    font-size: var(--text-base);
     text-decoration: none;
     border: none;
     cursor: pointer;
@@ -311,7 +311,7 @@
     align-items: center;
     gap: 9px;
     font-weight: 700;
-    font-size: 15px;
+    font-size: var(--text-base);
     text-decoration: none;
     color: var(--color-primary);
     border-bottom: 2px solid var(--color-accent-light);
@@ -331,7 +331,7 @@
   /* Varian gold — tidak ada border-bottom */
   .link-arrow--gold {
     color: var(--color-accent-text);
-    font-size: 14px;
+    font-size: var(--text-sm);
     border-bottom: none;
     padding-bottom: 0;
 
@@ -347,7 +347,7 @@
   .footer-social-link {
     width: 44px;
     height: 44px;
-    border-radius: 11px;
+    border-radius: var(--radius-md);
     border: 1px solid #1d4d36;
     display: flex;
     align-items: center;
@@ -370,7 +370,7 @@
   .topbar {
     background: var(--color-primary-dark);
     color: var(--color-on-dark);
-    font-size: 12.5px;
+    font-size: var(--text-xs);
     font-weight: 500;
 
     &__inner {
@@ -459,7 +459,7 @@
       border: none;
       padding: 0 2px;
       cursor: pointer;
-      font-size: 12.5px;
+      font-size: var(--text-xs);
       font-weight: 700;
       font-family: inherit;
       color: #6e9a82;
@@ -568,8 +568,8 @@
     background: var(--color-accent);
     color: var(--color-primary-dark);
     padding: 11px 18px;
-    border-radius: 10px;
-    font-size: 14px;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
     box-shadow: 0 6px 16px rgba(182, 140, 46, .3);
     white-space: nowrap;
 
@@ -602,7 +602,7 @@
   .nav-link {
     display: block;
     padding: 10px 13px;
-    font-size: 14.5px;
+    font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-text-nav);
     text-decoration: none;
@@ -690,7 +690,7 @@
     }
 
     .nav-link--sub {
-      font-size: 14px;
+      font-size: var(--text-sm);
       font-weight: 500;
       padding: 9px 16px;
       border-radius: 0;
@@ -850,7 +850,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 14px 20px;
-        font-size: 15px;
+        font-size: var(--text-base);
         font-weight: 600;
         border-radius: 0;
         color: var(--color-text-primary);
@@ -902,7 +902,7 @@
 
         .nav-link--sub {
           padding-left: 36px;
-          font-size: 14px;
+          font-size: var(--text-sm);
 
           &:hover {
             background: #f1ede1;
@@ -929,7 +929,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 14px;
+      font-size: var(--text-sm);
       color: var(--color-text-secondary);
       text-decoration: none;
 
@@ -989,7 +989,7 @@
     }
 
     &__desc {
-      font-size: 14px;
+      font-size: var(--text-sm);
       line-height: 1.65;
       color: var(--color-on-dark-muted);
       margin: 0 0 20px;
@@ -1000,7 +1000,7 @@
       display: flex;
       align-items: flex-start;
       gap: 8px;
-      font-size: 13.5px;
+      font-size: var(--text-sm);
       color: var(--color-on-dark-muted);
       font-style: normal;
       margin-bottom: 10px;
@@ -1012,7 +1012,7 @@
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      font-size: 13.5px;
+      font-size: var(--text-sm);
       color: var(--color-on-dark-muted);
       text-decoration: none;
       margin-bottom: 6px;
@@ -1030,7 +1030,7 @@
     }
 
     &__col-title {
-      font-size: 14px;
+      font-size: var(--text-sm);
       font-weight: 700;
       letter-spacing: .08em;
       text-transform: uppercase;
@@ -1049,7 +1049,7 @@
         gap: 11px;
 
         a {
-          font-size: 14px;
+          font-size: var(--text-sm);
           color: var(--color-on-dark-muted);
           text-decoration: none;
           transition: color var(--transition-fast);
@@ -1069,7 +1069,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 14px;
+      font-size: var(--text-sm);
       color: var(--color-on-dark-muted);
       text-decoration: none;
       transition: color var(--transition-fast);
@@ -1094,8 +1094,8 @@
     }
 
     &__copyright {
-      font-size: 13px;
-      color: #6e9079;
+      font-size: var(--text-sm);
+      color: var(--color-on-dark-muted);
       margin: 0;
     }
 
@@ -1107,12 +1107,12 @@
       gap: 20px;
 
       a {
-        font-size: 13px;
-        color: #6e9079;
+        font-size: var(--text-sm);
+        color: var(--color-on-dark-muted);
         text-decoration: none;
         transition: color var(--transition-fast);
 
-        &:hover { color: var(--color-on-dark-muted); }
+        &:hover { color: #fff; }
       }
     }
   }
@@ -1204,7 +1204,7 @@
       color: #f0d68f;
       padding: 7px 14px;
       border-radius: var(--radius-full);
-      font-size: 13px;
+      font-size: var(--text-sm);
       font-weight: 600;
       margin-bottom: 24px;
     }
@@ -1220,7 +1220,7 @@
     &__highlight { color: var(--color-accent-light); }
 
     &__lead {
-      font-size: 17px;
+      font-size: var(--text-base);
       line-height: 1.65;
       color: #cfe0d6;
       max-width: 520px;
@@ -1241,7 +1241,7 @@
       align-items: center;
       gap: 10px;
       background: #fff;
-      border-radius: 14px;
+      border-radius: var(--radius-md);
       padding: 8px 8px 8px 18px;
       max-width: 520px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, .25);
@@ -1258,7 +1258,7 @@
       min-width: 0;
       border: none;
       outline: none;
-      font-size: 15px;
+      font-size: var(--text-base);
       font-family: var(--font-body);
       color: var(--color-text-primary);
       background: transparent;
@@ -1271,10 +1271,10 @@
       background: var(--color-primary);
       color: #fff;
       border: none;
-      border-radius: 10px;
+      border-radius: var(--radius-md);
       padding: 12px 22px;
       font-weight: 700;
-      font-size: 14px;
+      font-size: var(--text-sm);
       font-family: var(--font-body);
       cursor: pointer;
       white-space: nowrap;
@@ -1292,7 +1292,7 @@
       display: flex;
       gap: 22px;
       flex-wrap: wrap;
-      font-size: 13.5px;
+      font-size: var(--text-sm);
       color: #9fc0ad;
     }
 
@@ -1364,7 +1364,7 @@
     &__icon {
       width: 52px;
       height: 52px;
-      border-radius: 14px;
+      border-radius: var(--radius-md);
       background: var(--color-primary-light);
       color: var(--color-primary-medium);
       display: flex;
@@ -1382,7 +1382,7 @@
     }
 
     &__label {
-      font-size: 13.5px;
+      font-size: var(--text-sm);
       color: #5d6c62;
       font-weight: 500;
       margin-top: 5px;
@@ -1424,7 +1424,7 @@
       box-shadow: var(--shadow-2xl);
 
       &--default {
-        border-radius: 24px;
+        border-radius: var(--radius-xl);
         overflow: hidden;
       }
 
@@ -1460,7 +1460,7 @@
     }
 
     &__body {
-      font-size: 16px;
+      font-size: var(--text-base);
       line-height: 1.72;
       color: var(--color-text-secondary);
       margin: 0 0 26px;
@@ -1471,7 +1471,7 @@
     /* Corner badge (sudut visual) */
     &__badge {
       position: absolute;
-      border-radius: 18px;
+      border-radius: var(--radius-lg);
       padding: 20px 22px;
       max-width: 200px;
 
@@ -1512,7 +1512,7 @@
     }
 
     &__badge-label {
-      font-size: 13px;
+      font-size: var(--text-sm);
       font-weight: 600;
       margin-top: 6px;
       line-height: 1.4;
@@ -1556,13 +1556,13 @@
   }
 
   .icon-list--plain .icon-list__item { align-items: center; }
-  .icon-list--plain .icon-list__title { font-size: 15.5px; color: #33433a; line-height: 1.5; }
+  .icon-list--plain .icon-list__title { font-size: var(--text-base); color: #33433a; line-height: 1.5; }
 
   .icon-list--rows .icon-list__item {
     gap: 16px;
     background: var(--color-bg);
     border: 1px solid var(--color-border);
-    border-radius: 14px;
+    border-radius: var(--radius-md);
     padding: 18px 20px;
     transition: border-color var(--transition-fast), transform var(--transition-fast);
   }
@@ -1575,7 +1575,7 @@
   .icon-list--rows .icon-list__icon {
     width: 46px;
     height: 46px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     background: var(--color-primary);
     color: var(--color-accent-light);
     display: flex;
@@ -1586,17 +1586,17 @@
 
   .icon-list__title {
     font-weight: 700;
-    font-size: 15px;
+    font-size: var(--text-base);
     color: var(--color-text-primary);
   }
 
   .icon-list--rows .icon-list__title {
-    font-size: 16px;
+    font-size: var(--text-base);
     margin-bottom: 3px;
   }
 
   .icon-list__desc {
-    font-size: 13.5px;
+    font-size: var(--text-sm);
     color: var(--color-text-muted);
     margin-top: 2px;
     line-height: 1.45;
@@ -1624,7 +1624,7 @@
     }
 
     &__lead {
-      font-size: 16px;
+      font-size: var(--text-base);
       line-height: 1.65;
       color: #5d6c62;
       margin: 0;
@@ -1653,7 +1653,7 @@
 
     &__link {
       padding: 16px 18px;
-      font-size: 14.5px;
+      font-size: var(--text-sm);
       font-weight: 600;
       color: #4b5a51;
       text-decoration: none;
@@ -1717,7 +1717,7 @@
     }
 
     &__role {
-      font-size: 14px;
+      font-size: var(--text-sm);
       color: var(--color-accent-text);
       font-weight: 600;
       margin-top: 4px;
@@ -1735,12 +1735,12 @@
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-left: 4px solid var(--color-accent);
-      border-radius: 14px;
+      border-radius: var(--radius-md);
       padding: 22px 24px;
       margin-bottom: 22px;
 
       p {
-        font-size: 16px;
+        font-size: var(--text-base);
         line-height: 1.7;
         color: #33433a;
         font-style: italic;
@@ -1756,7 +1756,7 @@
     }
 
     &__body {
-      font-size: 15.5px;
+      font-size: var(--text-base);
       line-height: 1.72;
       color: #4b5a51;
       margin: 0;
@@ -1779,7 +1779,7 @@
     .card__icon {
       width: 44px;
       height: 44px;
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       background: var(--color-accent-surface);
       color: var(--color-primary);
       display: flex;
@@ -1799,7 +1799,7 @@
     }
 
     .card__desc {
-      font-size: 13.5px;
+      font-size: var(--text-sm);
       color: var(--color-text-muted);
       line-height: 1.5;
       margin: 0 0 14px;
@@ -1810,7 +1810,7 @@
       align-items: flex-start;
       gap: 9px;
       color: #5d6c62;
-      font-size: 13.5px;
+      font-size: var(--text-sm);
       font-style: normal;
       margin-bottom: 12px;
 
@@ -1829,7 +1829,7 @@
     .card__code {
       width: 50px;
       height: 50px;
-      border-radius: 13px;
+      border-radius: var(--radius-md);
       background: var(--color-primary);
       color: var(--color-accent-light);
       display: flex;
@@ -1837,12 +1837,12 @@
       justify-content: center;
       font-family: var(--font-heading);
       font-weight: 700;
-      font-size: 16px;
+      font-size: var(--text-base);
       flex: none;
     }
 
     .card__badge {
-      font-size: 12px;
+      font-size: var(--text-xs);
       font-weight: 700;
       padding: 5px 12px;
       border-radius: var(--radius-full);
@@ -1862,7 +1862,7 @@
     }
 
     .card__meta-label {
-      font-size: 11px;
+      font-size: var(--text-xs);
       color: var(--color-text-caption);
       font-weight: 600;
       text-transform: uppercase;
@@ -1870,7 +1870,7 @@
     }
 
     .card__meta-value {
-      font-size: 14px;
+      font-size: var(--text-sm);
       font-weight: 700;
       color: #22332b;
       margin-top: 2px;
@@ -1950,7 +1950,7 @@
       left: 14px;
       width: 44px;
       height: 44px;
-      border-radius: 12px;
+      border-radius: var(--radius-md);
       background: rgba(255, 255, 255, .92);
       color: var(--color-primary);
       display: flex;
@@ -2012,7 +2012,7 @@
       gap: 9px;
       color: #f0d68f;
       font-weight: 700;
-      font-size: 13px;
+      font-size: var(--text-sm);
       letter-spacing: .14em;
       text-transform: uppercase;
       margin-bottom: 16px;
@@ -2026,7 +2026,7 @@
     }
 
     &__body {
-      font-size: 16px;
+      font-size: var(--text-base);
       line-height: 1.6;
       color: #cfe0d6;
       max-width: 520px;
@@ -2055,7 +2055,7 @@
   }
 
   .numbered-step {
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 24px 22px;
   }
 
@@ -2086,12 +2086,12 @@
 
   .numbered-step__title {
     font-weight: 700;
-    font-size: 16.5px;
+    font-size: var(--text-base);
     margin-bottom: 6px;
   }
 
   .numbered-steps--on-dark .numbered-step__desc {
-    font-size: 13.5px;
+    font-size: var(--text-sm);
     color: #aecabb;
     line-height: 1.5;
   }
@@ -2145,7 +2145,7 @@
     background: var(--color-surface);
     color: var(--color-text-secondary);
     font-weight: 600;
-    font-size: 13.5px;
+    font-size: var(--text-sm);
     cursor: pointer;
     font-family: var(--font-body);
     transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
@@ -2180,7 +2180,7 @@
 
   .news-section__empty {
     color: var(--color-text-muted);
-    font-size: 15px;
+    font-size: var(--text-base);
     grid-column: 1 / -1;
   }
 
@@ -2190,7 +2190,7 @@
     flex-direction: column;
     background: #fff;
     border: 1px solid var(--color-border);
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
 
     .card__media--news {
@@ -2223,7 +2223,7 @@
       align-items: center;
       gap: 8px;
       color: var(--color-text-caption);
-      font-size: 13px;
+      font-size: var(--text-sm);
       font-weight: 500;
       margin-bottom: 12px;
     }
@@ -2245,7 +2245,7 @@
     }
 
     .card__desc {
-      font-size: 14.5px;
+      font-size: var(--text-sm);
       color: #5d6c62;
       line-height: 1.6;
       margin: 0 0 18px;
@@ -2260,7 +2260,7 @@
     align-items: stretch;
     background: #fff;
     border: 1px solid var(--color-border);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
     transition: box-shadow var(--transition-fast);
 
@@ -2303,12 +2303,12 @@
 
     .card__date {
       color: var(--color-text-caption);
-      font-size: 12px;
+      font-size: var(--text-xs);
     }
 
     .card__title--list {
       font-weight: 700;
-      font-size: 15.5px;
+      font-size: var(--text-base);
       line-height: 1.35;
       color: #22332b;
       margin: 0;
@@ -2366,14 +2366,14 @@
 
     &__date {
       color: var(--color-accent-text);
-      font-size: 12px;
+      font-size: var(--text-xs);
       font-weight: 700;
       white-space: nowrap;
       padding-top: 2px;
     }
 
     &__item-title {
-      font-size: 14.5px;
+      font-size: var(--text-sm);
       font-weight: 600;
       color: #33433a;
       line-height: 1.45;
@@ -2385,7 +2385,7 @@
       gap: 7px;
       color: var(--color-primary);
       font-weight: 700;
-      font-size: 14px;
+      font-size: var(--text-sm);
       text-decoration: none;
       margin-top: 14px;
       transition: color var(--transition-fast);
@@ -2394,7 +2394,7 @@
     }
 
     &__empty {
-      font-size: 14px;
+      font-size: var(--text-sm);
       color: var(--color-text-muted);
       padding: 14px 0;
       border-top: 1px solid var(--color-divider);
@@ -2412,7 +2412,7 @@
     &__date {
       width: 54px;
       height: 54px;
-      border-radius: 13px;
+      border-radius: var(--radius-md);
       background: var(--color-primary);
       color: #fff;
       display: flex;
@@ -2430,20 +2430,20 @@
     }
 
     &__month {
-      font-size: 10px;
+      font-size: var(--text-xs);
       letter-spacing: .1em;
       color: var(--color-accent-light);
     }
 
     &__title {
       font-weight: 700;
-      font-size: 15px;
+      font-size: var(--text-base);
       color: #22332b;
       line-height: 1.3;
     }
 
     &__meta {
-      font-size: 12.5px;
+      font-size: var(--text-xs);
       color: var(--color-text-caption);
       margin-top: 4px;
       display: inline-flex;
@@ -2496,7 +2496,7 @@
   }
 
   .breadcrumb__link {
-    font-size: 13.5px;
+    font-size: var(--text-sm);
     font-weight: 500;
     color: var(--color-text-muted);
     text-decoration: none;
@@ -2506,7 +2506,7 @@
   }
 
   .breadcrumb__current {
-    font-size: 13.5px;
+    font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-text-secondary);
   }
@@ -2555,7 +2555,7 @@
     height: 40px;
     padding: 0 12px;
     border-radius: var(--radius-sm);
-    font-size: 14px;
+    font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-text-secondary);
     text-decoration: none;
@@ -2630,7 +2630,7 @@
     border-radius: 50%;
     background: var(--color-accent-light);
     color: var(--color-primary-dark);
-    font-size: 11px;
+    font-size: var(--text-xs);
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -2641,7 +2641,7 @@
   .wa-popup {
     width: 320px;
     background: #fff;
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
     box-shadow: 0 8px 40px rgba(0, 0, 0, .16);
     overflow: hidden;
     transform-origin: bottom right;
@@ -2682,12 +2682,12 @@
 
   .wa-popup__title {
     font-weight: 700;
-    font-size: 15px;
+    font-size: var(--text-base);
     color: #fff;
   }
 
   .wa-popup__subtitle {
-    font-size: 12px;
+    font-size: var(--text-xs);
     color: rgba(255, 255, 255, .75);
     margin-top: 2px;
   }
@@ -2740,7 +2740,7 @@
 
   .wa-contact__initials {
     font-weight: 700;
-    font-size: 16px;
+    font-size: var(--text-base);
     color: var(--color-accent-light);
   }
 
@@ -2748,7 +2748,7 @@
 
   .wa-contact__name {
     font-weight: 700;
-    font-size: 14px;
+    font-size: var(--text-sm);
     color: #111b21;
     white-space: nowrap;
     overflow: hidden;
@@ -2756,7 +2756,7 @@
   }
 
   .wa-contact__jabatan {
-    font-size: 12.5px;
+    font-size: var(--text-xs);
     color: #667781;
     margin-top: 2px;
     white-space: nowrap;
@@ -2768,7 +2768,7 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    font-size: 12.5px;
+    font-size: var(--text-xs);
     font-weight: 700;
     color: #25d366;
     flex: none;
@@ -2789,14 +2789,14 @@
     gap: 14px;
     background: #fff;
     border: 1px solid var(--color-border);
-    border-radius: 14px;
+    border-radius: var(--radius-md);
     padding: 20px;
   }
 
   .contact-card__icon {
     width: 44px;
     height: 44px;
-    border-radius: 11px;
+    border-radius: var(--radius-md);
     background: var(--color-primary);
     color: var(--color-accent-light);
     display: flex;
@@ -2806,7 +2806,7 @@
   }
 
   .contact-card__label {
-    font-size: 11.5px;
+    font-size: var(--text-xs);
     font-weight: 700;
     color: var(--color-text-caption);
     text-transform: uppercase;
@@ -2815,7 +2815,7 @@
   }
 
   .contact-card__value {
-    font-size: 14px;
+    font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-text-primary);
     text-decoration: none;
@@ -2838,7 +2838,7 @@
   }
 
   .contact-map {
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
     height: 500px;
     border: 1px solid var(--color-border);
@@ -2871,10 +2871,10 @@
     width: 100%;
     padding: 12px 14px;
     border: 1px solid var(--color-border);
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     background: #fff;
     font-family: var(--font-body);
-    font-size: 14.5px;
+    font-size: var(--text-sm);
     color: var(--color-text-primary);
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
     outline: none;
@@ -2899,7 +2899,7 @@
     background: var(--color-primary);
     color: #fff;
     font-weight: 700;
-    font-size: 15px;
+    font-size: var(--text-base);
     border: none;
     border-radius: var(--radius-full);
     cursor: pointer;
@@ -2910,7 +2910,7 @@
   .contact-form .wpcf7-submit:hover { background: var(--color-primary-dark); }
 
   .contact-form .wpcf7-not-valid-tip {
-    font-size: 12.5px;
+    font-size: var(--text-xs);
     color: #c0392b;
     margin-top: 4px;
     display: block;
@@ -2918,8 +2918,8 @@
 
   .contact-form .wpcf7-response-output {
     padding: 12px 16px;
-    border-radius: 10px;
-    font-size: 14px;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
     margin-top: 8px;
     border: 1px solid var(--color-border);
   }
@@ -3116,6 +3116,42 @@
 
     .wa-popup {
       width: min(320px, calc(100vw - 30px));
+    }
+  }
+
+  /* ── Target sentuh mobile ────────────────────────────────────────────────
+   * Tautan/tombol interaktif >= 44px (topbar >= 32px karena strip tipis).
+   * Hanya memperbesar area klik, tampilan visual tetap.
+   */
+  @media (max-width: 767px) {
+    .link-arrow,
+    .link-arrow--gold,
+    .news-tab,
+    .mobile-menu__contact-item,
+    .site-footer__contact-link,
+    .site-header__site-name,
+    .site-footer__site-name,
+    .news-box__link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+
+    .mobile-menu__close {
+      min-width: 44px;
+      min-height: 44px;
+    }
+
+    .topbar__contact-item,
+    .topbar__lang-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+    }
+
+    .topbar__lang-btn {
+      min-width: 32px;
     }
   }
 

@@ -69,8 +69,8 @@
   --radius-lg:     18px;   /* main cards */
   --radius-xl:     24px;   /* about image, large containers */
   --radius-2xl:    28px;   /* CTA banner */
-  --radius-btn:    11px;   /* CTA buttons */
-  --radius-btn-sm: 10px;   /* PMB header button */
+  --radius-btn:    12px;   /* CTA buttons (= radius-md) */
+  --radius-btn-sm: 12px;   /* PMB header button (= radius-md) */
   --radius-full:   9999px; /* pills, badges */
 
   /* ─── Shadows ────────────────────────────────────────────────────── */
@@ -87,6 +87,11 @@
   --transition-fast:   0.18s ease;
   --transition-normal: 0.22s ease;
   --transition-slow:   0.30s ease;
+
+  /* ─── Type scale (isi/UI; judul tetap ukuran sendiri) ─────────────── */
+  --text-xs:   12px;  /* caption, meta, badge */
+  --text-sm:   14px;  /* UI kecil, deskripsi kartu */
+  --text-base: 16px;  /* isi */
 
   /* ─── Container ──────────────────────────────────────────────────── */
   --container-width:    1200px;
