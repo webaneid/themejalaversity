@@ -1,0 +1,43 @@
+name: CI Quality Gates
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  quality-gates:
+    name: PHP 8.2 / WPCS / PHPStan / Security / CSS / Dist
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Check PHP Syntax
+        run: composer lint:syntax
+
+      - name: Run Security Scanner
+        run: composer security:scan
+
+      - name: Run PHPStan Static Analysis
+        run: composer analyse
+
+      - name: Check CSS Pipeline Integrity
+        run: composer css:check
+
+      - name: Verify Distribution Package (.distignore)
+        run: composer dist:check

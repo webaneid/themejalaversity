@@ -16,16 +16,6 @@ parameters:
 			path: includes/settings/settings-page.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$html_url\\.$#"
-			count: 1
-			path: includes/updater.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$response\\.$#"
-			count: 1
-			path: includes/updater.php
-
-		-
 			message: "#^Variable \\$args might not be defined\\.$#"
 			count: 1
 			path: template-parts/components/card-grid.php

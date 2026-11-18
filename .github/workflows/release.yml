@@ -1,17 +1,27 @@
-name: Build & Upload Release Asset
+name: Release Theme
 
 on:
+  push:
+    tags:
+      - 'v*.*.*'
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag version (e.g. v1.2.0) for manual release'
+        required: false
+
+permissions:
+  contents: write
 
 jobs:
-  build:
+  release:
+    name: Build & Publish Clean Theme ZIP
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -20,33 +30,62 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+          coverage: none
 
-      - name: Build CSS
+      - name: Install dependencies
+        run: |
+          npm ci
+          composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Build Production CSS
         run: npm run build
 
-      - name: Get version from tag
-        id: version
-        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
-
-      - name: Create theme zip
+      - name: Run Quality Gates
         run: |
-          mkdir -p /tmp/build
-          rsync -a . /tmp/build/jalaversity/ \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='.claude' \
-            --exclude='node_modules' \
-            --exclude='scss' \
-            --exclude='*.log' \
-            --exclude='.DS_Store' \
-            --exclude='package-lock.json' \
-            --exclude='CLAUDE.md'
-          cd /tmp/build
-          zip -r jalaversity-${{ steps.version.outputs.VERSION }}.zip jalaversity/
+          composer lint:syntax
+          composer analyse
+          composer css:check
+          composer dist:check
 
-      - name: Upload zip to release
+      - name: Determine Version
+        id: version
+        run: |
+          if [ -n "${{ github.event.inputs.tag_name }}" ]; then
+            TAG="${{ github.event.inputs.tag_name }}"
+          elif [ -n "${{ github.event.release.tag_name }}" ]; then
+            TAG="${{ github.event.release.tag_name }}"
+          else
+            TAG="${GITHUB_REF#refs/tags/}"
+          fi
+          VERSION="${TAG#v}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Sync Version in style.css and functions.php
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          sed -i -E "s/^(Version:[[:space:]]*).*/\1${VERSION}/" style.css
+          sed -i -E "s/(define\([[:space:]]*'JALAVERSITY_VERSION',[[:space:]]*')[^']+(')/\1${VERSION}\2/" functions.php
+
+      - name: Build Clean Release Package
+        run: |
+          mkdir -p build/jalaversity
+          rsync -a --exclude-from=.distignore ./ build/jalaversity/
+          cd build
+          zip -r ../jalaversity.zip jalaversity/
+          zip -r "../jalaversity-${{ steps.version.outputs.version }}.zip" jalaversity/
+
+      - name: Publish GitHub Release Assets
         uses: softprops/action-gh-release@v2
         with:
-          files: /tmp/build/jalaversity-${{ steps.version.outputs.VERSION }}.zip
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: Jalaversity ${{ steps.version.outputs.tag }}
+          generate_release_notes: true
+          files: |
+            jalaversity.zip
+            jalaversity-${{ steps.version.outputs.version }}.zip
